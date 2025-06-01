@@ -1,0 +1,58 @@
+#include "SystemSellerOperations.h"
+#include "Product.h"
+#include "System.h"
+
+void SystemSellerOperations::addItem(System& system, const Product newProduct)
+{
+	system.products.pushBack(newProduct);
+	cout << "Product added successfully!" << endl;
+}
+
+void SystemSellerOperations::removeItem(System& system, const String& productName)
+{
+	int productIndex = system.indexOfProduct(productName);
+
+	if (productIndex == NOT_FOUND) {
+		cout << "Product not found!" << endl;
+		return;
+	}
+	else {
+		try {
+			system.products.erase(productIndex);
+		}
+		catch (invalid_argument& ex) {
+			cout << ex.what() << endl;
+		}
+	}
+}
+
+void SystemSellerOperations::listBestSellingProducts(System& system)
+{
+	Vector<Product> sortedArray = system.products;
+	int productCount = sortedArray.size();
+
+	for (int i = 0; i < productCount - 1; ++i) {
+		int minIndex = i;
+
+		for (int j = i + 1; j < productCount; ++j) {
+			if (sortedArray[j].getTotalSales() > sortedArray[minIndex].getTotalSales())
+				minIndex = j;
+		}
+
+		swap(sortedArray[i], sortedArray[minIndex]);
+	}
+
+	if (sortedArray.size() < COUNT_OF_BEST_SELLING_PRODUCTS) {
+		for (size_t i = 0; i < sortedArray.size(); i++) {
+			cout << (i + 1) << ". " << sortedArray[i].getProductName() << " - " 
+				<< sortedArray[i].getTotalSales() << " sales" << endl;
+		}
+
+		return;
+	}
+
+	for (size_t i = 0; i < COUNT_OF_BEST_SELLING_PRODUCTS; i++) {
+		cout << (i + 1) << ". " << sortedArray[i].getProductName() << " - "
+			<< sortedArray[i].getTotalSales() << " sales" << endl;
+	}
+}
