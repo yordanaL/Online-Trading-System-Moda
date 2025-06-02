@@ -1,17 +1,29 @@
 #pragma once
 #include "Constants.h"
+#include "String.h"
 #include "Vector.hpp"
+#include "Pair.hpp"
 class Product;
 
 class Order {
 private:
-	Vector<Product> products;
+	String buyerEGN;
+	Vector< Pair<Product, int> > products;
 	double totalPrice;
 	unsigned int bonusPoints;
-	OrderStatus status;
+	int status;
+	bool discountUsed;
+	long orderNumber;
+
+	static long orderNumberGenerator;
 
 public:
-	OrderStatus getOrderStatus() const;
+	const int getOrderStatus() const;
+	const String& getBuyerEGN() const;
+
 	void printOrder() const;
+
+	void cleanOrder();
+	void createNewOrder();
 };
 

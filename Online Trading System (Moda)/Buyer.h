@@ -13,11 +13,13 @@ class System;
 
 class Buyer : public User {
 private:
-	Vector<Order> orders;
-	Cart cart;
-	Vector<Order> refOrders;
+	Order cart;
 	int balance = DEFAULT_VALUE;
 	int loyaltyPoints = DEFAULT_VALUE;
+
+	Vector<Order> shippedOrders;
+	Vector<Order> deliveredOrders;
+	Vector<Order> refOrders;
 
 	Vector<Check> receivedChecks;
 
@@ -40,13 +42,18 @@ public:
 
 	////system connected operations
 	void listProducts(const System& system) const;
-	void viewProduct(const System& system, int productIndex) const;
+	void viewProduct(const System& system, int productID) const;
 
 	//cart and purchases operations
 
 	//history of purchases and rating operations
+	void addToCart(System& system, int productID, int quantity);
+	void removeFromCart(System& system, int productID, int quantity);
+	void checkout(System& system);
+	void receiveOrder(const Order& newOrder);
+	void confirmOrder(int index);
+
 	void listOrders() const;
-	void confirmOrder();
 	void orderHistory() const;
 	void refundedOrders() const;
 	

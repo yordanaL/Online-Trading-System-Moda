@@ -52,8 +52,36 @@ void Buyer::listProducts(const System& system) const
 	system.listProducts(system);
 }
 
-void Buyer::viewProduct(const System& system, int productIndex) const
+void Buyer::viewProduct(const System& system, int productID) const
 {
-	system.viewProduct(system, productIndex);
+	system.viewProduct(system, productID);
 }
 
+void Buyer::receiveOrder(const Order& newOrder)
+{
+	this->shippedOrders.pushBack(newOrder);
+}
+
+void Buyer::listOrders() const
+{
+	if (this->shippedOrders.size() == DEFAULT_VALUE) {
+		cout << "No received orders yet!" << endl;
+		return;
+	}
+
+	for (size_t i = 0; i < this->shippedOrders.size(); i++) {
+		this->shippedOrders[i].printOrder();
+	}
+}
+
+void Buyer::orderHistory() const
+{
+	if (this->deliveredOrders.size() == DEFAULT_VALUE) {
+		cout << "No orders yet!" << endl;
+		return;
+	}
+
+	for (size_t i = 0; i < this->deliveredOrders.size(); i++) {
+		this->deliveredOrders[i].printOrder();
+	}
+}

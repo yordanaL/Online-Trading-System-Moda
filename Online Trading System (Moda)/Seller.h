@@ -13,6 +13,7 @@ class Seller : public User {
 private:
 	Vector<Order> pendingOrders;
 	Vector<Order> shippedOrders;
+	Vector<Order> deliveredOrders;
 
 	double totalProfit;
 
@@ -24,7 +25,9 @@ public:
 	void removeItem(System& system, const String& name);
 
 	void listBestSellingProducts(System& system) const;
-	void approveOrder(int index);
+
+	void receiveOrder(const Order& newOrder);
+	void approveOrder(System& system, int index);
 
 	//Not system connected
 	void listPendingOrders() const;

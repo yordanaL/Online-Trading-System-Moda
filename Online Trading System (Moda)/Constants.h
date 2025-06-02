@@ -11,12 +11,18 @@ constexpr int NO_ID = -1;
 
 constexpr int COUNT_OF_BEST_SELLING_PRODUCTS = 3;
 
+constexpr int NO_STATUS = 1;
+constexpr int PENDING = 1;
+constexpr int SHIPPED = 2;
+constexpr int DELIVERED = 3;
 
-enum OrderStatus {
-	PENDING,
-	SHIPPED,
-	DELIVERED
-};
+constexpr char EMPTY_STR[] = "";
+
+//enum OrderStatus {
+//	PENDING,
+//	SHIPPED,
+//	DELIVERED
+//};
 
 //constexpr char NO_NAME[] = "";
 //constexpr char NO_PASSWORD[] = "";

@@ -10,7 +10,7 @@ void SystemSellerOperations::addItem(System& system, const Product newProduct)
 
 void SystemSellerOperations::removeItem(System& system, const String& productName)
 {
-	int productIndex = system.indexOfProduct(productName);
+	int productIndex = system.findIndexOfProductByName(productName);
 
 	if (productIndex == NOT_FOUND) {
 		cout << "Product not found!" << endl;
@@ -55,4 +55,16 @@ void SystemSellerOperations::listBestSellingProducts(System& system)
 		cout << (i + 1) << ". " << sortedArray[i].getProductName() << " - "
 			<< sortedArray[i].getTotalSales() << " sales" << endl;
 	}
+}
+
+void SystemSellerOperations::shipOrder(System& system, const Order& newOrder)
+{
+	int buyerIndex = system.findIndexOfBuyerByEGN(newOrder.getBuyerEGN());
+
+	if (buyerIndex == NOT_FOUND) {
+		cout << "Order cannot be shipped!" << endl;
+		return;
+	}
+
+	system.buyers[buyerIndex].receiveOrder(newOrder);
 }

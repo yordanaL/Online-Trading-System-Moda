@@ -29,8 +29,10 @@ private:
 	~System() = default;
 
 	bool isProductIndexValid(int index) const;
-	int indexOfProduct(const String&  productName) const;
-	int indexOfBuyer(const String& buyerEGN) const;
+	int findIndexOfProductByName(const String& productName) const;
+	int findIndexOfProductByID(int productID) const;
+	int findIndexOfBuyerByEGN(const String& buyerEGN) const;
+	//int findIndexOfBuyerByID(int buyerID) const;
 
 public:
 	static System& getInstance();

@@ -9,9 +9,11 @@ void SystemBuyerOperations::listProducts(const System& system) const
 	}
 }
 
-void SystemBuyerOperations::viewProduct(const System& system, int productIndex) const
+void SystemBuyerOperations::viewProduct(const System& system, int productID) const
 {
-	if (system.isProductIndexValid(productIndex) == false) {
+	int productIndex = system.findIndexOfProductByID(productID);
+
+	if (productIndex == NOT_FOUND) {
 		cout << "This product does not exist!" << endl;
 	}
 	else

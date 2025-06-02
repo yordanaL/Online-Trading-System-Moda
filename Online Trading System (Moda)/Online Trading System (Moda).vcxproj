@@ -150,6 +150,7 @@
     <ClInclude Include="Buyer.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Order.h" />
+    <ClInclude Include="Pair.hpp" />
     <ClInclude Include="Product.h" />
     <ClInclude Include="Seller.h" />
     <ClInclude Include="String.h" />

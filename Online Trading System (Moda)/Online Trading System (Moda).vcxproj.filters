@@ -119,5 +119,8 @@
     <ClInclude Include="SystemSellerOperations.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
+    <ClInclude Include="Pair.hpp">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -16,6 +16,25 @@ void Seller::listBestSellingProducts(System& system) const
 	system.listBestSellingProducts(system);
 }
 
+void Seller::receiveOrder(const Order& newOrder)
+{
+	this->pendingOrders.pushBack(newOrder);
+}
+
+void Seller::approveOrder(System& system, int index)
+{
+	if (index <= DEFAULT_VALUE || index > this->pendingOrders.size()) {
+		cout << "Invalid order index!" << endl;
+		return;
+	}
+
+	this->shippedOrders.pushBack(this->pendingOrders[index - 1]);
+	system.shipOrder(system, this->pendingOrders[index - 1]);
+	this->pendingOrders.erase(index - 1);
+
+	cout << "Order #" << index << " approved and shipped!" << endl;
+}
+
 void Seller::listPendingOrders() const
 {
 	if (this->pendingOrders.empty()) {

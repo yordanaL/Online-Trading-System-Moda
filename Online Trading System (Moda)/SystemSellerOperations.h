@@ -15,8 +15,8 @@ public:
 
 	void listBestSellingProducts(System& system);
 
-	void sendCheck(System& system, const String& productName);
+	//void sendCheck(System& system, const String& productName);
 
-	void shipOrder(const Order& newOrder);
+	void shipOrder(System& system, const Order& newOrder);
 };
 

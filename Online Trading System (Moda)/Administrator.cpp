@@ -16,7 +16,7 @@ void Administrator::sendCheck(System& system, double amount, const String& code,
 		}
 	}
 
-	int buyerIndex = system.indexOfBuyer(clientEGN);
+	int buyerIndex = system.findIndexOfBuyerByEGN(clientEGN);
 
 	if (buyerIndex == NOT_FOUND) {
 		cout << "A buyer with such EGN does not exist!" << endl;

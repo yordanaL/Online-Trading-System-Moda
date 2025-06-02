@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 using namespace std;
+#include "Constants.h"
 #include "String.h"
 
 class Product {
@@ -14,11 +15,11 @@ private:
 	bool availability;
 
 	int totalSales;
-
 	static int IDGenerator;
 
 public:
 	const String& getProductName() const;
+	const int getProductID() const;
 	const int getTotalSales() const;
 
 	void displayProduct() const;
