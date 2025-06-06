@@ -15,7 +15,26 @@ void SystemBuyerOperations::viewProduct(const System& system, int productID) con
 
 	if (productIndex == NOT_FOUND) {
 		cout << "This product does not exist!" << endl;
+		return;
 	}
 	else
 		system.products[productIndex].printProductDetails();
+}
+
+void SystemBuyerOperations::rate(System& system, int productID, const Pair<String, int>& newRating)
+{
+	int productIndex = system.findIndexOfProductByID(productID);
+
+	if (productIndex == NOT_FOUND) {
+		cout << "This product does not exist!" << endl;
+		return;
+	}
+	else {
+		system.products[productIndex].updateRating(newRating);
+	}
+}
+
+void SystemBuyerOperations::sendConfirmation(System& system, int orderNumber) const
+{
+	system.seller.receiveConfirmation(orderNumber);
 }

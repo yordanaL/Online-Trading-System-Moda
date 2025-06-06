@@ -32,3 +32,14 @@ void Administrator::customerInsights(System& system)
 {
 	system.customerInsights(system);
 }
+
+void Administrator::help() const
+{
+	cout << "Administrator Commands: " << endl;
+	cout << "1) send-check" << endl;
+	cout << "2) customer-insights" << endl;
+	cout << "3) view-transactions" << endl;
+	cout << "4) logout" << endl;
+	cout << "5) help" << endl;
+	cout << "6) view-profile" << endl;
+}

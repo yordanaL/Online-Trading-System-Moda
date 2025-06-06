@@ -57,7 +57,7 @@ void SystemSellerOperations::listBestSellingProducts(System& system)
 	}
 }
 
-void SystemSellerOperations::shipOrder(System& system, const Order& newOrder)
+void SystemSellerOperations::shipOrder(System& system, Order& newOrder)
 {
 	int buyerIndex = system.findIndexOfBuyerByEGN(newOrder.getBuyerEGN());
 
@@ -67,4 +67,16 @@ void SystemSellerOperations::shipOrder(System& system, const Order& newOrder)
 	}
 
 	system.buyers[buyerIndex].receiveOrder(newOrder);
+}
+
+void SystemSellerOperations::sendRejectedOrder(System& system, const RejectedOrder& newRejectedOrder)
+{
+	int buyerIndex = system.findIndexOfBuyerByEGN(newRejectedOrder.getBuyerEGN());
+
+	if (buyerIndex == NOT_FOUND) {
+		cout << "Order cannot be rejected!" << endl;
+		return;
+	}
+
+	system.buyers[buyerIndex].receiveRejectedOrder(newRejectedOrder);
 }

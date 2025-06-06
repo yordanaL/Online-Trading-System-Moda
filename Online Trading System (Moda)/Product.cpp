@@ -17,6 +17,29 @@ const int Product::getTotalSales() const
 	return this->totalSales;
 }
 
+void Product::updateRating(const Pair<String, int>& newRating)
+{
+	for (size_t i = 0; i < this->allRatings.size(); i++) {
+		if (this->allRatings[i].getKey() == newRating.getKey()) {
+			return;
+			cout << "You have already rated product with ID: " << this->ID << endl;
+		}
+	}
+
+	this->rating *= this->allRatings.size();
+	this->allRatings.pushBack(newRating);
+	this->rating += newRating.getValue();
+	this->rating /= this->allRatings.size();
+
+	cout << "Rated product with ID: " << this->ID << endl;
+
+	/*this->rating = DEFAULT_VALUE;
+	for (size_t i = 0; i < this->allRatings.size(); i++) {
+		this->rating += allRatings[i].getValue();
+	}
+	this->rating /= this->allRatings.size();*/
+}
+
 void Product::displayProduct() const
 {
 	cout << " | " << this->name << " | " << this->price << " BGN" << " | " << this->rating <<

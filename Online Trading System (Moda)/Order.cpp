@@ -7,9 +7,42 @@ const int Order::getOrderStatus() const
     return this->status;
 }
 
+const int Order::getOrderNumber() const
+{
+	return this->orderNumber;
+}
+
 const String& Order::getBuyerEGN() const
 {
 	return this->buyerEGN;
+}
+
+const String& Order::getBuyerName() const
+{
+	return this->buyerName;
+}
+
+const double Order::getTotalPrice() const
+{
+	return this->totalPrice;
+}
+
+const double Order::getLoyaltyPointsUsed() const
+{
+	return this->loyaltyPointsUsed;
+}
+
+void Order::updateStatus(int newStatus)
+{
+	this->status = newStatus;
+}
+
+void Order::printOrder() const
+{
+	for (size_t i = 0; i < this->products.size(); i++) {
+		cout << this->products[i].getValue() << "x " << this->products[i].getKey().getProductName() << " ";
+	}
+	cout << "- " << this->totalPrice << " BGN";
 }
 
 void Order::cleanOrder()

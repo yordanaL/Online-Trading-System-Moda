@@ -8,6 +8,7 @@ using namespace std;
 #include "Buyer.h"
 #include "Cart.h"
 #include "Order.h"
+#include "RejectedOrder.h"
 #include "Check.h"
 class System;
 
@@ -18,18 +19,23 @@ private:
 	int loyaltyPoints = DEFAULT_VALUE;
 
 	Vector<Order> shippedOrders;
+	Vector<RejectedOrder> rejectedOrders;
 	Vector<Order> deliveredOrders;
 	Vector<Order> refOrders;
 
 	Vector<Check> receivedChecks;
+
+	Vector<Pair<int, int>> IDsAndQuantityOfPurchasedProducts;
 
 	int finalisedOrdersCount;
 	int refundedOrdersCount;
 	double totalMoneySpent;
 
 	int findIndexOfCheck(const String& code) const;
+	void addProductToPurchasedProducts(int ProductID, int quantity);
 public:
 	void help() const override;
+	void loginInfo();
 
 	//finance operations
 	void checkBalance() const;
@@ -50,15 +56,19 @@ public:
 	void addToCart(System& system, int productID, int quantity);
 	void removeFromCart(System& system, int productID, int quantity);
 	void checkout(System& system);
-	void receiveOrder(const Order& newOrder);
-	void confirmOrder(int index);
+
+	void receiveOrder(Order& newOrder);
+	void receiveRejectedOrder(const RejectedOrder& newRejectedOrder);
+
+	void confirmOrder(System& system, int index);
+	//void sendConfirmation(System& system, int orderNumber) const;
 
 	void listOrders() const;
 	void orderHistory() const;
 	void refundedOrders() const;
 	
 	////system connected operations
-	void rate(int productID, int rating) const;
+	void rate(System& system, int productID, int rating) const;
 	void requestRefund();
 
 };

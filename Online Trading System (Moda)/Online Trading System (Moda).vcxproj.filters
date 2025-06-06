@@ -69,6 +69,9 @@
     <ClCompile Include="SystemSellerOperations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RejectedOrder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Order.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="Pair.hpp">
       <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="RejectedOrder.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

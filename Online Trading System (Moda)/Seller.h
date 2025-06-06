@@ -14,6 +14,7 @@ private:
 	Vector<Order> pendingOrders;
 	Vector<Order> shippedOrders;
 	Vector<Order> deliveredOrders;
+	Vector<Order> rejectedOrders;
 
 	double totalProfit;
 
@@ -26,10 +27,13 @@ public:
 
 	void listBestSellingProducts(System& system) const;
 
-	void receiveOrder(const Order& newOrder);
+	void receiveOrder(Order& newOrder);
 	void approveOrder(System& system, int index);
+	void rejectOrder(System& system, int index, const String& rejectionReason);
+	void receiveConfirmation(int orderNumber);
 
 	//Not system connected
+	void listOrders() const;
 	void listPendingOrders() const;
 
 	void viewRevenue() const;

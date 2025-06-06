@@ -4,6 +4,7 @@ using namespace std;
 #include "Constants.h"
 #include "String.h"
 class Order;
+class RejectedOrder;
 class System;
 class Product;
 
@@ -17,6 +18,7 @@ public:
 
 	//void sendCheck(System& system, const String& productName);
 
-	void shipOrder(System& system, const Order& newOrder);
+	void shipOrder(System& system, Order& newOrder);
+	void sendRejectedOrder(System& system, const RejectedOrder& newRejectedOrder);
 };
 

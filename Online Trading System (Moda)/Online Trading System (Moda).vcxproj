@@ -134,6 +134,7 @@
     <ClCompile Include="Online Trading System (Moda).cpp" />
     <ClCompile Include="Order.cpp" />
     <ClCompile Include="Product.cpp" />
+    <ClCompile Include="RejectedOrder.cpp" />
     <ClCompile Include="Seller.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="System.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Order.h" />
     <ClInclude Include="Pair.hpp" />
     <ClInclude Include="Product.h" />
+    <ClInclude Include="RejectedOrder.h" />
     <ClInclude Include="Seller.h" />
     <ClInclude Include="String.h" />
     <ClInclude Include="System.h" />

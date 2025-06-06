@@ -9,12 +9,15 @@ constexpr size_t INDEX_FIX = 1;
 constexpr int NOT_FOUND = -1;
 constexpr int NO_ID = -1;
 
+constexpr int LOYALTY_POINTS_INDEX = 5;
+
 constexpr int COUNT_OF_BEST_SELLING_PRODUCTS = 3;
 
-constexpr int NO_STATUS = 1;
+constexpr int NO_STATUS = 0;
 constexpr int PENDING = 1;
 constexpr int SHIPPED = 2;
 constexpr int DELIVERED = 3;
+constexpr int REJECTED = 4;
 
 constexpr char EMPTY_STR[] = "";
 
