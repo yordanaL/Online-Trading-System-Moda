@@ -27,7 +27,7 @@ const double Order::getTotalPrice() const
 	return this->totalPrice;
 }
 
-const double Order::getLoyaltyPointsUsed() const
+const int Order::getLoyaltyPointsUsed() const
 {
 	return this->loyaltyPointsUsed;
 }

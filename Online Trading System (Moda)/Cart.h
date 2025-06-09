@@ -10,13 +10,24 @@ using namespace std;
 class Cart
 {
 private:
-	Vector< Pair<Product, int> > products;
-	double totalPrice;
-	bool discountUsed;
+	//Vector< Pair<Product, int> > products;
+	Vector< Pair<int, int> > products;
+	//double totalPrice;
+	double priceBeforeDiscount = DEFAULT_VALUE;
+	double priceAfterDiscount = DEFAULT_VALUE;
+	bool discountUsed = false;
 
 public:
-	const Vector< Pair<Product, int> > getProducts() const;
-	const double getTotalPrice() const;
+	const Vector< Pair<int, int> > getProducts() const;
+	const double getPriceBeforeDiscount() const;
+	const double getPriceAfterDiscount() const;
 	bool getDiscountUsed() const;
+
+	void addProduct(int productID, int quantity);
+	void removeProduct(int productID, int quantity);
+
+	void applyDiscount(int loyaltyPoints);
+
+	void cleanCart();
 };
 

@@ -9,6 +9,9 @@ constexpr size_t INDEX_FIX = 1;
 constexpr int NOT_FOUND = -1;
 constexpr int NO_ID = -1;
 
+constexpr bool SUCCESSFUL = true;
+constexpr bool UNSUCCESSFUL = false;
+
 constexpr int LOYALTY_POINTS_INDEX = 5;
 
 constexpr int COUNT_OF_BEST_SELLING_PRODUCTS = 3;

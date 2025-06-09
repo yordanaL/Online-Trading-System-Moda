@@ -75,7 +75,7 @@ void Seller::rejectOrder(System& system, int index, const String& rejectionReaso
 
 void Seller::receiveConfirmation(int orderNumber)
 {
-	for (size_t i = 0; i < this->shippedOrders.size(); i++) {
+	for (int i = 0; i < this->shippedOrders.size(); i++) {
 		if (this->shippedOrders[i].getOrderNumber() == orderNumber) {
 			this->shippedOrders[i].updateStatus(DELIVERED);
 			this->deliveredOrders.pushBack(this->shippedOrders[i]);

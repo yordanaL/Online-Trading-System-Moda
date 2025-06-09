@@ -1,6 +1,6 @@
 #pragma once
 #include "Constants.h"
-#include "String.h";
+#include "String.h"
 
 class Check {
 private: 

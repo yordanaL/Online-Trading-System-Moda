@@ -7,7 +7,7 @@ bool System::isProductIndexValid(int index) const
 
 int System::findIndexOfProductByName(const String& productName) const
 {
-	for (size_t i = 0; i < this->products.size(); i++) {
+	for (int i = 0; i < this->products.size(); i++) {
         if (this->products[i].getProductName() == productName)
             return i;
 	}
@@ -17,7 +17,7 @@ int System::findIndexOfProductByName(const String& productName) const
 
 int System::findIndexOfProductByID(int productID) const
 {
-    for (size_t i = 0; i < this->products.size(); i++) {
+    for (int i = 0; i < this->products.size(); i++) {
         if (this->products[i].getProductID() == productID)
             return i;
     }
@@ -27,7 +27,7 @@ int System::findIndexOfProductByID(int productID) const
 
 int System::findIndexOfBuyerByEGN(const String & buyerEGN) const
 {
-    for (size_t i = 0; i < this->buyers.size(); i++) {
+    for (int i = 0; i < this->buyers.size(); i++) {
         if (this->buyers[i].getEGN() == buyerEGN)
             return i;
     }

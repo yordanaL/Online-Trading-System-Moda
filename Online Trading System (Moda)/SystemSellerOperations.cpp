@@ -29,7 +29,7 @@ void SystemSellerOperations::removeItem(System& system, const String& productNam
 void SystemSellerOperations::listBestSellingProducts(System& system)
 {
 	Vector<Product> sortedArray = system.products;
-	int productCount = sortedArray.size();
+	size_t productCount = sortedArray.size();
 
 	for (int i = 0; i < productCount - 1; ++i) {
 		int minIndex = i;

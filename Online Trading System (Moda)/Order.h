@@ -29,7 +29,7 @@ public:
 	const String& getBuyerEGN() const;
 	const String& getBuyerName() const;
 	const double getTotalPrice() const;
-	const double getLoyaltyPointsUsed() const;
+	const int getLoyaltyPointsUsed() const;
 
 	void updateStatus(int newStatus);
 

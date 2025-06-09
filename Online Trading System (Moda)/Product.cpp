@@ -17,6 +17,21 @@ const int Product::getTotalSales() const
 	return this->totalSales;
 }
 
+const int Product::getQuantity() const
+{
+	return this->quantity;
+}
+
+void Product::increaseQuantity(int quantity)
+{
+	this->quantity += quantity;
+}
+
+void Product::decreaseQuantity(int quantity)
+{
+	this->quantity -= quantity;
+}
+
 void Product::updateRating(const Pair<String, int>& newRating)
 {
 	for (size_t i = 0; i < this->allRatings.size(); i++) {

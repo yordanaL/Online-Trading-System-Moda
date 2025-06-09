@@ -14,8 +14,8 @@ class System;
 
 class Buyer : public User {
 private:
-	Order cart;
-	int balance = DEFAULT_VALUE;
+	Cart cart;
+	double balance = DEFAULT_VALUE;
 	int loyaltyPoints = DEFAULT_VALUE;
 
 	Vector<Order> shippedOrders;
@@ -32,7 +32,10 @@ private:
 	double totalMoneySpent;
 
 	int findIndexOfCheck(const String& code) const;
-	void addProductToPurchasedProducts(int ProductID, int quantity);
+	void addProductToPurchasedProducts(int productID, int quantity);
+
+	void removeRating(System& system, int productID, const String& buyerEGN);
+	void checkBoughtProductsQuantity(System& system);
 public:
 	void help() const override;
 	void loginInfo();
@@ -40,36 +43,35 @@ public:
 	//finance operations
 	void checkBalance() const;
 	void redeemCheck(const String& code);
-	//admin operations
 	void receiveCheck(const Check& newCheck);
 	void printInsights() const;
 
 	//products and sorting operations
-
-	////system connected operations
 	void listProducts(const System& system) const;
 	void viewProduct(const System& system, int productID) const;
 
-	//cart and purchases operations
+	void listOrders() const;
+	void orderHistory() const;
+	void refundedOrders() const;
 
-	//history of purchases and rating operations
+	//cart and purchases operations
+	bool takeProduct(System& system, int productID, int quantity);
+	bool returnProduct(System& system, int productID, int quantity);
+
 	void addToCart(System& system, int productID, int quantity);
 	void removeFromCart(System& system, int productID, int quantity);
 	void checkout(System& system);
+
+	void sendOrder(System& system, Order& newOrder);
 
 	void receiveOrder(Order& newOrder);
 	void receiveRejectedOrder(const RejectedOrder& newRejectedOrder);
 
 	void confirmOrder(System& system, int index);
 	//void sendConfirmation(System& system, int orderNumber) const;
-
-	void listOrders() const;
-	void orderHistory() const;
-	void refundedOrders() const;
 	
-	////system connected operations
+	//system connected operations
 	void rate(System& system, int productID, int rating) const;
 	void requestRefund();
-
 };
 

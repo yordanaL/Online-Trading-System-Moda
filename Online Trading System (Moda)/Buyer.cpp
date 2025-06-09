@@ -3,12 +3,33 @@
 
 int Buyer::findIndexOfCheck(const String& code) const
 {
-	for (size_t i = 0; i < this->receivedChecks.size(); i++) {
+	for (int i = 0; i < this->receivedChecks.size(); i++) {
 		if (this->receivedChecks[i].getCode() == code)
 			return i;
 	}
 
 	return NOT_FOUND;
+}
+
+void Buyer::addProductToPurchasedProducts(int productID, int quantity)
+{
+	for (size_t i = 0; i < this->IDsAndQuantityOfPurchasedProducts.size(); i++) {
+		if (this->IDsAndQuantityOfPurchasedProducts[i].getKey() == productID) {
+			this->IDsAndQuantityOfPurchasedProducts[i].increaseValue(quantity);
+			return;
+		}
+	}
+
+	Pair<int, int> newPurchasedProduct(productID, quantity);
+}
+
+void Buyer::checkBoughtProductsQuantity(System& system)
+{
+	for (size_t i = 0; i < this->IDsAndQuantityOfPurchasedProducts.size(); i++) {
+		if (this->IDsAndQuantityOfPurchasedProducts[i].getValue() == DEFAULT_VALUE) {
+			removeRating(system, this->IDsAndQuantityOfPurchasedProducts[i].getKey(), this->EGN);
+		}
+	}
 }
 
 void Buyer::help() const
@@ -99,6 +120,52 @@ void Buyer::viewProduct(const System& system, int productID) const
 	system.viewProduct(system, productID);
 }
 
+bool Buyer::takeProduct(System& system, int productID, int quantity)
+{
+	return system.takeProduct(system, productID, quantity);
+}
+
+bool Buyer::returnProduct(System& system, int productID, int quantity)
+{
+	return system.returnProduct(system, productID, quantity);
+}
+
+void Buyer::addToCart(System& system, int productID, int quantity)
+{
+	bool operationSuccess = takeProduct(system, productID, quantity);
+	if (operationSuccess == UNSUCCESSFUL) {
+		cout << "Could not add product to cart!" << endl;
+		return;
+	}
+
+	this->cart.addProduct(productID, quantity);
+}
+
+void Buyer::removeFromCart(System& system, int productID, int quantity)
+{
+	bool operationSuccess = returnProduct(system, productID, quantity);
+	if (operationSuccess == UNSUCCESSFUL) {
+		cout << "Could not remove product from cart!" << endl;
+		return;
+	}
+
+	this->cart.removeProduct(productID, quantity);
+}
+
+void Buyer::checkout(System& system)
+{
+	Order newOrder(this->cart);
+	sendOrder(system, newOrder);
+	cout << "Order placed successfully. Awaiting approval from seller!" << endl;
+
+	this->cart.cleanCart();
+}
+
+void Buyer::sendOrder(System& system, Order& newOrder)
+{
+	system.sendOrder(system, newOrder);
+}
+
 void Buyer::receiveOrder(Order& newOrder)
 {
 	this->shippedOrders.pushBack(newOrder);
@@ -123,7 +190,7 @@ void Buyer::confirmOrder(System& system, int index)
 	cout << "Order confirmed as delivered. You received " << this->shippedOrders[index - 1].getTotalPrice() * LOYALTY_POINTS_INDEX
 		<< " (5% of " << this->shippedOrders[index - 1].getTotalPrice() << " BGN)";
 
-	this->loyaltyPoints += this->shippedOrders[index - 1].getTotalPrice() * LOYALTY_POINTS_INDEX;
+	this->loyaltyPoints += (int)this->shippedOrders[index - 1].getTotalPrice() * LOYALTY_POINTS_INDEX;
 	this->finalisedOrdersCount++;
 	this->totalMoneySpent += this->shippedOrders[index - 1].getTotalPrice();
 
@@ -151,6 +218,18 @@ void Buyer::orderHistory() const
 
 	for (size_t i = 0; i < this->deliveredOrders.size(); i++) {
 		this->deliveredOrders[i].printOrder();
+	}
+}
+
+void Buyer::refundedOrders() const
+{
+	if (this->refOrders.size() == DEFAULT_VALUE) {
+		cout << "No orders yet!" << endl;
+		return;
+	}
+
+	for (size_t i = 0; i < this->refOrders.size(); i++) {
+		this->refOrders[i].printOrder();
 	}
 }
 
