@@ -14,6 +14,11 @@ constexpr bool UNSUCCESSFUL = false;
 
 constexpr int LOYALTY_POINTS_INDEX = 5;
 
+constexpr int USER = 0;
+constexpr int ADMINISTRATOR = 1;
+constexpr int SELLER = 2;
+constexpr int BUYER = 3;
+
 constexpr int COUNT_OF_BEST_SELLING_PRODUCTS = 3;
 
 constexpr int NO_STATUS = 0;
@@ -23,12 +28,3 @@ constexpr int DELIVERED = 3;
 constexpr int REJECTED = 4;
 
 constexpr char EMPTY_STR[] = "";
-
-//enum OrderStatus {
-//	PENDING,
-//	SHIPPED,
-//	DELIVERED
-//};
-
-//constexpr char NO_NAME[] = "";
-//constexpr char NO_PASSWORD[] = "";

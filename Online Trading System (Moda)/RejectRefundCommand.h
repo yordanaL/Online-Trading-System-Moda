@@ -3,7 +3,7 @@
 using namespace std;
 #include "Command.h"
 
-class ListOrdersCommand : public Command {
+class RejectRefundCommand : public Command {
 
 };
 

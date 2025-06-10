@@ -19,6 +19,7 @@ public:
 
 	const String& getName() const;
 	const String& getEGN() const;
+	const String& getPassword() const;
 
 	void saveToFile(ofstream& ofs) const;
 	void readFromFile(ifstream& ifs);

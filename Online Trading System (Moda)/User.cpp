@@ -39,3 +39,8 @@ const String& User::getEGN() const
 {
 	return this->EGN;
 }
+
+const String& User::getPassword() const
+{
+	return this->password;
+}

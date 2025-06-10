@@ -5,6 +5,7 @@
 #include "Seller.h"
 #include "Buyer.h"
 #include "Product.h"
+#include "Registration.h"
 #include "SystemOperations.h"
 #include "SystemAdministratorOperations.h"
 #include "SystemSellerOperations.h"
@@ -24,6 +25,12 @@ private:
 	Vector<Buyer> buyers;
 	Vector<Administrator> administrators;
 	Vector<Product> products;
+
+	Vector<Registration> admins;
+	Vector<Registration> sellers;
+
+	int currentUserType = USER;
+	Buyer* currentBuyer = nullptr;
 
 	System() = default;
 	~System() = default;
