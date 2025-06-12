@@ -8,8 +8,6 @@ void AddItemCommand::execute(System* system)
 	if (seller == nullptr)
 		return;
 
-	cout << endl;
-
 	char productName[BUFF_SIZE]{ '\0' };
 	cout << "Product name: ";
 	cin.getline(productName, BUFF_SIZE);
@@ -21,14 +19,14 @@ void AddItemCommand::execute(System* system)
 	cin >> price;
 	if (checkInput() == UNSUCCESSFUL)
 		return;
-	cin.ignore(INT_MAX, '\n');
+	clearBuffer();
 
 	int quantity = DEFAULT_VALUE;
 	cout << "Quantity: ";
 	cin >> quantity;
 	if (checkInput() == UNSUCCESSFUL)
 		return;
-	cin.ignore(INT_MAX, '\n');
+	clearBuffer();
 
 	char description[BUFF_SIZE]{ '\0' };
 	cout << "Description: ";

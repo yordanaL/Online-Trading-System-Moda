@@ -1,6 +1,7 @@
 #include "SystemAdministratorOperations.h"
 #include "System.h"
 #include "Check.h"
+#include "Transaction.h"
 
 void SystemAdministratorOperations::sendCheck(System& system, const Check& newCheck)
 {
@@ -18,4 +19,21 @@ void SystemAdministratorOperations::customerInsights(System& system)
 			system.buyers[i].printInsights();
 		}
 	}
+}
+
+void SystemAdministratorOperations::addTransaction(System& system, const String& operation) const
+{
+	Transaction newTransaction(operation);
+	system.transactions.pushBack(newTransaction);
+}
+
+void SystemAdministratorOperations::viewTransactions(const System& system) const
+{
+
+	for (size_t i = 0; i < system.transactions.size(); i++) {
+		cout << (i + INDEX_FIX) << ". ";
+		system.transactions[i].printTransaction();
+		cout << endl;
+	}
+
 }

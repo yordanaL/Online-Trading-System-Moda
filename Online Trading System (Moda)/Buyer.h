@@ -34,9 +34,12 @@ private:
 	int findIndexOfCheck(const String& code) const;
 	void addProductToPurchasedProducts(int productID, int quantity);
 
-	void removeRating(System& system, int productID, const String& buyerEGN);
+	void removeRating(System& system, int productID);
 	void checkBoughtProductsQuantity(System& system);
 public:
+	Buyer() = default;
+	Buyer(const String& _name, const String& _EGN, const String& _password);
+
 	static void help();
 	void loginInfo();
 
@@ -58,8 +61,14 @@ public:
 	bool takeProduct(System& system, int productID, int quantity);
 	bool returnProduct(System& system, int productID, int quantity);
 
+	void viewCart(const System& system) const;
+
 	void addToCart(System& system, int productID, int quantity);
 	void removeFromCart(System& system, int productID, int quantity);
+
+	void applyDiscount();
+	void removeDiscount();
+
 	void checkout(System& system);
 
 	void sendOrder(System& system, Order& newOrder);
@@ -72,6 +81,7 @@ public:
 	
 	//system connected operations
 	void rate(System& system, int productID, int rating) const;
-	void requestRefund();
+	void requestRefund(System& system);
+	void receiveRefund(const Order& order);
 };
 

@@ -5,3 +5,6 @@ using namespace std;
 
 void awaitingCommand();
 bool checkInput();
+void clearBuffer();
+void newLine();
+bool isNumber(char ch);

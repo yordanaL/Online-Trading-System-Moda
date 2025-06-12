@@ -49,63 +49,83 @@ void RunSystemAsBuyerCommand::execute(System* system)
 			continue;
 
 		if (command == "check-balance") {
+			clearBuffer();
 			checkBalance.execute(system);
 		}
 		else if (command == "redeem") {
+			clearBuffer();
 			redeem.execute(system);
 		}
 		else if (command == "list-products") {
+			clearBuffer();
 			listProducts.execute(system);
 		}
 		else if (command == "view-product") {
+			clearBuffer();
 			viewProduct.execute(system);
 		}
 		else if (command == "add-to-cart") {
+			clearBuffer();
 			addToCart.execute(system);
 		}
-		else if (command == "remove-from-cart") {
+		else if (command == "remove") {
+			clearBuffer();
 			removeFromCart.execute(system);
 		}
 		else if (command == "apply-discount") {
+			clearBuffer();
 			applyDiscount.execute(system);
 		}
 		else if (command == "remove-discount") {
+			clearBuffer();
 			removeDiscount.execute(system);
 		}
 		else if (command == "view-cart") {
+			clearBuffer();
 			viewCart.execute(system);
 		}
 		else if (command == "checkout") {
+			clearBuffer();
 			checkout.execute(system);
 		}
 		else if (command == "list-orders") {
+			clearBuffer();
 			listOrders.execute(system);
 		}
 		else if (command == "confirm-order") {
+			clearBuffer();
 			confirmOrder.execute(system);
 		}
 		else if (command == "order-history") {
+			clearBuffer();
 			orderHistory.execute(system);
 		}
 		else if (command == "rate") {
+			clearBuffer();
 			rate.execute(system);
 		}
 		else if (command == "request-refund") {
+			clearBuffer();
 			requestRefund.execute(system);
 		}
 		else if (command == "refunded-orders") {
+			clearBuffer();
 			refundedOrders.execute(system);
 		}
 		else if (command == "logout") {
+			clearBuffer();
 			logout.execute(system);
 		}
 		else if (command == "help") {
+			clearBuffer();
 			help.execute(system);
 		}
 		else if (command == "view-profile") {
+			clearBuffer();
 			viewProfile.execute(system);
 		}
 		else {
+			clearBuffer();
 			cout << "Invalid command!" << endl;
 		}
 	}

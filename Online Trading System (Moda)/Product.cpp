@@ -12,6 +12,11 @@ const int Product::getProductID() const
 	return this->ID;
 }
 
+const double Product::getProductPrice() const
+{
+	return this->price;
+}
+
 Product::Product(const String& _name, double _price, int _quantity, const String& _description)
 	: name(_name), price(_price), quantity(_quantity), description(_description)
 {
@@ -48,8 +53,8 @@ void Product::updateRating(const Pair<String, int>& newRating)
 {
 	for (size_t i = 0; i < this->allRatings.size(); i++) {
 		if (this->allRatings[i].getKey() == newRating.getKey()) {
-			return;
 			cout << "You have already rated product with ID: " << this->ID << endl;
+			return;
 		}
 	}
 
@@ -67,6 +72,26 @@ void Product::updateRating(const Pair<String, int>& newRating)
 	this->rating /= this->allRatings.size();*/
 }
 
+void Product::removeRating(const String& buyerEGN)
+{
+	int index = NOT_FOUND;
+	for (size_t i = 0; i < this->allRatings.size(); i++) {
+		if (this->allRatings[i].getKey() == buyerEGN) {
+			index = i;
+			break;
+		}
+	}
+
+	this->allRatings.erase(index);
+
+	this->rating = DEFAULT_VALUE;
+	for (size_t i = 0; i < this->allRatings.size(); i++) {
+		this->rating += this->allRatings[i].getValue();
+	}
+
+	this->rating /= this->allRatings.size();
+}
+
 void Product::displayProduct() const
 {
 	cout << " | " << this->name << " | " << this->price << " BGN" << " | " << this->rating <<
@@ -80,5 +105,5 @@ void Product::printProductDetails() const
 		<< "Price: " << this->price << " BGN" << endl
 		<< "Stock: " << this->quantity << " pcs" << endl
 		<< "Rating: " << this->rating << " stars" << endl
-		<< "Description: " << this->description << " pcs" << endl;
+		<< "Description: " << this->description << endl;
 }

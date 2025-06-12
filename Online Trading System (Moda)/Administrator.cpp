@@ -2,6 +2,10 @@
 #include "System.h"
 #include "Check.h"
 
+Administrator::Administrator(const String& _name, const String& _EGN, const String& _password) : User(_name, _EGN, _password)
+{
+}
+
 void Administrator::sendCheck(System& system, double amount, const String& code, const String& clientEGN)
 {
 	if (amount < DEFAULT_VALUE) {
@@ -24,13 +28,21 @@ void Administrator::sendCheck(System& system, double amount, const String& code,
 	}
 
 	Check newCheck(amount, code, buyerIndex);
+	system.sendCheck(system, newCheck);
 
-
+	String newTransaction = "Check sent to ";
+	newTransaction += system.buyers[buyerIndex].getName();
+	system.addTransaction(system, newTransaction);
 }
 
 void Administrator::customerInsights(System& system)
 {
 	system.customerInsights(system);
+}
+
+void Administrator::viewTransactions(const System& system)
+{
+	system.viewTransactions(system);
 }
 
 void Administrator::help()

@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 #include "Command.h"
+class SaveCommand;
 
 class ExitCommand : public Command {
 public:

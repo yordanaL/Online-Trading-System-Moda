@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 #include "Command.h"
+class Administrator;
 
 class ViewTransactionsCommand : public Command {
 public:

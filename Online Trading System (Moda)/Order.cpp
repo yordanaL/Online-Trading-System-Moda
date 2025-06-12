@@ -2,6 +2,10 @@
 
 long Order::orderNumberGenerator = DEFAULT_VALUE;
 
+Order::Order(const Cart& cart)
+{
+}
+
 const int Order::getOrderStatus() const
 {
     return this->status;

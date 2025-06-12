@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 #include "Command.h"
+class Buyer;
 
 class RequestRefundCommand : public Command {
 public:

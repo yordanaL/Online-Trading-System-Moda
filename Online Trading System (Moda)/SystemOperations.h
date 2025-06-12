@@ -5,9 +5,12 @@ using namespace std;
 #include "FrequentlyUsedFunctions.h"
 #include "String.h"
 class Command;
+class RunSystem;
 class RunSystemAsAdministratorCommand;
 class RunSystemAsSellerCommand;
 class RunSystemAsBuyerCommand;
+class Registration;
+class Transaction;
 class Administrator;
 class Seller;
 class Buyer;
@@ -18,15 +21,19 @@ class SystemOperations
 public:
 	void login(System& system);
 	void logout(System& system);
-	void signUp();
+	void signUp(System& system, const String& name, const String& EGN, const String& password, const String& role);
+	bool isEGNValid(const String& EGN) const;
+	void viewProfile(System& system);
 
 	const int getCurrentUserType(System& system) const;
 
 	Administrator* getAdmin(System& system);
+	const int getAdministratorIndex(const System& system) const;
 	Seller* getSeller(System& system);
+	const int getSellerIndex(const System& system) const;
 	Buyer* getBuyer(System& system);
 
-	void saveToFile();
-	void loadFromFile();
+	void save(const System& system);
+	void load(System& system);
 };
 

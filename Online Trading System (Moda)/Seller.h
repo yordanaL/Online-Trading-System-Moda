@@ -15,10 +15,14 @@ private:
 	Vector<Order> shippedOrders;
 	Vector<Order> deliveredOrders;
 	Vector<Order> rejectedOrders;
+	Vector<Order> ordersWaitingForRefund;
 
 	double totalProfit;
 
 public:
+	Seller() = default;
+	Seller(const String& _name, const String& _EGN, const String& _password);
+
 	static void help();
 
 	//System connected
@@ -35,6 +39,11 @@ public:
 	//Not system connected
 	void listOrders() const;
 	void listPendingOrders() const;
+
+	void receiveRefundRequest(const Order& order);
+	void listRefunds() const;
+	void approveRefund(System& system, int orderIndex);
+	void rejectRefund(System& system, int orderIndex, const String& rejectionReason);
 
 	void viewRevenue() const;
 };

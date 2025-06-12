@@ -9,7 +9,7 @@ void ApproveOrderCommand::execute(System* system)
 
 	cout << endl;
 
-	int orderIndex = DEFAULT_VALUE;
+	int orderIndex = NOT_FOUND;
 	cout << "Order index: ";
 	cin >> orderIndex;
 	if (checkInput() == UNSUCCESSFUL)

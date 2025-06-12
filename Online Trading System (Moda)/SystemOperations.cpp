@@ -1,9 +1,15 @@
 #include "SystemOperations.h"
 #include "Command.h"
+#include "RunSystemCommand.h"
 #include "RunSystemAsAdministratorCommand.h"
 #include "RunSystemAsSellerCommand.h"
 #include "RunSystemAsBuyerCommand.h"
 #include "System.h"
+#include "Registration.h"
+#include "Transaction.h"
+#include "Administrator.h"
+#include "Seller.h"
+#include "Buyer.h"
 
 void SystemOperations::login(System& system)
 {
@@ -18,7 +24,7 @@ void SystemOperations::login(System& system)
 		return;
 
 	String password;
-	cout << "password: ";
+	cout << "Password: ";
 	cin >> password;
 	if (checkInput() == UNSUCCESSFUL)
 		return;
@@ -28,28 +34,31 @@ void SystemOperations::login(System& system)
 			if (system.buyers[i].getPassword() == password) {
 				system.currentUserType = BUYER;
 				system.currentBuyer = &system.buyers[i];
+				cout << "Login successful!" << endl;
 				runSystemAsBuyer.execute(&system);
 				return;
 			}
 		}
 	}
 
-	for (size_t i = 0; i < system.admins.size(); i++) {
-		if (system.admins[i].getName() == name) {
-			if (system.admins[i].getPassword() == password) {
+	for (int i = 0; i < system.adminsRegistrations.size(); i++) {
+		if (system.adminsRegistrations[i].getName() == name) {
+			if (system.adminsRegistrations[i].getPassword() == password) {
 				system.currentUserType = ADMINISTRATOR;
 				system.indexOfCurrentAdmin = i;
+				cout << "Login successful!" << endl;
 				runSystemAsAdministrator.execute(&system);
 				return;
 			}
 		}
 	}
 
-	for (size_t i = 0; i < system.sellers.size(); i++) {
-		if (system.sellers [i] .getName() == name) {
-			if (system.sellers[i].getPassword() == password) {
+	for (int i = 0; i < system.sellersRegistrations.size(); i++) {
+		if (system.sellersRegistrations[i] .getName() == name) {
+			if (system.sellersRegistrations[i].getPassword() == password) {
 				system.currentUserType = SELLER;
 				system.indexOfCurrentSeller = i;
+				cout << "Login successful!" << endl;
 				runSystemAsSeller.execute(&system);
 				return;
 			}
@@ -65,8 +74,96 @@ void SystemOperations::login(System& system)
 
 void SystemOperations::logout(System& system)
 {
+	system.indexOfCurrentAdmin = NOT_FOUND;
+	system.indexOfCurrentSeller = NOT_FOUND;
 	system.currentUserType = USER;
 	system.currentBuyer = nullptr;
+}
+
+void SystemOperations::signUp(System& system, const String& name, const String& EGN, const String& password, const String& role)
+{
+	RunSystemCommand runSystem;
+
+	if (isEGNValid(EGN) == false) {
+		cout << "Invalid EGN! Registration failed!" << endl;
+		runSystem.execute(&system);
+	}
+
+
+	if (role == "Client") {
+		Buyer newBuyer(name, EGN, password);
+		system.buyers.pushBack(newBuyer);
+	}
+	else if (role == "Business") {
+		if (system.sellerSignedUp == false) {
+			Seller newSeller(name, EGN, password);
+			system.seller = newSeller;
+
+			Registration newRegistration(name, EGN, password);
+			system.sellersRegistrations.pushBack(newRegistration);
+
+			system.sellerSignedUp = true;
+		}
+		else {
+			Registration newRegistration(name, EGN, password);
+			system.sellersRegistrations.pushBack(newRegistration);
+		}
+	}
+	else if (role == "Administrator") {
+		if (system.adminSignedUp == false) {
+			Administrator newAdmin(name, EGN, password);
+			system.admin = newAdmin;
+
+			Registration newRegistration(name, EGN, password);
+			system.adminsRegistrations.pushBack(newRegistration);
+
+			system.adminSignedUp = true;
+		}
+		else {
+			Registration newRegistration(name, EGN, password);
+			system.adminsRegistrations.pushBack(newRegistration);
+		}
+	}
+	else {
+		cout << "Invalid role!" << endl;
+		runSystem.execute(&system);
+	}
+
+	cout << "Registration is successful!" << endl;
+	runSystem.execute(&system);
+}
+
+bool SystemOperations::isEGNValid(const String& EGN) const
+{
+	for (size_t i = 0; i < EGN.length(); i++) {
+		if (isNumber(EGN[i]) == false)
+			return false;
+	}
+
+	return true;
+}
+
+void SystemOperations::viewProfile(System& system)
+{
+	Buyer* buyer = nullptr;
+
+	if (system.getCurrentUserType(system) == BUYER) {
+		buyer = system.getBuyer(system);
+		buyer->viewProfile();
+	}
+	else if (system.getCurrentUserType(system) == SELLER) {
+		cout << "Name: " << system.sellersRegistrations[getSellerIndex(system)].getName() << endl;
+		cout << "EGN: " << system.sellersRegistrations[getSellerIndex(system)].getEGN() << endl;
+	}
+	else if (system.getCurrentUserType(system) == ADMINISTRATOR) {
+		cout << "Name: " << system.adminsRegistrations[getAdministratorIndex(system)].getName() << endl;
+		cout << "EGN: " << system.adminsRegistrations[getAdministratorIndex(system)].getEGN() << endl;
+	}
+	else {
+		cout << "No user is logged in!" << endl;
+	}
+
+	buyer = nullptr;
 }
 
 const int SystemOperations::getCurrentUserType(System& system) const
@@ -79,12 +176,30 @@ Administrator* SystemOperations::getAdmin(System& system)
 	return &system.admin;
 }
 
+const int SystemOperations::getAdministratorIndex(const System& system) const
+{
+	return system.indexOfCurrentAdmin;
+}
+
 Seller* SystemOperations::getSeller(System& system)
 {
 	return &system.seller;
 }
 
+const int SystemOperations::getSellerIndex(const System& system) const
+{
+	return system.indexOfCurrentSeller;
+}
+
 Buyer* SystemOperations::getBuyer(System& system)
 {
 	return system.currentBuyer;
+}
+
+void SystemOperations::save(const System& system)
+{
+}
+
+void SystemOperations::load(System& system)
+{
 }

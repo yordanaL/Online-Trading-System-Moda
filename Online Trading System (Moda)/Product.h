@@ -26,6 +26,7 @@ public:
 	Product(const String& _name, double _price, int _quantity, const String& _description);
 	const String& getProductName() const;
 	const int getProductID() const;
+	const double getProductPrice() const;
 	const int getTotalSales() const;
 	const int getQuantity() const;
 
@@ -33,6 +34,7 @@ public:
 	void decreaseQuantity(int quantity);
 
 	void updateRating(const Pair<String, int>& newRating);
+	void removeRating(const String& buyerEGN);
 
 	void displayProduct() const;
 	void printProductDetails() const;

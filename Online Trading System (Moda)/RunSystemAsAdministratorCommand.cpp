@@ -9,10 +9,6 @@
 
 void RunSystemAsAdministratorCommand::execute(System* system)
 {
-	//Administrator* admin = system->getAdmin(*system);
-	//if (admin == nullptr)
-	//	return;
-
 	SendCheckCommand sendCheck;
 	CustomerInsightsCommand customerInsights;
 	ViewTransactionsCommand	viewTransactions;
@@ -28,27 +24,32 @@ void RunSystemAsAdministratorCommand::execute(System* system)
 			continue;
 
 		if (command == "send-check") {
+			clearBuffer();
 			sendCheck.execute(system);
 		}
 		else if (command == "customer-insights") {
+			clearBuffer();
 			customerInsights.execute(system);
 		}
 		else if (command == "view-transactions") {
+			clearBuffer();
 			viewTransactions.execute(system);
 		}
 		else if (command == "logout") {
+			clearBuffer();
 			logout.execute(system);
 		}
 		else if (command == "help") {
+			clearBuffer();
 			help.execute(system);
 		}
 		else if (command == "view-profile") {
+			clearBuffer();
 			viewProfile.execute(system);
 		}
 		else {
+			clearBuffer();
 			cout << "Invalid command!" << endl;
 		}
 	}
-
-	//admin = nullptr;
 }

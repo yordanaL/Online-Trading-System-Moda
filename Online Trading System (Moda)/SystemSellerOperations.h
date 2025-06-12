@@ -20,5 +20,7 @@ public:
 
 	void shipOrder(System& system, Order& newOrder);
 	void sendRejectedOrder(System& system, const RejectedOrder& newRejectedOrder);
+
+	void sendRefund(System& system, const Order& order);
 };
 

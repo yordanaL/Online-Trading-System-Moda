@@ -39,48 +39,66 @@ void RunSystemAsSellerCommand::execute(System* system)
 			continue;
 
 		if (command == "add-item") {
+			clearBuffer();
 			addItem.execute(system);
 		}
 		else if (command == "remove-item") {
+			clearBuffer();
 			removeItem.execute(system);
+			newLine();
 		}
 		else if (command == "list-pending-orders") {
+			clearBuffer();
 			listPendingOrders.execute(system);
+			newLine();
 		}
 		else if (command == "approve-order") {
+			clearBuffer();
 			approveOrder.execute(system);
 		}
 		else if (command == "reject-order") {
+			clearBuffer();
 			rejectOrder.execute(system);
 		}
 		else if (command == "list-orders") {
+			clearBuffer();
 			listOrdersSeller.execute(system);
 		}
 		else if (command == "list-best-selling-products") {
+			clearBuffer();
 			listBestSellingProducts.execute(system);
 		}
 		else if (command == "view-revenue") {
+			clearBuffer();
 			viewRevenue.execute(system);
 		}
 		else if (command == "list-refunds") {
+			clearBuffer();
 			listRefunds.execute(system);
+			newLine();
 		}
 		else if (command == "approve-refund") {
+			clearBuffer();
 			approveRefund.execute(system);
 		}
 		else if (command == "reject-refund") {
+			clearBuffer();
 			rejectRefund.execute(system);
 		}
 		else if (command == "logout") {
+			clearBuffer();
 			logout.execute(system);
 		}
 		else if (command == "help") {
+			clearBuffer();
 			help.execute(system);
 		}
 		else if (command == "view-profile") {
+			clearBuffer();
 			viewProfile.execute(system);
 		}
 		else {
+			clearBuffer();
 			cout << "Invalid command!" << endl;
 		}
 	}

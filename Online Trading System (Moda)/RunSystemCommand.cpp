@@ -8,10 +8,6 @@ void RunSystemCommand::execute(System* system)
 	LoginCommand login;
 	ExitCommand exit;
 
-	/*Administrator* admin = nullptr;
-	Seller* seller = nullptr;
-	Buyer* buyer = nullptr;*/
-
 	while (true) {
 		String command;
 		awaitingCommand();
@@ -20,15 +16,20 @@ void RunSystemCommand::execute(System* system)
 			continue;
 
 		if (command == "register") {
+			clearBuffer();
 			regist.execute(system);
 		}
 		else if (command == "login") {
+			clearBuffer();
 			login.execute(system);
 		}
 		else if (command == "exit") {
+			clearBuffer();
 			exit.execute(system);
+			break;
 		}
 		else {
+			clearBuffer();
 			cout << "Invalid command!" << endl;
 		}
 	}

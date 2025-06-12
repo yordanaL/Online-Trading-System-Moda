@@ -17,6 +17,7 @@ public:
     void setValue(V&& value);
 
     void increaseValue(int addValue);
+    void decreaseValue(int removeValue);
 
 private:
     K key;
@@ -59,4 +60,12 @@ const V& Pair<K, V>::getValue() const {
 template <typename K, typename V>
 void Pair<K, V>::increaseValue(int addValue) {
     this->value += addValue;
+}
+
+template<typename K, typename V>
+inline void Pair<K, V>::decreaseValue(int removeValue)
+{
+    this->value -= removeValue;
+    if (this->value < DEFAULT_VALUE)
+        this->value = DEFAULT_VALUE;
 }

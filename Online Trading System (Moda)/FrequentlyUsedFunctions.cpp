@@ -17,3 +17,19 @@ bool checkInput()
 
 	return SUCCESSFUL;
 }
+
+void clearBuffer()
+{
+	cin.clear();
+	cin.ignore(INT_MAX, '\n');
+}
+
+void newLine()
+{
+	cout << endl;	
+}
+
+bool isNumber(char ch)
+{
+	return (ch >= '0' && ch <= '9');
+}

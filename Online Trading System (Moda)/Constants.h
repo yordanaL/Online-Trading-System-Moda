@@ -28,3 +28,5 @@ constexpr int DELIVERED = 3;
 constexpr int REJECTED = 4;
 
 constexpr char EMPTY_STR[] = "";
+
+constexpr int FIX = 10;

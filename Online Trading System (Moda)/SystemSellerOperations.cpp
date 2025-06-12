@@ -80,3 +80,14 @@ void SystemSellerOperations::sendRejectedOrder(System& system, const RejectedOrd
 
 	system.buyers[buyerIndex].receiveRejectedOrder(newRejectedOrder);
 }
+
+void SystemSellerOperations::sendRefund(System& system, const Order& order)
+{
+	int buyerIndex = system.findIndexOfBuyerByEGN(order.getBuyerEGN());
+	if (buyerIndex == NOT_FOUND) {
+		cout << "Buyer could not be found!" << endl;
+		return;
+	}
+
+	system.buyers[buyerIndex].receiveRefund(order);
+}

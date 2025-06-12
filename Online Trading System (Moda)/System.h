@@ -10,6 +10,7 @@
 #include "SystemAdministratorOperations.h"
 #include "SystemSellerOperations.h"
 #include "SystemBuyerOperations.h"
+#include "Transaction.h"
 
 class System : public SystemOperations, public SystemAdministratorOperations, 
 	public SystemSellerOperations, public SystemBuyerOperations {
@@ -23,16 +24,19 @@ private:
 	Administrator admin;
 	Seller seller;
 	Vector<Buyer> buyers;
-	Vector<Administrator> administrators;
 	Vector<Product> products;
+	Vector<Transaction> transactions;
 
-	Vector<Registration> admins;
-	Vector<Registration> sellers;
+	bool adminSignedUp = false;
+	bool sellerSignedUp = false;
+	Vector<Registration> adminsRegistrations;
+	Vector<Registration> sellersRegistrations;
 
-	int currentUserType = USER;
-	Buyer* currentBuyer = nullptr;
+	//class members which do not require to be saved to files
 	int indexOfCurrentAdmin = NOT_FOUND;
 	int indexOfCurrentSeller = NOT_FOUND;
+	int currentUserType = USER;
+	Buyer* currentBuyer = nullptr;
 
 	System() = default;
 	~System() = default;

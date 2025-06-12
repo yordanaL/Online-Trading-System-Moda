@@ -25,6 +25,9 @@
     <Filter Include="Header Files\Commands">
       <UniqueIdentifier>{27da5ede-c531-48db-a599-384f9b4eb995}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Shopping">
+      <UniqueIdentifier>{0004dccc-2a99-4a82-9011-e44906f13a3f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Online Trading System (Moda).cpp">
@@ -213,11 +216,11 @@
     <ClCompile Include="RunSystemAsBuyerCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Transaction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Order.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Constants.h">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
@@ -226,12 +229,6 @@
     </ClInclude>
     <ClInclude Include="Vector.hpp">
       <Filter>Header Files\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Check.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Product.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Administrator.h">
       <Filter>Header Files\Users</Filter>
@@ -244,9 +241,6 @@
     </ClInclude>
     <ClInclude Include="User.h">
       <Filter>Header Files\Users</Filter>
-    </ClInclude>
-    <ClInclude Include="Cart.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="System.h">
       <Filter>Header Files\System</Filter>
@@ -383,9 +377,6 @@
     <ClInclude Include="AddItemCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="Registration.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RunSystemCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
@@ -401,8 +392,26 @@
     <ClInclude Include="RunSystemAsAdministratorCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
+    <ClInclude Include="Cart.h">
+      <Filter>Header Files\Shopping</Filter>
+    </ClInclude>
+    <ClInclude Include="Check.h">
+      <Filter>Header Files\Shopping</Filter>
+    </ClInclude>
+    <ClInclude Include="Order.h">
+      <Filter>Header Files\Shopping</Filter>
+    </ClInclude>
+    <ClInclude Include="Product.h">
+      <Filter>Header Files\Shopping</Filter>
+    </ClInclude>
     <ClInclude Include="RejectedOrder.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Shopping</Filter>
+    </ClInclude>
+    <ClInclude Include="Transaction.h">
+      <Filter>Header Files\Shopping</Filter>
+    </ClInclude>
+    <ClInclude Include="Registration.h">
+      <Filter>Header Files\Users</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

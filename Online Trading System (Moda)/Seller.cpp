@@ -1,6 +1,10 @@
 #include "Seller.h"
 #include "System.h"
 
+Seller::Seller(const String& _name, const String& _EGN, const String& _password) :User(_name, _EGN, _password)
+{
+}
+
 void Seller::help()
 {
 	cout << "Business Commands: " << endl;
@@ -134,6 +138,35 @@ void Seller::listPendingOrders() const
 			cout << endl;
 		}
 	}
+}
+
+void Seller::receiveRefundRequest(const Order& order)
+{
+	this->ordersWaitingForRefund.pushBack(order);
+}
+
+void Seller::listRefunds() const
+{
+	for (size_t i = 0; i < ordersWaitingForRefund.size(); i++) {
+		cout << (i + INDEX_FIX) << ". ";
+		ordersWaitingForRefund[i].printOrder();
+		cout << endl;
+	}
+}
+
+void Seller::approveRefund(System& system, int orderIndex)
+{
+	if (orderIndex <= DEFAULT_VALUE || orderIndex > this->ordersWaitingForRefund.size()) {
+		cout << "Invalid order index!" << endl;
+		return;
+	}
+
+	system.sendRefund(system, this->ordersWaitingForRefund[orderIndex - INDEX_FIX]);
+	this->ordersWaitingForRefund.erase(orderIndex - INDEX_FIX);
+}
+
+void Seller::rejectRefund(System& system, int orderIndex, const String& rejectionReason)
+{
 }
 
 void Seller::viewRevenue() const

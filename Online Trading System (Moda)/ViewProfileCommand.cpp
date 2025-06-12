@@ -18,3 +18,8 @@
 //		break;
 //	}
 //}
+
+void ViewProfileCommand::execute(System* system)
+{
+	system->viewProfile(*system);
+}

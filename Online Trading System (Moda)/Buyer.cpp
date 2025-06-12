@@ -13,6 +13,11 @@ int Buyer::findIndexOfCheck(const String& code) const
 
 void Buyer::addProductToPurchasedProducts(int productID, int quantity)
 {
+	if (quantity <= DEFAULT_VALUE) {
+		cout << "Invalid quantity!" << endl;
+		return;
+	}
+
 	for (size_t i = 0; i < this->IDsAndQuantityOfPurchasedProducts.size(); i++) {
 		if (this->IDsAndQuantityOfPurchasedProducts[i].getKey() == productID) {
 			this->IDsAndQuantityOfPurchasedProducts[i].increaseValue(quantity);
@@ -21,15 +26,25 @@ void Buyer::addProductToPurchasedProducts(int productID, int quantity)
 	}
 
 	Pair<int, int> newPurchasedProduct(productID, quantity);
+	this->IDsAndQuantityOfPurchasedProducts.pushBack(newPurchasedProduct);
+}
+
+void Buyer::removeRating(System& system, int productID)
+{
+	system.removeRating(system, productID, this->EGN);
 }
 
 void Buyer::checkBoughtProductsQuantity(System& system)
 {
 	for (size_t i = 0; i < this->IDsAndQuantityOfPurchasedProducts.size(); i++) {
 		if (this->IDsAndQuantityOfPurchasedProducts[i].getValue() == DEFAULT_VALUE) {
-			removeRating(system, this->IDsAndQuantityOfPurchasedProducts[i].getKey(), this->EGN);
+			removeRating(system, this->IDsAndQuantityOfPurchasedProducts[i].getKey());
 		}
 	}
+}
+
+Buyer::Buyer(const String& _name, const String& _EGN, const String& _password) :User(_name, _EGN, _password)
+{
 }
 
 void Buyer::help()
@@ -122,16 +137,36 @@ void Buyer::viewProduct(const System& system, int productID) const
 
 bool Buyer::takeProduct(System& system, int productID, int quantity)
 {
+	if (quantity <= DEFAULT_VALUE) {
+		cout << "Invalid quantity!" << endl;
+		return UNSUCCESSFUL;
+	}
+
 	return system.takeProduct(system, productID, quantity);
 }
 
 bool Buyer::returnProduct(System& system, int productID, int quantity)
 {
+	if (quantity <= DEFAULT_VALUE) {
+		cout << "Invalid quantity!" << endl;
+		return UNSUCCESSFUL;
+	}
+
 	return system.returnProduct(system, productID, quantity);
+}
+
+void Buyer::viewCart(const System& system) const
+{
+	this->cart.viewCart(system);
 }
 
 void Buyer::addToCart(System& system, int productID, int quantity)
 {
+	if (quantity <= DEFAULT_VALUE) {
+		cout << "Invalid quantity!" << endl;
+		return;
+	}
+
 	bool operationSuccess = takeProduct(system, productID, quantity);
 	if (operationSuccess == UNSUCCESSFUL) {
 		cout << "Could not add product to cart!" << endl;
@@ -139,10 +174,21 @@ void Buyer::addToCart(System& system, int productID, int quantity)
 	}
 
 	this->cart.addProduct(productID, quantity);
+	cout << "Product added to cart successfully!" << endl;
 }
 
 void Buyer::removeFromCart(System& system, int productID, int quantity)
 {
+	if (quantity <= DEFAULT_VALUE) {
+		cout << "Invalid quantity!" << endl;
+		return;
+	}
+
+	if (this->cart.checkProductQuantityInCart(productID) < quantity) {
+		cout << "You do not have so many pcs in cart!" << endl;
+		return;
+	}
+
 	bool operationSuccess = returnProduct(system, productID, quantity);
 	if (operationSuccess == UNSUCCESSFUL) {
 		cout << "Could not remove product from cart!" << endl;
@@ -152,8 +198,21 @@ void Buyer::removeFromCart(System& system, int productID, int quantity)
 	this->cart.removeProduct(productID, quantity);
 }
 
+void Buyer::applyDiscount()
+{
+}
+
+void Buyer::removeDiscount()
+{
+}
+
 void Buyer::checkout(System& system)
 {
+	if (this->cart.isCartEmpty() == true) {
+		cout << "Your cart is empty! Order cannot be placed!" << endl;
+		return;
+	}
+
 	Order newOrder(this->cart);
 	sendOrder(system, newOrder);
 	cout << "Order placed successfully. Awaiting approval from seller!" << endl;
@@ -195,6 +254,10 @@ void Buyer::confirmOrder(System& system, int index)
 	this->totalMoneySpent += this->shippedOrders[index - 1].getTotalPrice();
 
 	this->shippedOrders.erase(index - 1);
+
+	String newTransaction = this->name;
+	newTransaction += " made purchase";
+	system.addTransaction(system, newTransaction);
 }
 
 void Buyer::listOrders() const
@@ -250,4 +313,30 @@ void Buyer::rate(System& system, int productID, int rating) const
 		Pair<String, int> newRating(this->EGN, rating);
 		system.rate(system, productID, newRating);
 	}
+}
+
+void Buyer::requestRefund(System& system)
+{
+	if (this->deliveredOrders.size() <= DEFAULT_VALUE) {
+		cout << "You have not made any orders yet!" << endl;
+		return;
+	}
+
+	system.requestRefund(system, this->deliveredOrders[this->deliveredOrders.size()]);
+}
+
+void Buyer::receiveRefund(const Order& order)
+{
+	int orderIndex = NOT_FOUND;
+	for (int i = 0; i < this->deliveredOrders.size(); i++) {
+		if (this->deliveredOrders[i].getOrderNumber() == order.getOrderNumber())
+			orderIndex = i;
+	}
+
+	if (orderIndex == NOT_FOUND) {
+		cout << "Order cannot be found!" << endl;
+		return;
+	}
+
+	this->deliveredOrders.erase(orderIndex);
 }
