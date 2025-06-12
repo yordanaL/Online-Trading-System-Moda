@@ -13,6 +13,7 @@ constexpr bool SUCCESSFUL = true;
 constexpr bool UNSUCCESSFUL = false;
 
 constexpr int LOYALTY_POINTS_INDEX = 5;
+constexpr double DISCOUNT_INDEX = 0.01;
 
 constexpr int USER = 0;
 constexpr int ADMINISTRATOR = 1;

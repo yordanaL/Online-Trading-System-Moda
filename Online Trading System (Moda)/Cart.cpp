@@ -26,6 +26,11 @@ bool Cart::getDiscountUsed() const
     return this->discountUsed;
 }
 
+const int Cart::getloyaltyPointsUsed() const
+{
+    return this->loyaltyPointsUsed;
+}
+
 void Cart::viewCart(const System& system) const
 {
     if (isCartEmpty() == true) {
@@ -53,8 +58,10 @@ void Cart::viewCart(const System& system) const
     }
 }
 
-void Cart::addProduct(int productID, int quantity)
+void Cart::addProduct(System& system, int productID, int quantity)
 {
+    increasePrice(system, productID, quantity);
+
     for (size_t i = 0; i < this->products.size(); i++) {
         if (this->products[i].getKey() == productID) {
             this->products[i].increaseValue(quantity);
@@ -77,8 +84,10 @@ int Cart::checkProductQuantityInCart(int productID)
     return DEFAULT_VALUE;
 }
 
-void Cart::removeProduct(int productID, int quantity)
+void Cart::removeProduct(System& system, int productID, int quantity)
 {
+    decreasePrice(system, productID, quantity);
+
     int productIndex = NOT_FOUND;
     for (size_t i = 0; i < this->products.size(); i++) {
         if (this->products[i].getKey() == productID) {
@@ -97,8 +106,34 @@ void Cart::removeProduct(int productID, int quantity)
         this->products.erase(productIndex);
 }
 
+void Cart::increasePrice( System& system, int productID, int quantity)
+{
+    double newPrice = system.getProductPriceByID(system, productID) * quantity;
+    this->priceBeforeDiscount += newPrice;
+    this->priceAfterDiscount += newPrice;
+}
+
+void Cart::decreasePrice(System& system, int productID, int quantity)
+{
+    double newPrice = system.getProductPriceByID(system, productID) * quantity;
+    this->priceBeforeDiscount -= newPrice;
+    this->priceAfterDiscount -= newPrice;
+}
+
 void Cart::applyDiscount(int loyaltyPoints)
 {
+    this->discountUsed = true;
+    this->loyaltyPointsUsed = loyaltyPoints;
+    this->priceAfterDiscount = this->getPriceBeforeDiscount() - loyaltyPoints * DISCOUNT_INDEX;
+
+    cout << "Discount applied successfully!" << endl;
+}
+
+void Cart::removeDiscount()
+{
+    this->loyaltyPointsUsed = DEFAULT_VALUE;
+    this->discountUsed = false;
+    this->priceAfterDiscount = this->priceBeforeDiscount;
 }
 
 void Cart::cleanCart()
@@ -107,4 +142,5 @@ void Cart::cleanCart()
     this->priceBeforeDiscount = DEFAULT_VALUE;
     this->priceAfterDiscount = DEFAULT_VALUE;
     this->discountUsed = false;
+    this->loyaltyPointsUsed = DEFAULT_VALUE;
 }

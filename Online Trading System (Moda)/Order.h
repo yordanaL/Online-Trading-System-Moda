@@ -22,7 +22,7 @@ private:
 
 public:
 	Order() = default;
-	Order(const Cart& cart);
+	Order(const Cart& cart, const String& _buyerEGN, const String& buyerName);
 
 	const int getOrderStatus() const;
 	const int getOrderNumber() const;

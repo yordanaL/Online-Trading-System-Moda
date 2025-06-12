@@ -2,7 +2,7 @@
 
 long Order::orderNumberGenerator = DEFAULT_VALUE;
 
-Order::Order(const Cart& cart)
+Order::Order(const Cart& cart, const String& _buyerEGN, const String& buyerName)
 {
 }
 

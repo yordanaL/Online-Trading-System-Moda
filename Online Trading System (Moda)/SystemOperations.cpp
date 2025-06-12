@@ -78,6 +78,8 @@ void SystemOperations::logout(System& system)
 	system.indexOfCurrentSeller = NOT_FOUND;
 	system.currentUserType = USER;
 	system.currentBuyer = nullptr;
+
+	cout << "You have logged out!" << endl;
 }
 
 void SystemOperations::signUp(System& system, const String& name, const String& EGN, const String& password, const String& role)

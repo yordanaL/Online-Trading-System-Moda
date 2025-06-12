@@ -173,7 +173,7 @@ void Buyer::addToCart(System& system, int productID, int quantity)
 		return;
 	}
 
-	this->cart.addProduct(productID, quantity);
+	this->cart.addProduct(system, productID, quantity);
 	cout << "Product added to cart successfully!" << endl;
 }
 
@@ -195,15 +195,45 @@ void Buyer::removeFromCart(System& system, int productID, int quantity)
 		return;
 	}
 
-	this->cart.removeProduct(productID, quantity);
+	this->cart.removeProduct(system, productID, quantity);
+	cout << "Product removed from cart successfully!" << endl;
 }
 
 void Buyer::applyDiscount()
 {
+	if (loyaltyPoints <= DEFAULT_VALUE) {
+		cout << "You have no loyalty points!" << endl;
+		return;
+	}
+
+	if (this->cart.getDiscountUsed() == true) {
+		cout << "You have already used a discount for this order!" << endl;
+		return;
+	}
+
+	if (loyaltyPoints * DISCOUNT_INDEX <= (this->cart.getPriceBeforeDiscount() / 2)) {
+		this->cart.applyDiscount(this->loyaltyPoints);
+		this->loyaltyPoints = DEFAULT_VALUE;
+	}
+	else {
+		int pointsNeeded = (this->cart.getPriceBeforeDiscount() / 2) / DISCOUNT_INDEX;
+		this->cart.applyDiscount(pointsNeeded);
+		this->loyaltyPoints -= pointsNeeded;
+
+		if (this->loyaltyPoints <= DEFAULT_VALUE)
+			this->loyaltyPoints = DEFAULT_VALUE;
+	}
 }
 
 void Buyer::removeDiscount()
 {
+	if (this->cart.getDiscountUsed() == false) {
+		cout << "You have not used a discount for this order!" << endl;
+		return;
+	}
+
+	this->loyaltyPoints += this->cart.getloyaltyPointsUsed();
+	this->cart.removeDiscount();
 }
 
 void Buyer::checkout(System& system)
@@ -213,7 +243,7 @@ void Buyer::checkout(System& system)
 		return;
 	}
 
-	Order newOrder(this->cart);
+	Order newOrder(this->cart, this->EGN, this->name);
 	sendOrder(system, newOrder);
 	cout << "Order placed successfully. Awaiting approval from seller!" << endl;
 
