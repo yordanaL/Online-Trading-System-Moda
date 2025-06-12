@@ -144,7 +144,7 @@
     <ClCompile Include="ExitCommand.cpp" />
     <ClCompile Include="FrequentlyUsedFunctions.cpp" />
     <ClCompile Include="HelpCommand.cpp" />
-    <ClCompile Include="ListBestSellingOrdersCommand.cpp" />
+    <ClCompile Include="ListBestSellingProductsCommand.cpp" />
     <ClCompile Include="ListOrdersBuyerCommand.cpp" />
     <ClCompile Include="ListOrdersSellerCommand.cpp" />
     <ClCompile Include="ListPendingOrdersCommand.cpp" />
@@ -170,6 +170,9 @@
     <ClCompile Include="RemoveDiscountCommand.cpp" />
     <ClCompile Include="RemoveFromCartCommand.cpp" />
     <ClCompile Include="RequestRefundCommand.cpp" />
+    <ClCompile Include="RunSystemAsAdministratorCommand.cpp" />
+    <ClCompile Include="RunSystemAsBuyerCommand.cpp" />
+    <ClCompile Include="RunSystemAsSellerCommand.cpp" />
     <ClCompile Include="RunSystemCommand.cpp" />
     <ClCompile Include="SaveCommand.cpp" />
     <ClCompile Include="Seller.cpp" />
@@ -206,7 +209,7 @@
     <ClInclude Include="ExitCommand.h" />
     <ClInclude Include="FrequentlyUsedFunctions.h" />
     <ClInclude Include="HelpCommand.h" />
-    <ClInclude Include="ListBestSellingOrdersCommand.h" />
+    <ClInclude Include="ListBestSellingProductsCommand.h" />
     <ClInclude Include="ListOrdersBuyerCommand.h" />
     <ClInclude Include="ListOrdersSellerCommand.h" />
     <ClInclude Include="ListPendingOrdersCommand.h" />
@@ -231,6 +234,9 @@
     <ClInclude Include="RemoveDiscountCommand.h" />
     <ClInclude Include="RemoveFromCartCommand.h" />
     <ClInclude Include="RequestRefundCommand.h" />
+    <ClInclude Include="RunSystemAsAdministratorCommand.h" />
+    <ClInclude Include="RunSystemAsBuyerCommand.h" />
+    <ClInclude Include="RunSystemAsSellerCommand.h" />
     <ClInclude Include="RunSystemCommand.h" />
     <ClInclude Include="SaveCommand.h" />
     <ClInclude Include="Seller.h" />

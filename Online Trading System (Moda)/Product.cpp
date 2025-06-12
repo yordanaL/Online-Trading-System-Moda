@@ -12,6 +12,18 @@ const int Product::getProductID() const
 	return this->ID;
 }
 
+Product::Product(const String& _name, double _price, int _quantity, const String& _description)
+	: name(_name), price(_price), quantity(_quantity), description(_description)
+{
+	if (_quantity > DEFAULT_VALUE)
+		this->availability = true;
+	else
+		this->availability = false;
+
+	IDGenerator++;
+	this->ID = IDGenerator;
+}
+
 const int Product::getTotalSales() const
 {
 	return this->totalSales;

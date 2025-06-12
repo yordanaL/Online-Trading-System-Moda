@@ -37,7 +37,7 @@ private:
 	void removeRating(System& system, int productID, const String& buyerEGN);
 	void checkBoughtProductsQuantity(System& system);
 public:
-	void help() const override;
+	static void help();
 	void loginInfo();
 
 	//finance operations

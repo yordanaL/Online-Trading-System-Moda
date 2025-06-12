@@ -33,7 +33,7 @@ void Administrator::customerInsights(System& system)
 	system.customerInsights(system);
 }
 
-void Administrator::help() const
+void Administrator::help()
 {
 	cout << "Administrator Commands: " << endl;
 	cout << "1) send-check" << endl;

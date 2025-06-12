@@ -14,5 +14,5 @@ public:
 
 	void customerInsights(System& system);
 
-	void help() const override;
+	static void help();
 };

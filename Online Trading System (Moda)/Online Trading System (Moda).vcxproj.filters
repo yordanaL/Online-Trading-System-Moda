@@ -177,7 +177,7 @@
     <ClCompile Include="ListOrdersSellerCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ListBestSellingOrdersCommand.cpp">
+    <ClCompile Include="ListBestSellingProductsCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ViewRevenueCommand.cpp">
@@ -202,6 +202,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Registration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RunSystemAsAdministratorCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RunSystemAsSellerCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RunSystemAsBuyerCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -276,9 +285,6 @@
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="RemoveDiscountCommand.h">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="RejectedOrder.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="RedeemCommand.h">
@@ -365,7 +371,7 @@
     <ClInclude Include="ListOrdersSellerCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="ListBestSellingOrdersCommand.h">
+    <ClInclude Include="ListBestSellingProductsCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="ApproveRefundCommand.h">
@@ -385,6 +391,18 @@
     </ClInclude>
     <ClInclude Include="ExitCommand.h">
       <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="RunSystemAsSellerCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="RunSystemAsBuyerCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="RunSystemAsAdministratorCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="RejectedOrder.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

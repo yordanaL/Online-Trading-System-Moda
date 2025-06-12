@@ -2,8 +2,9 @@
 #include <iostream>
 using namespace std;
 #include "Command.h"
+class Seller;
 
-class ListBestSellingOrdersCommand : public Command {
+class ListBestSellingProductsCommand : public Command {
 public:
 	void execute(System* system) override;
 };

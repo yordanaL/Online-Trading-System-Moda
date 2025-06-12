@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 #include "Command.h"
+class Seller;
 
 class ListOrdersSellerCommand : public Command {
 public:

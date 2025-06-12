@@ -31,6 +31,8 @@ private:
 
 	int currentUserType = USER;
 	Buyer* currentBuyer = nullptr;
+	int indexOfCurrentAdmin = NOT_FOUND;
+	int indexOfCurrentSeller = NOT_FOUND;
 
 	System() = default;
 	~System() = default;

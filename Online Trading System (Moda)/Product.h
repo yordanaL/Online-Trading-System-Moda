@@ -22,6 +22,8 @@ private:
 	static int IDGenerator;
 
 public:
+	Product() = default;
+	Product(const String& _name, double _price, int _quantity, const String& _description);
 	const String& getProductName() const;
 	const int getProductID() const;
 	const int getTotalSales() const;

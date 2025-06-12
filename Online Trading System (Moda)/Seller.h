@@ -19,7 +19,7 @@ private:
 	double totalProfit;
 
 public:
-	void help() const override;
+	static void help();
 
 	//System connected
 	void addItem(System& system, const Product newProduct);

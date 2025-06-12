@@ -1,7 +1,7 @@
 #include "Seller.h"
 #include "System.h"
 
-void Seller::help() const
+void Seller::help()
 {
 	cout << "Business Commands: " << endl;
 	cout << " 1) add-item" << endl;

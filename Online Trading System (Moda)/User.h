@@ -27,7 +27,7 @@ public:
 	virtual ~User() = default;
 
 	void logout() const;
-	virtual void help() const = 0;
+	//virtual void help() const = 0;
 	void viewProfile() const;
 };
 

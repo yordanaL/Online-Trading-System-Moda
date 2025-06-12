@@ -32,7 +32,7 @@ void Buyer::checkBoughtProductsQuantity(System& system)
 	}
 }
 
-void Buyer::help() const
+void Buyer::help()
 {
 	cout << "Client Commands: " << endl;
 	cout << " 1) check-balance" << endl;
