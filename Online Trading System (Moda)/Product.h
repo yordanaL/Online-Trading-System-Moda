@@ -39,5 +39,8 @@ public:
 
 	void displayProduct() const;
 	void printProductDetails() const;
+
+	void save(ofstream& file);
+	void load(ifstream& file);
 };
 

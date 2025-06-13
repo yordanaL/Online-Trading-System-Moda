@@ -46,5 +46,8 @@ public:
 	void rejectRefund(System& system, int orderIndex, const String& rejectionReason);
 
 	void viewRevenue() const;
+
+	void save(ofstream& file);
+	void load(ifstream& file);
 };
 

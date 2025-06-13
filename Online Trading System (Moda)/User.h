@@ -21,13 +21,11 @@ public:
 	const String& getEGN() const;
 	const String& getPassword() const;
 
-	void saveToFile(ofstream& ofs) const;
-	void readFromFile(ifstream& ifs);
-
 	virtual ~User() = default;
 
-	void logout() const;
-	//virtual void help() const = 0;
 	void viewProfile() const;
+
+	void save(ofstream& file);
+	void load(ifstream& file);
 };
 

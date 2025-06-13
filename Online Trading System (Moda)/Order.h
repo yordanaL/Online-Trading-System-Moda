@@ -41,5 +41,8 @@ public:
 
 	void cleanOrder();
 	void createNewOrder();
+
+	void save(ofstream& file);
+	void load(ifstream& file);
 };
 

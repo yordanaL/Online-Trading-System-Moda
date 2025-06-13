@@ -2,5 +2,5 @@
 
 void SaveCommand::execute(System* system)
 {
-	system->save(*system);
+	system->save();
 }

@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <fstream>
+using namespace std;
 
 template <typename K, typename V>
 class Pair {
@@ -18,6 +20,9 @@ public:
 
     void increaseValue(int addValue);
     void decreaseValue(int removeValue);
+
+    void save(ofstream& file);
+    void load(ifstream& file);
 
 private:
     K key;
@@ -68,4 +73,49 @@ inline void Pair<K, V>::decreaseValue(int removeValue)
     this->value -= removeValue;
     if (this->value < DEFAULT_VALUE)
         this->value = DEFAULT_VALUE;
+}
+
+template<typename K, typename V>
+inline void Pair<K, V>::save(ofstream& file)
+{
+    if (!file.is_open()) {
+        cout << "Failed to open file!" << endl;
+        return;
+    }
+
+    file << this->key << endl;
+    file << this->value << endl;
+
+    /*if (!file.is_open()) {
+        cout << "Failed to open file!" << endl;
+        return;
+    }
+
+    file.write((const char*)&this->currentSize, sizeof(this->currentSize));
+    file.write((const char*)&this->currentCapacity, sizeof(this->currentCapacity));
+
+    for (size_t i = 0; i < this->currentSize; i++) {
+        this->data[i].save(file);
+    }*/
+}
+
+template<typename K, typename V>
+inline void Pair<K, V>::load(ifstream& file)
+{
+    if (!file.is_open()) {
+        cout << "Failed to open file!" << endl;
+        return;
+    }
+
+    file >> this->key;
+    file >> this->value;
+
+    /*if (!file.is_open()) {
+        cout << "Failed to open file!" << endl;
+        return;
+    }
+
+    file.read(char*))&this->key, sizeof(this->key));
+    file.read((char*)&this->value, sizeof(this->value));*/
+
 }

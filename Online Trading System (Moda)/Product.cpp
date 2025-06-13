@@ -107,3 +107,45 @@ void Product::printProductDetails() const
 		<< "Rating: " << this->rating << " stars" << endl
 		<< "Description: " << this->description << endl;
 }
+
+void Product::save(ofstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	file << this->ID << endl;
+	this->name.save(file);
+	file << this->price << endl;
+	file << this->quantity << endl;
+	this->description.save(file);
+	file << this->rating << endl;
+	file << this->availability;
+	file << this->initialStock << endl;
+
+	this->allRatings.save(file);
+
+	file << this->IDGenerator << endl;
+}
+
+void Product::load(ifstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	file >> this->ID;
+	this->name.load(file);
+	file >> this->price;
+	file >> this->quantity;
+	this->description.load(file);
+	file >> this->rating;
+	file >> this->availability;
+	file >> this->initialStock;
+
+	this->allRatings.load(file);
+
+	file >> this->IDGenerator;
+}

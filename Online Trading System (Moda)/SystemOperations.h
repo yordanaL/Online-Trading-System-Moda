@@ -34,8 +34,5 @@ public:
 	Seller* getSeller(System& system);
 	const int getSellerIndex(const System& system) const;
 	Buyer* getBuyer(System& system);
-
-	void save(const System& system);
-	void load(System& system);
 };
 

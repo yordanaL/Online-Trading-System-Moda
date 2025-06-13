@@ -1,4 +1,5 @@
 #pragma once
+#include <fstream>
 #include "Constants.h"
 #include "String.h"
 
@@ -16,5 +17,7 @@ public:
 	const String& getCode() const;
 	const int getBuyerIndex() const;
 
+	void save(ofstream& file);
+	void load(ifstream& file);
 };
 

@@ -435,3 +435,61 @@ void Buyer::receiveRefundRejection(const RejectedOrder& newRejectedRefund)
 {
 	this->rejectedRefunds.pushBack(newRejectedRefund);
 }
+
+void Buyer::save(ofstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	User::save(file);
+
+	this->cart.save(file);
+	file << this->balance << endl;
+	file << this->loyaltyPoints << endl;
+
+	this->shippedOrders.save(file);
+	this->deliveredOrders.save(file);
+	this->refOrders.save(file);
+
+	this->rejectedOrders.save(file);
+	this->rejectedRefunds.save(file);
+
+	this->receivedChecks.save(file);
+
+	this->IDsAndQuantityOfPurchasedProducts.save(file);
+
+	file << this->finalisedOrdersCount << endl;
+	file << this->refundedOrdersCount << endl;
+	file << this->totalMoneySpent << endl;
+}
+
+void Buyer::load(ifstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	User::load(file);
+
+	this->cart.load(file);
+	file >> this->balance;
+	file >> this->loyaltyPoints;
+
+	this->shippedOrders.load(file);
+	this->deliveredOrders.load(file);
+	this->refOrders.load(file);
+
+	this->rejectedOrders.load(file);
+	this->rejectedRefunds.load(file);
+
+	this->receivedChecks.load(file);
+
+	this->IDsAndQuantityOfPurchasedProducts.load(file);
+
+	file >> this->finalisedOrdersCount;
+	file >> this->refundedOrdersCount;
+	file >> this->totalMoneySpent;
+}

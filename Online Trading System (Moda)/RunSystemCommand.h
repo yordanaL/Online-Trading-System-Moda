@@ -6,6 +6,7 @@ using namespace std;
 #include "ExitCommand.h"
 #include "LoginCommand.h"
 #include "RegisterCommand.h"
+#include "LoadCommand.h"
 
 class RunSystemCommand : public Command {
 public:

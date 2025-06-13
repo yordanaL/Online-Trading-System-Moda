@@ -56,3 +56,23 @@ void Administrator::help()
 	cout << "5) help" << endl;
 	cout << "6) view-profile" << endl;
 }
+
+void Administrator::save(ofstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	this->sentChecksCodes.save(file);
+}
+
+void Administrator::load(ifstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	this->sentChecksCodes.load(file);
+}

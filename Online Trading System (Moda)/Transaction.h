@@ -12,5 +12,8 @@ public:
 	Transaction(const String& _operation);
 
 	void printTransaction() const;
+
+	void save(ofstream& file);
+	void load(ifstream& file);
 };
 

@@ -2,7 +2,8 @@
 
 void RunSystemCommand::execute(System* system)
 {
-	//system load
+	LoadCommand load;
+	load.execute(system);
 
 	RegisterCommand regist;
 	LoginCommand login;

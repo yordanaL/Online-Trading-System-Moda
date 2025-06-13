@@ -417,7 +417,7 @@
       <Filter>Header Files\Users</Filter>
     </ClInclude>
     <ClInclude Include="ChecksCommand.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

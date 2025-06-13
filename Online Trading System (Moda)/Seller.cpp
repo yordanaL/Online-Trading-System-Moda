@@ -185,3 +185,33 @@ void Seller::viewRevenue() const
 {
 	cout << "Total revenue: " << this->totalProfit << " BGN" << endl;
 }
+
+void Seller::save(ofstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	this->pendingOrders.save(file);
+	this->shippedOrders.save(file);
+	this->deliveredOrders.save(file);
+	this->rejectedOrders.save(file);
+	this->ordersWaitingForRefund.save(file);
+	file << this->totalProfit << endl;
+}
+
+void Seller::load(ifstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	this->pendingOrders.load(file);
+	this->shippedOrders.load(file);
+	this->deliveredOrders.load(file);
+	this->rejectedOrders.load(file);
+	this->ordersWaitingForRefund.load(file);
+	file >> this->totalProfit;
+}

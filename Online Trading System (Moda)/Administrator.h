@@ -19,4 +19,7 @@ public:
 	void viewTransactions(const System& system);
 
 	static void help();
+
+	void save(ofstream& file);
+	void load(ifstream& file);
 };

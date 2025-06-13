@@ -2,5 +2,5 @@
 
 void LoadCommand::execute(System* system)
 {
-	system->load(*system);
+	system->load();
 }

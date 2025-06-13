@@ -12,7 +12,6 @@ class Cart
 {
 private:
 	Vector< Pair<int, int> > products; // productID and quantity
-	//double totalPrice;
 	double priceBeforeDiscount = DEFAULT_VALUE;
 	double priceAfterDiscount = DEFAULT_VALUE;
 	bool discountUsed = false;
@@ -39,5 +38,8 @@ public:
 	void removeDiscount();
 
 	void cleanCart();
+
+	void save(ofstream& file);
+	void load(ifstream& file);
 };
 

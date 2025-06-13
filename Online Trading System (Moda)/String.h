@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <fstream>
+using namespace std;
 #include "Constants.h"
 
 class String
@@ -26,6 +28,9 @@ public:
 
     friend String operator+(const String& lhs, const String& rhs);
     friend std::istream& operator>>(std::istream& is, String& str);
+
+    void save(ofstream& file);
+    void load(ifstream& file);
 
 private:
     explicit String(size_t stringLength);

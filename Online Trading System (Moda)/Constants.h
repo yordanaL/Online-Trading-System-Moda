@@ -28,7 +28,7 @@ constexpr int SHIPPED = 2;
 constexpr int DELIVERED = 3;
 constexpr int REJECTED = 4;
 
-constexpr char EMPTY_STR[] = "";
+constexpr char EMPTY_STR[] = "EMPTY_STR";
 constexpr char REASON_UNKNOWN[] = "REASON UNKNOWN";
 constexpr char BACKUP_FILE[] = "BackupFile.txt";
 

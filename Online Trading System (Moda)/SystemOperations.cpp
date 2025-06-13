@@ -225,11 +225,3 @@ Buyer* SystemOperations::getBuyer(System& system)
 {
 	return system.currentBuyer;
 }
-
-void SystemOperations::save(const System& system)
-{
-}
-
-void SystemOperations::load(System& system)
-{
-}

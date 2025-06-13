@@ -15,6 +15,30 @@ void User::viewProfile() const
 	cout << "EGN: " << this->EGN << endl;
 }
 
+void User::save(ofstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	this->name.save(file);
+	this->EGN.save(file);
+	this->password.save(file);
+}
+
+void User::load(ifstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	this->name.load(file);
+	this->EGN.load(file);
+	this->password.load(file);
+}
+
 void User::setName(const String& _name)
 {
 	this->name = _name;

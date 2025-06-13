@@ -144,3 +144,31 @@ void Cart::cleanCart()
     this->discountUsed = false;
     this->loyaltyPointsUsed = DEFAULT_VALUE;
 }
+
+void Cart::save(ofstream& file)
+{
+    if (!file.is_open()) {
+        cout << "Failed to open file!" << endl;
+        return;
+    }
+
+    this->products.save(file);
+    file << this->priceAfterDiscount << endl;
+    file << this->priceBeforeDiscount << endl;
+    file << this->discountUsed << endl;
+    file << this->loyaltyPointsUsed << endl;
+}
+
+void Cart::load(ifstream& file)
+{
+    if (!file.is_open()) {
+        cout << "Failed to open file!" << endl;
+        return;
+    }
+
+    this->products.load(file);
+    file >> this->priceAfterDiscount;
+    file >> this->priceBeforeDiscount;
+    file >> this->discountUsed;
+    file >> this->loyaltyPointsUsed;
+}

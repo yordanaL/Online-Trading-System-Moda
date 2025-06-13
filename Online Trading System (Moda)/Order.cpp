@@ -89,3 +89,44 @@ void Order::createNewOrder()
 	this->orderNumberGenerator++;
 	this->orderNumber = orderNumberGenerator;
 }
+
+void Order::save(ofstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	this->buyerEGN.save(file);
+	this->buyerName.save(file);
+	this->products.save(file);
+	file << this->totalPrice << endl;
+	file << this->bonusPoints << endl;
+	file << this->status << endl; 
+	file << this->discountUsed << endl;
+	file << this->loyaltyPointsUsed << endl;
+	file << this->orderNumber << endl;
+
+	file << orderNumberGenerator << endl;
+}
+
+void Order::load(ifstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	this->buyerEGN.load(file);
+	this->buyerName.load(file);
+	this->products.load(file);
+	file >> this->totalPrice;
+	file >> this->bonusPoints;
+	file >> this->status;
+	file >> this->discountUsed;
+	file >> this->loyaltyPointsUsed;
+	file >> this->orderNumber;
+
+	file >> orderNumberGenerator;
+}
+

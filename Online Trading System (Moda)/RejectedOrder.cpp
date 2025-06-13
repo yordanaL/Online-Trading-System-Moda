@@ -8,3 +8,23 @@ const String& RejectedOrder::getRejectionReason() const
 {
 	return this->rejectionReason;
 }
+
+void RejectedOrder::save(ofstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	this->rejectionReason.save(file);
+}
+
+void RejectedOrder::load(ifstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	this->rejectionReason.load(file);
+}

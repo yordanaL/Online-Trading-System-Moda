@@ -1,5 +1,5 @@
 #include "String.h"
-#include <cstring>
+//#include <cstring>
 #pragma warning(disable: 4996)
 
 static unsigned roundToPowerOfTwo(unsigned n)
@@ -17,6 +17,42 @@ static unsigned roundToPowerOfTwo(unsigned n)
 static unsigned dataToAllocByStringLen(unsigned stringLength)
 {
     return std::max(roundToPowerOfTwo(stringLength + 1), 16u);
+}
+
+void String::save(ofstream& file)
+{
+    if (!file.is_open()) {
+        cout << "Failed to open file!" << endl;
+        return;
+    }
+
+    file << currentSize << " " << allocatedDataCapacity << endl;
+    file.write(data, currentSize);
+    file << endl;
+}
+
+void String::load(ifstream& file)
+{
+    if (!file.is_open()) {
+        cout << "Failed to open file!" << endl;
+        return;
+    }
+
+    size_t size = DEFAULT_VALUE, capacity = DEFAULT_VALUE;
+    file >> size >> capacity;
+    file.ignore();
+
+    char* buffer = new char[capacity];
+    file.read(buffer, size);
+    buffer[size] = '\0';
+
+    delete[] data;
+
+    this->currentSize = size;
+    this->allocatedDataCapacity = capacity;
+    data = buffer;
+
+    file.ignore(INT_MAX, '\n');
 }
 
 String::String(size_t stringLength)
@@ -56,7 +92,7 @@ void String::moveFrom(String&& other) noexcept {
     other.currentSize = other.allocatedDataCapacity = 0;
 }
 
-String::String() : String("") {}
+String::String() : String(EMPTY_STR) {}
 
 String::String(const char* str)
 {

@@ -1,5 +1,6 @@
 #pragma once 
 #include <iostream>
+#include <fstream>
 using namespace std;
 #include "Constants.h"
 
@@ -42,6 +43,9 @@ public:
 	void pushBack(T&& obj);
 	T popBack();
 	void erase(int index);
+
+	void save(ofstream& file);
+	void load(ifstream& file);
 };
 
 template <typename T>
@@ -229,4 +233,38 @@ void Vector<T>::erase(int index) {
 
 	shiftLeft(index);
 	this->currentSize--;
+}
+
+template<typename T>
+inline void Vector<T>::save(ofstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	file << this->currentSize << endl;
+	file << this->currentCapacity << endl;
+
+	for (size_t i = 0; i < this->currentSize; i++) {
+		this->data[i].save(file);
+	}
+}
+
+template<typename T>
+inline void Vector<T>::load(ifstream& file)
+{
+	if (!file.is_open()) {
+		cout << "Failed to open file!" << endl;
+		return;
+	}
+
+	file >> this->currentSize;
+	file >> this->currentCapacity;
+
+	this->data = new T[this->currentCapacity];
+
+	for (size_t i = 0; i < this->currentSize; i++) {
+		this->data[i].load(file);
+	}
 }

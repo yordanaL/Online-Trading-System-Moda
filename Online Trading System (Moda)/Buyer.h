@@ -86,5 +86,8 @@ public:
 	void requestRefund(System& system);
 	void receiveRefund(System& system, const Order& order);
 	void receiveRefundRejection(const RejectedOrder& newRejectedOrder);
+
+	void save(ofstream& file);
+	void load(ifstream& file);
 };
 

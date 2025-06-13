@@ -17,5 +17,8 @@ public:
 	RejectedOrder(const Order& _order, const String& _rejectionReason = REASON_UNKNOWN);
 
 	const String& getRejectionReason() const;
+
+	void save(ofstream& file);
+	void load(ifstream& file);
 };
 

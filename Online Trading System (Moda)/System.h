@@ -55,5 +55,8 @@ public:
 
 	System(const System&) = delete;
 	System& operator=(const System&) = delete;
+
+	void save();
+	void load();
 };
 
