@@ -7,6 +7,6 @@ void RefundedOrdersCommand::execute(System* system)
 	if (buyer == nullptr)
 		return;
 
-	buyer->refundedOrders();
+	buyer->refundedOrders(*system);
 	buyer = nullptr;
 }

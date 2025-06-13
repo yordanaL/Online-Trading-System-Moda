@@ -15,9 +15,11 @@
 #include "RateCommand.h"
 #include "RequestRefundCommand.h"
 #include "RefundedOrdersCommand.h"
+#include "ChecksCommand.h"
 #include "LogoutCommand.h"
 #include "HelpCommand.h"
 #include "ViewProfileCommand.h"
+#include "Buyer.h"
 
 void RunSystemAsBuyerCommand::execute(System* system)
 {
@@ -37,9 +39,14 @@ void RunSystemAsBuyerCommand::execute(System* system)
 	RateCommand rate;
 	RequestRefundCommand requestRefund;
 	RefundedOrdersCommand refundedOrders;
+	ChecksCommand checks;
 	LogoutCommand logout;
 	HelpCommand help;
 	ViewProfileCommand viewProfile;
+
+	Buyer* buyer = system->getBuyer(*system);
+	buyer->loginInfo(*system);
+	buyer = nullptr;
 
 	while (true) {
 		String command;
@@ -68,7 +75,7 @@ void RunSystemAsBuyerCommand::execute(System* system)
 			clearBuffer();
 			addToCart.execute(system);
 		}
-		else if (command == "remove") {
+		else if (command == "remove-from-cart") {
 			clearBuffer();
 			removeFromCart.execute(system);
 		}
@@ -112,9 +119,14 @@ void RunSystemAsBuyerCommand::execute(System* system)
 			clearBuffer();
 			refundedOrders.execute(system);
 		}
+		else if (command == "checks") {
+			clearBuffer();
+			checks.execute(system);
+		}
 		else if (command == "logout") {
 			clearBuffer();
 			logout.execute(system);
+			break;
 		}
 		else if (command == "help") {
 			clearBuffer();

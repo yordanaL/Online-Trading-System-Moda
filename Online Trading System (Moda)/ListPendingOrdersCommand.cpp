@@ -7,6 +7,6 @@ void ListPendingOrdersCommand::execute(System* system)
 	if (seller == nullptr)
 		return;
 
-	seller->listPendingOrders();
+	seller->listPendingOrders(*system);
 	seller = nullptr;
 }

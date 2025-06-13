@@ -23,6 +23,8 @@ public:
 	void logout(System& system);
 	void signUp(System& system, const String& name, const String& EGN, const String& password, const String& role);
 	bool isEGNValid(const String& EGN) const;
+	bool isEGNUnique(const System& system, const String& EGN) const;
+	bool isNameUnique(const System& system, const String& name) const;
 	void viewProfile(System& system);
 
 	const int getCurrentUserType(System& system) const;

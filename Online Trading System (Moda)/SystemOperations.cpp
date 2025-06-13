@@ -88,7 +88,15 @@ void SystemOperations::signUp(System& system, const String& name, const String& 
 
 	if (isEGNValid(EGN) == false) {
 		cout << "Invalid EGN! Registration failed!" << endl;
-		runSystem.execute(&system);
+		return;
+	}
+	else if (isEGNUnique(system, EGN) == false) {
+		cout << "This EGN is already in use! Registration failed!" << endl;
+		return;
+	}
+	else if (isNameUnique(system, name) == false) {
+		cout << "This name is already in use! Registration failed!" << endl;
+		return;
 	}
 
 
@@ -128,11 +136,13 @@ void SystemOperations::signUp(System& system, const String& name, const String& 
 	}
 	else {
 		cout << "Invalid role!" << endl;
-		runSystem.execute(&system);
+		return;
 	}
 
+	system.allNames.pushBack(name);
+	system.allEGNs.pushBack(EGN);
+
 	cout << "Registration is successful!" << endl;
-	runSystem.execute(&system);
 }
 
 bool SystemOperations::isEGNValid(const String& EGN) const
@@ -142,6 +152,24 @@ bool SystemOperations::isEGNValid(const String& EGN) const
 			return false;
 	}
 
+	return true;
+}
+
+bool SystemOperations::isEGNUnique(const System& system, const String& EGN) const
+{
+	for (size_t i = 0; i < system.allEGNs.size(); i++) {
+		if (system.allEGNs[i] == EGN)
+			return false;
+	}
+	return true;
+}
+
+bool SystemOperations::isNameUnique(const System& system, const String& name) const
+{
+	for (size_t i = 0; i < system.allNames.size(); i++) {
+		if (system.allNames[i] == name)
+			return false;
+	}
 	return true;
 }
 

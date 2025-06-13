@@ -219,6 +219,9 @@
     <ClCompile Include="Transaction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ChecksCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h">
@@ -412,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="Registration.h">
       <Filter>Header Files\Users</Filter>
+    </ClInclude>
+    <ClInclude Include="ChecksCommand.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

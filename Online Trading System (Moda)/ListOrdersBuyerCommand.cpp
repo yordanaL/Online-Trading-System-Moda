@@ -7,6 +7,6 @@ void ListOrdersBuyerCommand::execute(System* system)
 	if (buyer == nullptr)
 		return;
 
-	buyer->listOrders();
+	buyer->listOrders(*system);
 	buyer = nullptr;
 }

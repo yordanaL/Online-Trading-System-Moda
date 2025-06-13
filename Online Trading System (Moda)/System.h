@@ -27,6 +27,9 @@ private:
 	Vector<Product> products;
 	Vector<Transaction> transactions;
 
+	Vector<String> allEGNs;
+	Vector<String> allNames;
+
 	bool adminSignedUp = false;
 	bool sellerSignedUp = false;
 	Vector<Registration> adminsRegistrations;

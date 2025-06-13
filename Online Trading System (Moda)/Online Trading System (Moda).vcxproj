@@ -138,6 +138,7 @@
     <ClCompile Include="Buyer.cpp" />
     <ClCompile Include="CheckBalanceCommand.cpp" />
     <ClCompile Include="CheckoutCommand.cpp" />
+    <ClCompile Include="ChecksCommand.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="ConfirmOrderCommand.cpp" />
     <ClCompile Include="CustomerInsightsCommand.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="Buyer.h" />
     <ClInclude Include="CheckBalanceCommand.h" />
     <ClInclude Include="CheckoutCommand.h" />
+    <ClInclude Include="ChecksCommand.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="ConfirmOrderCommand.h" />
     <ClInclude Include="Constants.h" />

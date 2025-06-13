@@ -15,17 +15,18 @@ void Administrator::sendCheck(System& system, double amount, const String& code,
 
 	for (size_t i = 0; i < this->sentChecksCodes.size(); i++) {
 		if (this->sentChecksCodes[i] == code) {
-			cout << "Code already used! Please use another one!";
+			cout << "Code already used! Please use another one!" << endl;
 			return;
 		}
 	}
 
 	int buyerIndex = system.findIndexOfBuyerByEGN(clientEGN);
-
 	if (buyerIndex == NOT_FOUND) {
 		cout << "A buyer with such EGN does not exist!" << endl;
 		return;
 	}
+
+	this->sentChecksCodes.pushBack(code);
 
 	Check newCheck(amount, code, buyerIndex);
 	system.sendCheck(system, newCheck);

@@ -19,9 +19,11 @@ private:
 	int loyaltyPoints = DEFAULT_VALUE;
 
 	Vector<Order> shippedOrders;
-	Vector<RejectedOrder> rejectedOrders;
 	Vector<Order> deliveredOrders;
 	Vector<Order> refOrders;
+
+	Vector<RejectedOrder> rejectedOrders;
+	Vector<RejectedOrder> rejectedRefunds;
 
 	Vector<Check> receivedChecks;
 
@@ -41,10 +43,11 @@ public:
 	Buyer(const String& _name, const String& _EGN, const String& _password);
 
 	static void help();
-	void loginInfo();
+	void loginInfo(const System& system);
 
 	//finance operations
 	void checkBalance() const;
+	void checks() const;
 	void redeemCheck(const String& code);
 	void receiveCheck(const Check& newCheck);
 	void printInsights() const;
@@ -53,9 +56,9 @@ public:
 	void listProducts(const System& system) const;
 	void viewProduct(const System& system, int productID) const;
 
-	void listOrders() const;
-	void orderHistory() const;
-	void refundedOrders() const;
+	void listOrders(const System& system) const;
+	void orderHistory(const System& system) const;
+	void refundedOrders(const System& system) const;
 
 	//cart and purchases operations
 	bool takeProduct(System& system, int productID, int quantity);
@@ -74,14 +77,14 @@ public:
 	void sendOrder(System& system, Order& newOrder);
 
 	void receiveOrder(Order& newOrder);
-	void receiveRejectedOrder(const RejectedOrder& newRejectedOrder);
+	void receiveRejectedOrder(System& system, const RejectedOrder& newRejectedOrder);
 
 	void confirmOrder(System& system, int index);
-	//void sendConfirmation(System& system, int orderNumber) const;
 	
 	//system connected operations
 	void rate(System& system, int productID, int rating) const;
 	void requestRefund(System& system);
-	void receiveRefund(const Order& order);
+	void receiveRefund(System& system, const Order& order);
+	void receiveRefundRejection(const RejectedOrder& newRejectedOrder);
 };
 

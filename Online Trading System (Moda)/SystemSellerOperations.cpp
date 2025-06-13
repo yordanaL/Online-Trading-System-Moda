@@ -78,7 +78,7 @@ void SystemSellerOperations::sendRejectedOrder(System& system, const RejectedOrd
 		return;
 	}
 
-	system.buyers[buyerIndex].receiveRejectedOrder(newRejectedOrder);
+	system.buyers[buyerIndex].receiveRejectedOrder(system, newRejectedOrder);
 }
 
 void SystemSellerOperations::sendRefund(System& system, const Order& order)
@@ -89,5 +89,17 @@ void SystemSellerOperations::sendRefund(System& system, const Order& order)
 		return;
 	}
 
-	system.buyers[buyerIndex].receiveRefund(order);
+	system.buyers[buyerIndex].receiveRefund(system, order);
+}
+
+void SystemSellerOperations::rejectRefund(System& system, const RejectedOrder& newRejectedRefund)
+{
+	int buyerIndex = system.findIndexOfBuyerByEGN(newRejectedRefund.getBuyerEGN());
+
+	if (buyerIndex == NOT_FOUND) {
+		cout << "Refund cannot be rejected!" << endl;
+		return;
+	}
+
+	system.buyers[buyerIndex].receiveRefundRejection(newRejectedRefund);
 }

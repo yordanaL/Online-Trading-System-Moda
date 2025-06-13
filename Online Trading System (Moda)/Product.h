@@ -15,9 +15,10 @@ private:
 	String description;
 	double rating = DEFAULT_VALUE;
 	bool availability;
+	int initialStock = DEFAULT_VALUE;
 
 	Vector< Pair<String, int> > allRatings;
-	int totalSales;
+	//int totalSales;
 
 	static int IDGenerator;
 

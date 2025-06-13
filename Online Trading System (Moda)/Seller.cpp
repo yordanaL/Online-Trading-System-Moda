@@ -92,39 +92,39 @@ void Seller::receiveConfirmation(int orderNumber)
 	}
 }
 
-void Seller::listOrders() const
+void Seller::listOrders(const System& system) const
 {
 	int index = DEFAULT_VALUE;
 	for (size_t i = 0; i < this->pendingOrders.size(); i++) {
 		index++;
 		cout << index << ". " << this->pendingOrders[i].getBuyerName() << " ";
-		this->pendingOrders[i].printOrder();
+		this->pendingOrders[i].printOrder(system);
 		cout << index << " - Pending" << endl;
 	}
 
 	for (size_t i = 0; i < this->shippedOrders.size(); i++) {
 		index++;
 		cout << index << ". ";
-		this->shippedOrders[i].printOrder();
+		this->shippedOrders[i].printOrder(system);
 		cout << index << " - Shipped" << endl;
 	}
 
 	for (size_t i = 0; i < this->deliveredOrders.size(); i++) {
 		index++;
 		cout << index << ". ";
-		this->deliveredOrders[i].printOrder();
+		this->deliveredOrders[i].printOrder(system);
 		cout << index << " - Delivered" << endl;
 	}
 
 	for (size_t i = 0; i < this->rejectedOrders.size(); i++) {
 		index++;
 		cout << index << ". ";
-		this->rejectedOrders[i].printOrder();
+		this->rejectedOrders[i].printOrder(system);
 		cout << index << " - Rejected" << endl;
 	}
 }
 
-void Seller::listPendingOrders() const
+void Seller::listPendingOrders(const System& system) const
 {
 	if (this->pendingOrders.empty()) {
 		cout << "No orders yet!" << endl;
@@ -134,8 +134,10 @@ void Seller::listPendingOrders() const
 	for (size_t i = 0; i < pendingOrders.size(); i++) {
 		if (pendingOrders[i].getOrderStatus() == PENDING) {
 			cout << (i + INDEX_FIX) << ". ";
-			pendingOrders[i].printOrder();
-			cout << endl;
+			pendingOrders[i].printOrder(system);
+
+			if (i != pendingOrders.size() - INDEX_FIX)
+				cout << endl;
 		}
 	}
 }
@@ -145,11 +147,11 @@ void Seller::receiveRefundRequest(const Order& order)
 	this->ordersWaitingForRefund.pushBack(order);
 }
 
-void Seller::listRefunds() const
+void Seller::listRefunds(const System& system) const
 {
 	for (size_t i = 0; i < ordersWaitingForRefund.size(); i++) {
 		cout << (i + INDEX_FIX) << ". ";
-		ordersWaitingForRefund[i].printOrder();
+		ordersWaitingForRefund[i].printOrder(system);
 		cout << endl;
 	}
 }
@@ -167,6 +169,16 @@ void Seller::approveRefund(System& system, int orderIndex)
 
 void Seller::rejectRefund(System& system, int orderIndex, const String& rejectionReason)
 {
+	if (orderIndex <= DEFAULT_VALUE || orderIndex > this->ordersWaitingForRefund.size()) {
+		cout << "Invalid order index!" << endl;
+		return;
+	}
+
+	RejectedOrder newRejectedRefund(this->ordersWaitingForRefund[orderIndex - INDEX_FIX], rejectionReason);
+
+	system.rejectRefund(system, newRejectedRefund);
+	this->ordersWaitingForRefund.erase(orderIndex);
+	cout << "Refund #" << orderIndex << " rejected with reason: " << rejectionReason << endl;
 }
 
 void Seller::viewRevenue() const

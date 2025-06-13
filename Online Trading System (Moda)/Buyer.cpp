@@ -66,26 +66,39 @@ void Buyer::help()
 	cout << "14) rate" << endl;
 	cout << "15) request-refund" << endl;
 	cout << "16) refunded-orders" << endl;
-	cout << "17) logout" << endl;
-	cout << "18) help" << endl;
-	cout << "19) view-profile" << endl;
+	cout << "17) checks" << endl;
+	cout << "18) logout" << endl;
+	cout << "19) help" << endl;
+	cout << "20) view-profile" << endl;
 }
 
-void Buyer::loginInfo()
+void Buyer::loginInfo(const System& system)
 {
 	if (this->rejectedOrders.size() > DEFAULT_VALUE) {
 		cout << "You have a rejected order/s: " << endl;
 
 		for (size_t i = 0; i < this->rejectedOrders.size(); i++)	{
 			cout << "Order #" << this->rejectedOrders[i].getOrderNumber() << " - ";
-			this->rejectedOrders[i].printOrder();
-			cout << "Reason: " << this->rejectedOrders[i].getRejectionReason() << endl;
+			this->rejectedOrders[i].printOrder(system);
+			cout << " ";
+			cout << " | Reason: " << this->rejectedOrders[i].getRejectionReason() << endl;
 
 			this->balance += this->rejectedOrders[i].getTotalPrice();
 			this->loyaltyPoints += this->rejectedOrders[i].getLoyaltyPointsUsed();
 		}
 	}
+	this->rejectedOrders.clear();
 
+	if (this->rejectedRefunds.size() > DEFAULT_VALUE) {
+		cout << "You have a rejected refund/s: " << endl;
+
+		for (size_t i = 0; i < this->rejectedOrders.size(); i++) {
+			cout << "Order #" << this->rejectedOrders[i].getOrderNumber() << " - ";
+			this->rejectedOrders[i].printOrder(system); 
+			cout << " ";
+			cout << " | Reason: " << this->rejectedOrders[i].getRejectionReason() << endl;
+		}
+	}
 	this->rejectedOrders.clear();
 }
 
@@ -93,6 +106,24 @@ void Buyer::checkBalance() const
 {
 	cout << "Current balance: " << this->balance << endl;
 	cout << "Loyalty points: " << this->loyaltyPoints << endl;
+}
+
+void Buyer::checks() const
+{
+	if (this->receivedChecks.size() == DEFAULT_VALUE) {
+		cout << "You have not received any checks yet!" << endl;
+		return;
+	}
+
+	for (size_t i = 0; i < this->receivedChecks.size(); i++) {
+		cout << (i + INDEX_FIX) << ". ";
+		cout << this->receivedChecks[i].getCode();
+
+		if (this->receivedChecks.size() == INDEX_FIX)
+			newLine();
+		else if (i != this->receivedChecks.size() - INDEX_FIX)
+			newLine();
+	}
 }
 
 void Buyer::redeemCheck(const String& code)
@@ -105,7 +136,7 @@ void Buyer::redeemCheck(const String& code)
 	}
 
 	this->balance += this->receivedChecks[checkIndex].getAmount();
-	cout << "Successfully redeemed check. " << this->receivedChecks[checkIndex].getAmount() << " BGN added to your balance!";
+	cout << "Successfully redeemed check. " << this->receivedChecks[checkIndex].getAmount() << " BGN added to your balance!" << endl;
 
 	this->receivedChecks.erase(checkIndex);
 }
@@ -238,11 +269,17 @@ void Buyer::removeDiscount()
 
 void Buyer::checkout(System& system)
 {
+	if (this->balance < this->cart.getPriceAfterDiscount()) {
+		cout << "You do not have enough balance to make this order!" << endl;
+		return;
+	}
+
 	if (this->cart.isCartEmpty() == true) {
 		cout << "Your cart is empty! Order cannot be placed!" << endl;
 		return;
 	}
 
+	this->balance -= this->cart.getPriceAfterDiscount();
 	Order newOrder(this->cart, this->EGN, this->name);
 	sendOrder(system, newOrder);
 	cout << "Order placed successfully. Awaiting approval from seller!" << endl;
@@ -260,8 +297,12 @@ void Buyer::receiveOrder(Order& newOrder)
 	this->shippedOrders.pushBack(newOrder);
 }
 
-void Buyer::receiveRejectedOrder(const RejectedOrder& newRejectedOrder)
+void Buyer::receiveRejectedOrder(System& system, const RejectedOrder& newRejectedOrder)
 {
+	for (size_t i = 0; i < newRejectedOrder.getProductsCount(); i++) {
+		returnProduct(system, newRejectedOrder.products[i].getKey(), newRejectedOrder.products[i].getValue());
+	}
+
 	this->rejectedOrders.pushBack(newRejectedOrder);
 }
 
@@ -276,8 +317,8 @@ void Buyer::confirmOrder(System& system, int index)
 	this->deliveredOrders.pushBack(this->shippedOrders[index - 1]);
 	system.sendConfirmation(system, this->shippedOrders[index - 1].getOrderNumber());
 
-	cout << "Order confirmed as delivered. You received " << this->shippedOrders[index - 1].getTotalPrice() * LOYALTY_POINTS_INDEX
-		<< " (5% of " << this->shippedOrders[index - 1].getTotalPrice() << " BGN)";
+	cout << "Order confirmed as delivered. You received " << (int)this->shippedOrders[index - 1].getBonusPoints()
+		<< " loyalty points (5% of " << this->shippedOrders[index - 1].getTotalPrice() << " BGN)" << endl;
 
 	this->loyaltyPoints += (int)this->shippedOrders[index - 1].getTotalPrice() * LOYALTY_POINTS_INDEX;
 	this->finalisedOrdersCount++;
@@ -290,7 +331,7 @@ void Buyer::confirmOrder(System& system, int index)
 	system.addTransaction(system, newTransaction);
 }
 
-void Buyer::listOrders() const
+void Buyer::listOrders(const System& system) const
 {
 	if (this->shippedOrders.size() == DEFAULT_VALUE) {
 		cout << "No received orders yet!" << endl;
@@ -298,11 +339,16 @@ void Buyer::listOrders() const
 	}
 
 	for (size_t i = 0; i < this->shippedOrders.size(); i++) {
-		this->shippedOrders[i].printOrder();
+		this->shippedOrders[i].printOrder(system);
+
+		if (this->shippedOrders.size() == INDEX_FIX)
+			newLine();
+		else if (i != this->shippedOrders.size() - INDEX_FIX)
+			newLine();
 	}
 }
 
-void Buyer::orderHistory() const
+void Buyer::orderHistory(const System& system) const
 {
 	if (this->deliveredOrders.size() == DEFAULT_VALUE) {
 		cout << "No orders yet!" << endl;
@@ -310,11 +356,16 @@ void Buyer::orderHistory() const
 	}
 
 	for (size_t i = 0; i < this->deliveredOrders.size(); i++) {
-		this->deliveredOrders[i].printOrder();
+		this->deliveredOrders[i].printOrder(system);
+
+		if (this->deliveredOrders.size() == INDEX_FIX)
+			newLine();
+		else if (i != this->deliveredOrders.size() - INDEX_FIX)
+			newLine();
 	}
 }
 
-void Buyer::refundedOrders() const
+void Buyer::refundedOrders(const System& system) const
 {
 	if (this->refOrders.size() == DEFAULT_VALUE) {
 		cout << "No orders yet!" << endl;
@@ -322,7 +373,12 @@ void Buyer::refundedOrders() const
 	}
 
 	for (size_t i = 0; i < this->refOrders.size(); i++) {
-		this->refOrders[i].printOrder();
+		this->refOrders[i].printOrder(system);
+
+		if (this->refOrders.size() == INDEX_FIX)
+			newLine();
+		else if (i != this->refOrders.size() - INDEX_FIX)
+			newLine();
 	}
 }
 
@@ -355,7 +411,7 @@ void Buyer::requestRefund(System& system)
 	system.requestRefund(system, this->deliveredOrders[this->deliveredOrders.size()]);
 }
 
-void Buyer::receiveRefund(const Order& order)
+void Buyer::receiveRefund(System& system, const Order& order)
 {
 	int orderIndex = NOT_FOUND;
 	for (int i = 0; i < this->deliveredOrders.size(); i++) {
@@ -368,5 +424,14 @@ void Buyer::receiveRefund(const Order& order)
 		return;
 	}
 
+	for (size_t i = 0; i < order.getProductsCount(); i++) {
+		returnProduct(system, order.products[i].getKey(), order.products[i].getValue());
+	}
+
 	this->deliveredOrders.erase(orderIndex);
+}
+
+void Buyer::receiveRefundRejection(const RejectedOrder& newRejectedRefund)
+{
+	this->rejectedRefunds.pushBack(newRejectedRefund);
 }

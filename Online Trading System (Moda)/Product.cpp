@@ -18,7 +18,7 @@ const double Product::getProductPrice() const
 }
 
 Product::Product(const String& _name, double _price, int _quantity, const String& _description)
-	: name(_name), price(_price), quantity(_quantity), description(_description)
+	: name(_name), price(_price), quantity(_quantity), description(_description), initialStock(quantity)
 {
 	if (_quantity > DEFAULT_VALUE)
 		this->availability = true;
@@ -31,7 +31,7 @@ Product::Product(const String& _name, double _price, int _quantity, const String
 
 const int Product::getTotalSales() const
 {
-	return this->totalSales;
+	return this->initialStock - this->quantity;
 }
 
 const int Product::getQuantity() const

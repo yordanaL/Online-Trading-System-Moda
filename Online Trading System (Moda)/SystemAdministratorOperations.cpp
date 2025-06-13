@@ -33,7 +33,11 @@ void SystemAdministratorOperations::viewTransactions(const System& system) const
 	for (size_t i = 0; i < system.transactions.size(); i++) {
 		cout << (i + INDEX_FIX) << ". ";
 		system.transactions[i].printTransaction();
-		cout << endl;
+		
+		if (system.transactions.size() == INDEX_FIX)
+			newLine();
+		else if (i != system.transactions.size() - INDEX_FIX)
+			newLine();
 	}
 
 }

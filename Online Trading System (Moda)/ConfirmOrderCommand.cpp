@@ -6,8 +6,6 @@ void ConfirmOrderCommand::execute(System* system)
 	if (buyer == nullptr)
 		return;
 
-	cout << endl;
-
 	int orderIndex = NOT_FOUND;
 	cout << "Order index: ";
 	cin >> orderIndex;

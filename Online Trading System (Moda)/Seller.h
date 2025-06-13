@@ -37,11 +37,11 @@ public:
 	void receiveConfirmation(int orderNumber);
 
 	//Not system connected
-	void listOrders() const;
-	void listPendingOrders() const;
+	void listOrders(const System& system) const;
+	void listPendingOrders(const System& system) const;
 
 	void receiveRefundRequest(const Order& order);
-	void listRefunds() const;
+	void listRefunds(const System& system) const;
 	void approveRefund(System& system, int orderIndex);
 	void rejectRefund(System& system, int orderIndex, const String& rejectionReason);
 

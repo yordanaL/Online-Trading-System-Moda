@@ -19,9 +19,11 @@ class OrderHistoryCommand;
 class RateCommand;
 class RequestRefundCommand;
 class RefundedOrdersCommand;
+class ChecksCommand;
 class LogoutCommand;
 class HelpCommand;
 class ViewProfileCommand;
+class Buyer;
 
 class RunSystemAsBuyerCommand : public Command {
 public:

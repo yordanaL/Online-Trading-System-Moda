@@ -7,6 +7,6 @@ void ListRefundsCommand::execute(System* system)
 	if (seller == nullptr)
 		return;
 
-	seller->listRefunds();
+	seller->listRefunds(*system);
 	seller = nullptr;
 }

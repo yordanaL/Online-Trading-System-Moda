@@ -7,8 +7,6 @@ void RejectRefundCommand::execute(System* system)
 	if (seller == nullptr)
 		return;
 
-	cout << endl;
-
 	int orderIndex = NOT_FOUND;
 	cout << "Order index: ";
 	cin >> orderIndex;

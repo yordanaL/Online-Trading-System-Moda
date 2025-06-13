@@ -22,5 +22,6 @@ public:
 	void sendRejectedOrder(System& system, const RejectedOrder& newRejectedOrder);
 
 	void sendRefund(System& system, const Order& order);
+	void rejectRefund(System& system, const RejectedOrder& newRejectedRefund);
 };
 

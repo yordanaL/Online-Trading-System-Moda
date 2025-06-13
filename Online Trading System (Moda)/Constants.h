@@ -12,7 +12,7 @@ constexpr int BUFF_SIZE = 1024;
 constexpr bool SUCCESSFUL = true;
 constexpr bool UNSUCCESSFUL = false;
 
-constexpr int LOYALTY_POINTS_INDEX = 5;
+constexpr double LOYALTY_POINTS_INDEX = 0.05;
 constexpr double DISCOUNT_INDEX = 0.01;
 
 constexpr int USER = 0;
@@ -29,5 +29,7 @@ constexpr int DELIVERED = 3;
 constexpr int REJECTED = 4;
 
 constexpr char EMPTY_STR[] = "";
+constexpr char REASON_UNKNOWN[] = "REASON UNKNOWN";
+constexpr char BACKUP_FILE[] = "BackupFile.txt";
 
 constexpr int FIX = 10;

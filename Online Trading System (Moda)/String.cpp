@@ -154,7 +154,7 @@ std::istream& operator>>(std::istream& is, String& str)
     is >> buff;
     size_t buffLength = strlen(buff);
 
-    if (buffLength > str.allocatedDataCapacity) {
+    if (buffLength >= str.allocatedDataCapacity) {
         str.resize(dataToAllocByStringLen(buffLength));
     }
 

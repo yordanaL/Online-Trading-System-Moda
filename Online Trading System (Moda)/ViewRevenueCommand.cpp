@@ -7,7 +7,6 @@ void ViewRevenueCommand::execute(System* system)
 	if (seller == nullptr)
 		return;
 
-	cout << endl;
 	seller->viewRevenue();
 	seller = nullptr;
 }
