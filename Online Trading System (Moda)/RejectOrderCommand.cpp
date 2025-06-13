@@ -12,9 +12,10 @@ void RejectOrderCommand::execute(System* system)
 	cin >> orderIndex;
 	if (checkInput() == UNSUCCESSFUL)
 		return;
-	clearBuffer();
+	cin.ignore(INT_MAX, '\n');
 
 	char rejectionReason[BUFF_SIZE]{'\0'};
+	cout << "Rejection reason: ";
 	cin.getline(rejectionReason, BUFF_SIZE);
 	if (checkInput() == UNSUCCESSFUL)
 		return;

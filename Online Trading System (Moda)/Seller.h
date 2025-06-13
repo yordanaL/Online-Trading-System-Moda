@@ -19,6 +19,7 @@ private:
 
 	double totalProfit;
 
+	int findOrderByOrderNumber(int orderNumber);
 public:
 	Seller() = default;
 	Seller(const String& _name, const String& _EGN, const String& _password);

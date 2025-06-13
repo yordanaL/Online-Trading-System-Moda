@@ -12,7 +12,7 @@ void RejectRefundCommand::execute(System* system)
 	cin >> orderIndex;
 	if (checkInput() == UNSUCCESSFUL)
 		return;
-	clearBuffer();
+	cin.ignore(INT_MAX, '\n');
 
 	char rejectionReason[BUFF_SIZE]{ '\0' };
 	cout << "Rejection reason: ";

@@ -34,6 +34,7 @@ public:
 	const int getLoyaltyPointsUsed() const;
 	const int getBonusPoints() const;
 	const int getProductsCount() const;
+	const bool getDiscountUsed() const;
 
 	void updateStatus(int newStatus);
 

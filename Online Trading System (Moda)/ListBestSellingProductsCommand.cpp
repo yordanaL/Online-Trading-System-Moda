@@ -7,7 +7,6 @@ void ListBestSellingProductsCommand::execute(System* system)
 	if (seller == nullptr)
 		return;
 
-	cout << endl;
 	seller->listBestSellingProducts(*system);
 	seller = nullptr;
 }

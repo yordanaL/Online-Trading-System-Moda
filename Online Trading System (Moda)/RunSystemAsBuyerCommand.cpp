@@ -16,6 +16,7 @@
 #include "RequestRefundCommand.h"
 #include "RefundedOrdersCommand.h"
 #include "ChecksCommand.h"
+#include "ListShippedOrdersCommand.h"
 #include "LogoutCommand.h"
 #include "HelpCommand.h"
 #include "ViewProfileCommand.h"
@@ -40,6 +41,7 @@ void RunSystemAsBuyerCommand::execute(System* system)
 	RequestRefundCommand requestRefund;
 	RefundedOrdersCommand refundedOrders;
 	ChecksCommand checks;
+	ListShippedOrdersCommand listShippedOrders;
 	LogoutCommand logout;
 	HelpCommand help;
 	ViewProfileCommand viewProfile;
@@ -122,6 +124,10 @@ void RunSystemAsBuyerCommand::execute(System* system)
 		else if (command == "checks") {
 			clearBuffer();
 			checks.execute(system);
+		}
+		else if (command == "list-shipped-orders") {
+			clearBuffer();
+			listShippedOrders.execute(system);
 		}
 		else if (command == "logout") {
 			clearBuffer();

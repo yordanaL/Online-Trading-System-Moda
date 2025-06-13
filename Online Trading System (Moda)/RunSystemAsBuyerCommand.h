@@ -20,6 +20,7 @@ class RateCommand;
 class RequestRefundCommand;
 class RefundedOrdersCommand;
 class ChecksCommand;
+class ListShippedOrdersCommand;
 class LogoutCommand;
 class HelpCommand;
 class ViewProfileCommand;

@@ -121,7 +121,7 @@ void Product::save(ofstream& file)
 	file << this->quantity << endl;
 	this->description.save(file);
 	file << this->rating << endl;
-	file << this->availability;
+	file << this->availability << endl;
 	file << this->initialStock << endl;
 
 	this->allRatings.save(file);

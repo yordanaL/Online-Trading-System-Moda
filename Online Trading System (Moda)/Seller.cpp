@@ -1,6 +1,16 @@
 #include "Seller.h"
 #include "System.h"
 
+int Seller::findOrderByOrderNumber(int orderNumber)
+{
+	for (size_t i = 0; i < this->deliveredOrders.size(); i++) {
+		if (this->deliveredOrders[i].getOrderNumber() == orderNumber)
+			return i;
+	}
+
+	return NOT_FOUND;
+}
+
 Seller::Seller(const String& _name, const String& _EGN, const String& _password) :User(_name, _EGN, _password)
 {
 }
@@ -152,7 +162,9 @@ void Seller::listRefunds(const System& system) const
 	for (size_t i = 0; i < ordersWaitingForRefund.size(); i++) {
 		cout << (i + INDEX_FIX) << ". ";
 		ordersWaitingForRefund[i].printOrder(system);
-		cout << endl;
+
+		if (i != ordersWaitingForRefund.size() - INDEX_FIX)
+			newLine();
 	}
 }
 
@@ -163,6 +175,17 @@ void Seller::approveRefund(System& system, int orderIndex)
 		return;
 	}
 
+	int localOrderIndex = findOrderByOrderNumber(this->ordersWaitingForRefund[orderIndex - INDEX_FIX].getOrderNumber());
+	if (localOrderIndex == NOT_FOUND) {
+		cout << "You have not received such order! You cannot refund!" << endl;
+		return;
+	}
+	else {
+		this->deliveredOrders.erase(localOrderIndex);
+	}
+
+	this->totalProfit -= this->ordersWaitingForRefund[orderIndex - INDEX_FIX].getTotalPrice();
+	cout << "Refund is approved successfully!" << endl;
 	system.sendRefund(system, this->ordersWaitingForRefund[orderIndex - INDEX_FIX]);
 	this->ordersWaitingForRefund.erase(orderIndex - INDEX_FIX);
 }

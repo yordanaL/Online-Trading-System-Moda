@@ -57,6 +57,11 @@ const int Order::getProductsCount() const
 	return this->products.size();
 }
 
+const bool Order::getDiscountUsed() const
+{
+	return this->discountUsed;
+}
+
 void Order::updateStatus(int newStatus)
 {
 	this->status = newStatus;

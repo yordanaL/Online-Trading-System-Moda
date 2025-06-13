@@ -59,6 +59,7 @@ public:
 	void listOrders(const System& system) const;
 	void orderHistory(const System& system) const;
 	void refundedOrders(const System& system) const;
+	void listShippedOrders(const System& system) const;
 
 	//cart and purchases operations
 	bool takeProduct(System& system, int productID, int quantity);

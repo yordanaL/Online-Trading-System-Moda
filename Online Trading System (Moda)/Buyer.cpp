@@ -67,9 +67,10 @@ void Buyer::help()
 	cout << "15) request-refund" << endl;
 	cout << "16) refunded-orders" << endl;
 	cout << "17) checks" << endl;
-	cout << "18) logout" << endl;
-	cout << "19) help" << endl;
-	cout << "20) view-profile" << endl;
+	cout << "18) list-shipped-orders" << endl;
+	cout << "19) logout" << endl;
+	cout << "20) help" << endl;
+	cout << "21) view-profile" << endl;
 }
 
 void Buyer::loginInfo(const System& system)
@@ -104,7 +105,7 @@ void Buyer::loginInfo(const System& system)
 
 void Buyer::checkBalance() const
 {
-	cout << "Current balance: " << this->balance << endl;
+	cout << "Current balance: " << this->balance << " BGN" << endl;
 	cout << "Loyalty points: " << this->loyaltyPoints << endl;
 }
 
@@ -118,11 +119,7 @@ void Buyer::checks() const
 	for (size_t i = 0; i < this->receivedChecks.size(); i++) {
 		cout << (i + INDEX_FIX) << ". ";
 		cout << this->receivedChecks[i].getCode();
-
-		if (this->receivedChecks.size() == INDEX_FIX)
-			newLine();
-		else if (i != this->receivedChecks.size() - INDEX_FIX)
-			newLine();
+		newLine();
 	}
 }
 
@@ -153,7 +150,7 @@ void Buyer::printInsights() const
 	if (this->refundedOrdersCount > DEFAULT_VALUE)
 		cout << "(" << this->refundedOrdersCount << " refunded orders)" << endl;
 	else
-		cout << endl;
+		newLine();
 }
 
 void Buyer::listProducts(const System& system) const
@@ -340,11 +337,7 @@ void Buyer::listOrders(const System& system) const
 
 	for (size_t i = 0; i < this->shippedOrders.size(); i++) {
 		this->shippedOrders[i].printOrder(system);
-
-		if (this->shippedOrders.size() == INDEX_FIX)
-			newLine();
-		else if (i != this->shippedOrders.size() - INDEX_FIX)
-			newLine();
+		newLine();
 	}
 }
 
@@ -357,11 +350,7 @@ void Buyer::orderHistory(const System& system) const
 
 	for (size_t i = 0; i < this->deliveredOrders.size(); i++) {
 		this->deliveredOrders[i].printOrder(system);
-
-		if (this->deliveredOrders.size() == INDEX_FIX)
-			newLine();
-		else if (i != this->deliveredOrders.size() - INDEX_FIX)
-			newLine();
+		newLine();
 	}
 }
 
@@ -374,11 +363,20 @@ void Buyer::refundedOrders(const System& system) const
 
 	for (size_t i = 0; i < this->refOrders.size(); i++) {
 		this->refOrders[i].printOrder(system);
+		newLine();
+	}
+}
 
-		if (this->refOrders.size() == INDEX_FIX)
-			newLine();
-		else if (i != this->refOrders.size() - INDEX_FIX)
-			newLine();
+void Buyer::listShippedOrders(const System& system) const
+{
+	if (this->refOrders.size() == DEFAULT_VALUE) {
+		cout << "No orders yet!" << endl;
+		return;
+	}
+
+	for (size_t i = 0; i < this->shippedOrders.size(); i++) {
+		this->shippedOrders[i].printOrder(system);
+		newLine();
 	}
 }
 
@@ -408,7 +406,11 @@ void Buyer::requestRefund(System& system)
 		return;
 	}
 
-	system.requestRefund(system, this->deliveredOrders[this->deliveredOrders.size()]);
+	if (this->deliveredOrders[this->deliveredOrders.size() - INDEX_FIX].getDiscountUsed() == true)
+		this->loyaltyPoints = DEFAULT_VALUE;
+
+	cout << "Request refund is sent! Waiting for approval from business!" << endl;
+	system.requestRefund(system, this->deliveredOrders[this->deliveredOrders.size() - INDEX_FIX]);
 }
 
 void Buyer::receiveRefund(System& system, const Order& order)
@@ -428,6 +430,8 @@ void Buyer::receiveRefund(System& system, const Order& order)
 		returnProduct(system, order.products[i].getKey(), order.products[i].getValue());
 	}
 
+	this->balance += order.getTotalPrice();
+	this->loyaltyPoints += order.getLoyaltyPointsUsed();
 	this->deliveredOrders.erase(orderIndex);
 }
 

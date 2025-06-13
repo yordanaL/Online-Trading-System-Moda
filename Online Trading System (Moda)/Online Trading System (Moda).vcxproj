@@ -151,6 +151,7 @@
     <ClCompile Include="ListPendingOrdersCommand.cpp" />
     <ClCompile Include="ListProductsCommand.cpp" />
     <ClCompile Include="ListRefundsCommand.cpp" />
+    <ClCompile Include="ListShippedOrdersCommand.cpp" />
     <ClCompile Include="LoadCommand.cpp" />
     <ClCompile Include="LoginCommand.cpp" />
     <ClCompile Include="LogoutCommand.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="ListPendingOrdersCommand.h" />
     <ClInclude Include="ListProductsCommand.h" />
     <ClInclude Include="ListRefundsCommand.h" />
+    <ClInclude Include="ListShippedOrdersCommand.h" />
     <ClInclude Include="LoadCommand.h" />
     <ClInclude Include="LoginCommand.h" />
     <ClInclude Include="LogoutCommand.h" />
