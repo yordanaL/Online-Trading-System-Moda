@@ -1,6 +1,11 @@
 #include "SystemBuyerOperations.h"
 #include "System.h"
 
+bool SystemBuyerOperations::isSellerSignedUp(const System& system)
+{
+	return system.sellerSignedUp;
+}
+
 void SystemBuyerOperations::listProducts(System& system) const
 {
 	if (system.products.size() == DEFAULT_VALUE) {
@@ -119,14 +124,25 @@ void SystemBuyerOperations::sendConfirmation(System& system, int orderNumber) co
 	system.seller.receiveConfirmation(orderNumber);
 }
 
-const String& SystemBuyerOperations::getProductNameByID(const System& system, int productID) const
+const String SystemBuyerOperations::getProductNameByID(const System& system, int productID) const
 {
-	return system.products[system.findIndexOfProductByID(productID)].getProductName();
+	int productIndex = system.findIndexOfProductByID(productID);
+	if (productIndex == NOT_FOUND) {
+		String removedItem("Removed Item");
+		return removedItem;
+	}
+
+	return system.products[productIndex].getProductName();
 }
 
 const double SystemBuyerOperations::getProductPriceByID(const System& system, int productID) const
 {
-	return system.products[system.findIndexOfProductByID(productID)].getProductPrice();
+	int productIndex = system.findIndexOfProductByID(productID);
+	if (productIndex == NOT_FOUND) {
+		return DEFAULT_VALUE;
+	}
+
+	return system.products[productIndex].getProductPrice();
 }
 
 bool SystemBuyerOperations::takeProduct(System& system, int productID, int quantity)

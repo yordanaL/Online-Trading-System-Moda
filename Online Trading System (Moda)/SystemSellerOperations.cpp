@@ -8,11 +8,23 @@ void SystemSellerOperations::addItem(System& system, const Product newProduct)
 	cout << "Product added successfully!" << endl;
 }
 
+bool SystemSellerOperations::isItemNameUnique(const System& system, const String& itemName)
+{
+	for (size_t i = 0; i < system.products.size(); i++) {
+		if (system.products[i].getProductName() == itemName) {
+			cout << "Item with this name already exists in the system!" << endl;
+			return false;
+		}
+	}
+
+	return true;
+}
+
 void SystemSellerOperations::removeItem(System& system, const String& productName)
 {
 	int productIndex = system.findIndexOfProductByName(productName);
 
-	if (productIndex == NOT_FOUND) {
+	/*if (productIndex == NOT_FOUND) {
 		cout << "Product not found!" << endl;
 		return;
 	}
@@ -23,6 +35,15 @@ void SystemSellerOperations::removeItem(System& system, const String& productNam
 		catch (invalid_argument& ex) {
 			cout << ex.what() << endl;
 		}
+	}*/
+
+	if (productIndex == NOT_FOUND) {
+		cout << "Product not found!" << endl;
+		return;
+	}
+	else {
+			system.products.erase(productIndex);
+			cout << productName << " removed successfully!" << endl;
 	}
 }
 

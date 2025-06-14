@@ -312,11 +312,14 @@ void Buyer::removeDiscount()
 
 void Buyer::checkout(System& system)
 {
+	if (system.isSellerSignedUp(system) == false) {
+		cout << "There is no registered business in the system you cannot make a purchase!" << endl;
+		return;
+	}
 	if (this->balance < this->cart.getPriceAfterDiscount()) {
 		cout << "You do not have enough balance to make this order!" << endl;
 		return;
 	}
-
 	if (this->cart.isCartEmpty() == true) {
 		cout << "Your cart is empty! Order cannot be placed!" << endl;
 		return;
@@ -329,6 +332,10 @@ void Buyer::checkout(System& system)
 	cout << "Order placed successfully. Awaiting approval from seller!" << endl;
 
 	this->cart.cleanCart();
+
+	String newTransaction = this->name;
+	newTransaction += " sent order.";
+	system.addTransaction(system, newTransaction);
 }
 
 void Buyer::sendOrder(System& system, Order& newOrder)
@@ -364,24 +371,24 @@ void Buyer::confirmOrder(System& system, int index)
 	}
 
 	this->shippedOrders[index - 1].updateStatus(DELIVERED);
-	this->deliveredOrders.pushBack(this->shippedOrders[index - 1]);
-	system.sendConfirmation(system, this->shippedOrders[index - 1].getOrderNumber());
+	this->deliveredOrders.pushBack(this->shippedOrders[index - INDEX_FIX]);
+	system.sendConfirmation(system, this->shippedOrders[index - INDEX_FIX].getOrderNumber());
 
 	cout << "Order confirmed as delivered. You received " << (int)this->shippedOrders[index - 1].getBonusPoints()
 		<< " loyalty points (5% of ";
 	setToCurrencyPrintFormat();
-	cout << this->shippedOrders[index - 1].getTotalPrice() << " BGN)" << endl;
+	cout << this->shippedOrders[index - INDEX_FIX].getTotalPrice() << " BGN)" << endl;
 	resetPrintFormat();
 
-	this->loyaltyPoints += (int)this->shippedOrders[index - 1].getTotalPrice() * LOYALTY_POINTS_INDEX;
+	this->loyaltyPoints += (int)this->shippedOrders[index - INDEX_FIX].getTotalPrice() * LOYALTY_POINTS_INDEX;
 	this->finalisedOrdersCount++;
 	//this->totalMoneySpent += this->shippedOrders[index - 1].getTotalPrice();
 
-	this->shippedOrders.erase(index - 1);
+	this->shippedOrders.erase(index - INDEX_FIX);
 
 	unpackOrder();
 	String newTransaction = this->name;
-	newTransaction += " made a purchase";
+	newTransaction += " made a purchase.";
 	system.addTransaction(system, newTransaction);
 }
 
@@ -440,6 +447,7 @@ void Buyer::refundedOrders(const System& system) const
 	}
 
 	for (size_t i = 0; i < this->refOrders.size(); i++) {
+		cout << (i + INDEX_FIX) << ". ";
 		this->refOrders[i].printOrder(system);
 		newLine();
 	}
@@ -491,6 +499,10 @@ void Buyer::requestRefund(System& system)
 
 	cout << "Request refund is sent! Waiting for approval from business!" << endl;
 	system.requestRefund(system, this->deliveredOrders[this->deliveredOrders.size() - INDEX_FIX]);
+
+	String newTransaction = this->name;
+	newTransaction += " requested a refund.";
+	system.addTransaction(system, newTransaction);
 }
 
 void Buyer::receiveRefund(System& system, const Order& order)
@@ -512,6 +524,7 @@ void Buyer::receiveRefund(System& system, const Order& order)
 
 	this->finalisedOrdersCount--;
 	this->refundedOrdersCount++;
+	this->refOrders.pushBack(order);
 	this->totalMoneySpent -= order.getTotalPrice();
 	this->loyaltyPoints -= order.getBonusPoints();
 	if (this->loyaltyPoints < DEFAULT_VALUE)

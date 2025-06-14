@@ -228,8 +228,11 @@ T Vector<T>::popBack() {
 
 template <typename T>
 void Vector<T>::erase(int index) {
+	/*if (empty() || index < DEFAULT_VALUE || index >= this->currentSize)
+		throw invalid_argument("No objects or invalid index!");*/
+
 	if (empty() || index < DEFAULT_VALUE || index >= this->currentSize)
-		throw invalid_argument("No objects or invalid index!");
+		return;
 
 	shiftLeft(index);
 	this->currentSize--;

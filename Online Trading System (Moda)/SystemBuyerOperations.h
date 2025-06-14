@@ -16,6 +16,8 @@ class System;
 class SystemBuyerOperations
 {
 public:
+	bool isSellerSignedUp(const System& system);
+
 	void listProducts(System& system) const;
 	void viewProduct(const System& system, int productID) const;
 
@@ -30,7 +32,7 @@ public:
 	void sendOrder(System& system, Order& newOrder);
 	void sendConfirmation(System& system, int orderNumber) const;
 
-	const String& getProductNameByID(const System& system, int productID) const;
+	const String getProductNameByID(const System& system, int productID) const;
 	const double getProductPriceByID(const System& system, int productID) const;
 
 	bool takeProduct(System& system, int productID, int quantity);

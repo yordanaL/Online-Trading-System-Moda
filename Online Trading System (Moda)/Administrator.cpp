@@ -33,6 +33,7 @@ void Administrator::sendCheck(System& system, double amount, const String& code,
 
 	String newTransaction = "Check sent to ";
 	newTransaction += system.buyers[buyerIndex].getName();
+	newTransaction += ".";
 	system.addTransaction(system, newTransaction);
 }
 

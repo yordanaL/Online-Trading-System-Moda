@@ -12,6 +12,7 @@ class SystemSellerOperations
 {
 public:
 	void addItem(System& system, const Product newProduct);
+	bool isItemNameUnique(const System& system, const String& itemName);
 	void removeItem(System& system, const String& productName);
 
 	void listBestSellingProducts(System& system);

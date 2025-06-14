@@ -62,12 +62,15 @@ void Seller::approveOrder(System& system, int index)
 		return;
 	}
 
-	this->pendingOrders[index - 1].updateStatus(SHIPPED);
-	this->shippedOrders.pushBack(this->pendingOrders[index - 1]);
-	system.shipOrder(system, this->pendingOrders[index - 1]);
-	this->pendingOrders.erase(index - 1);
+	this->pendingOrders[index - INDEX_FIX].updateStatus(SHIPPED);
+	this->shippedOrders.pushBack(this->pendingOrders[index - INDEX_FIX]);
+	system.shipOrder(system, this->pendingOrders[index - INDEX_FIX]);
+	this->pendingOrders.erase(index - INDEX_FIX);
 
 	cout << "Order #" << index << " approved and shipped!" << endl;
+
+	String newTransaction = "Business approved order.";
+	system.addTransaction(system, newTransaction);
 }
 
 void Seller::rejectOrder(System& system, int index, const String& rejectionReason)
@@ -85,6 +88,11 @@ void Seller::rejectOrder(System& system, int index, const String& rejectionReaso
 	system.sendRejectedOrder(system, newRejectedOrder);
 	this->pendingOrders.erase(index - 1);
 	cout << "Order #" << index << " rejected with reason: " << rejectionReason << endl;
+
+	String newTransaction = "Business rejected order with reason: ";
+	newTransaction += rejectionReason;
+	newTransaction += ".";
+	system.addTransaction(system, newTransaction);
 }
 
 void Seller::receiveConfirmation(int orderNumber)
@@ -196,6 +204,9 @@ void Seller::approveRefund(System& system, int orderIndex)
 	cout << "Refund is approved successfully!" << endl;
 	system.sendRefund(system, this->ordersWaitingForRefund[orderIndex - INDEX_FIX]);
 	this->ordersWaitingForRefund.erase(orderIndex - INDEX_FIX);
+
+	String newTransaction = "Business approved refund.";
+	system.addTransaction(system, newTransaction);
 }
 
 void Seller::rejectRefund(System& system, int orderIndex, const String& rejectionReason)
@@ -210,6 +221,11 @@ void Seller::rejectRefund(System& system, int orderIndex, const String& rejectio
 	system.rejectRefund(system, newRejectedRefund);
 	this->ordersWaitingForRefund.erase(orderIndex - INDEX_FIX);
 	cout << "Refund #" << orderIndex << " rejected with reason: " << rejectionReason << endl;
+
+	String newTransaction = "Business rejected refund with reason: ";
+	newTransaction += rejectionReason;
+	newTransaction += ".";
+	system.addTransaction(system, newTransaction);
 }
 
 void Seller::viewRevenue() const

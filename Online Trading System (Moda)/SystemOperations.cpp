@@ -87,7 +87,7 @@ void SystemOperations::signUp(System& system, const String& name, const String& 
 	RunSystemCommand runSystem;
 
 	if (isEGNValid(EGN) == false) {
-		cout << "Invalid EGN! Registration failed!" << endl;
+		cout << "Registration failed!" << endl;
 		return;
 	}
 	else if (isEGNUnique(system, EGN) == false) {
@@ -147,9 +147,16 @@ void SystemOperations::signUp(System& system, const String& name, const String& 
 
 bool SystemOperations::isEGNValid(const String& EGN) const
 {
+	if (EGN.length() != EGN_LENGTH) {
+		cout << "EGN is too short (it has to be 10 digits long). ";
+		return false;
+	}
+
 	for (size_t i = 0; i < EGN.length(); i++) {
-		if (isNumber(EGN[i]) == false)
+		if (isNumber(EGN[i]) == false) {
+			cout << "EGN must contain only digits. ";
 			return false;
+		}
 	}
 
 	return true;

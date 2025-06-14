@@ -19,7 +19,6 @@ private:
 	int initialStock = DEFAULT_VALUE;
 
 	Vector< Pair<String, int> > allRatings;
-	//int totalSales;
 
 	static int IDGenerator;
 

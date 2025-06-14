@@ -18,6 +18,8 @@ constexpr double DISCOUNT_INDEX = 0.01;
 constexpr int MIN_RATING = 0;
 constexpr int MAX_RATING = 5;
 
+constexpr int EGN_LENGTH = 10;
+
 constexpr int USER = 0;
 constexpr int ADMINISTRATOR = 1;
 constexpr int SELLER = 2;

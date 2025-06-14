@@ -34,6 +34,11 @@ void AddItemCommand::execute(System* system)
 	if (checkInput() == UNSUCCESSFUL)
 		return;
 
+	if (system->isItemNameUnique(*system, productName) == false) {
+		seller = nullptr;
+		return;
+	}
+
 	Product newProduct(productName, price, quantity, description);
 	seller->addItem(*system, newProduct);
 

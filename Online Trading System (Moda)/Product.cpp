@@ -47,11 +47,20 @@ const double Product::getRating() const
 void Product::increaseQuantity(int quantity)
 {
 	this->quantity += quantity;
+
+	if (this->quantity > DEFAULT_VALUE) {
+		this->availability = true;
+	}
 }
 
 void Product::decreaseQuantity(int quantity)
 {
 	this->quantity -= quantity;
+
+	if (this->quantity <= DEFAULT_VALUE) {
+		this->quantity = DEFAULT_VALUE;
+		this->availability = false;
+	}
 }
 
 void Product::updateRating(const Pair<String, int>& newRating)
