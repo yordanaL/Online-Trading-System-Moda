@@ -9,7 +9,7 @@
 #include "RemoveDiscountCommand.h"
 #include "ViewCartCommand.h"
 #include "CheckoutCommand.h"
-#include "ListOrdersSellerCommand.h"
+#include "ListOrdersBuyerCommand.h"
 #include "ConfirmOrderCommand.h"
 #include "OrderHistoryCommand.h"
 #include "RateCommand.h"
@@ -34,7 +34,7 @@ void RunSystemAsBuyerCommand::execute(System* system)
 	RemoveDiscountCommand removeDiscount;
 	ViewCartCommand viewCart;
 	CheckoutCommand checkout;
-	ListOrdersSellerCommand listOrders;
+	ListOrdersBuyerCommand listOrders;
 	ConfirmOrderCommand confirmOrder;
 	OrderHistoryCommand orderHistory;
 	RateCommand rate;
@@ -152,7 +152,6 @@ void RunSystemAsBuyerCommand::execute(System* system)
 		else if (command == "logout") {
 			clearBuffer();
 			logout.execute(system);
-			newLine();
 			break;
 		}
 		else if (command == "help") {

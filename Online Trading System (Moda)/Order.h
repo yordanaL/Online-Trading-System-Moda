@@ -26,6 +26,7 @@ public:
 	Order() = default;
 	Order(const Cart& cart, const String& _buyerEGN, const String& buyerName);
 
+	const Vector< Pair<int, int> > getProducts() const;
 	const int getOrderStatus() const;
 	const int getOrderNumber() const;
 	const String& getBuyerEGN() const;

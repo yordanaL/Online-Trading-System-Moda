@@ -45,16 +45,23 @@ void Cart::viewCart(const System& system) const
         cout << this->products[i].getValue() << "x ";
         cout << system.getProductNameByID(system, this->products[i].getKey());
         cout << " - ";
+        setToCurrencyPrintFormat();
         cout << this->products[i].getValue() * system.getProductPriceByID(system, this->products[i].getKey());
+        resetPrintFormat();
         cout << " BGN" << endl;
     }
 
     if (this->discountUsed == true) {
+        setToCurrencyPrintFormat();
         cout << "Total price before discount: " << this->priceBeforeDiscount << " BGN" << endl;
+        cout << "Discount applied: " << (this->priceBeforeDiscount - this->priceAfterDiscount) << " BGN" << endl;
         cout << "Total price after discount: " << this->priceAfterDiscount << " BGN" << endl;
+        resetPrintFormat();
     }
     else {
+        setToCurrencyPrintFormat();
         cout << "Total Price: " << this->priceBeforeDiscount << " BGN" << endl;
+        resetPrintFormat();
     }
 }
 

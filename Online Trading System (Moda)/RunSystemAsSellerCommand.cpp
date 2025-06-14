@@ -98,7 +98,6 @@ void RunSystemAsSellerCommand::execute(System* system)
 		else if (command == "logout") {
 			clearBuffer();
 			logout.execute(system);
-			newLine();
 			break;
 		}
 		else if (command == "help") {

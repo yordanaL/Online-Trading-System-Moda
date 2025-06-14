@@ -29,6 +29,21 @@ void Buyer::addProductToPurchasedProducts(int productID, int quantity)
 	this->IDsAndQuantityOfPurchasedProducts.pushBack(newPurchasedProduct);
 }
 
+void Buyer::removeProductFromPurchasedProducts(int productID, int quantity)
+{
+	if (quantity <= DEFAULT_VALUE) {
+		cout << "Invalid quantity!" << endl;
+		return;
+	}
+
+	for (size_t i = 0; i < this->IDsAndQuantityOfPurchasedProducts.size(); i++) {
+		if (this->IDsAndQuantityOfPurchasedProducts[i].getKey() == productID) {
+			this->IDsAndQuantityOfPurchasedProducts[i].decreaseValue(quantity);
+			return;
+		}
+	}
+}
+
 void Buyer::removeRating(System& system, int productID)
 {
 	system.removeRating(system, productID, this->EGN);
@@ -50,27 +65,27 @@ Buyer::Buyer(const String& _name, const String& _EGN, const String& _password) :
 void Buyer::help()
 {
 	cout << "Client Commands: " << endl;
-	cout << " 1) check-balance" << endl;
-	cout << " 2) redeem" << endl;
-	cout << " 3) list-products" << endl;
-	cout << " 4) view-product" << endl;
-	cout << " 5) add-to-cart" << endl;
-	cout << " 6) remove-from-cart" << endl;
-	cout << " 7) apply-discount" << endl;
-	cout << " 8) remove-discount" << endl;
-	cout << " 9) view-cart" << endl;
-	cout << "10) checkout" << endl;
-	cout << "11) list-orders" << endl;
-	cout << "12) confirm-order" << endl;
-	cout << "13) order-history" << endl;
-	cout << "14) rate" << endl;
-	cout << "15) request-refund" << endl;
-	cout << "16) refunded-orders" << endl;
-	cout << "17) checks" << endl;
-	cout << "18) list-shipped-orders" << endl;
-	cout << "19) logout" << endl;
-	cout << "20) help" << endl;
-	cout << "21) view-profile" << endl;
+	cout << " 01) check-balance       - Check your current account balance" << endl;
+	cout << " 02) redeem              - Redeem a code" << endl;
+	cout << " 03) list-products       - View all available products" << endl;
+	cout << " 04) view-product        - View details of a specific product" << endl;
+	cout << " 05) add-to-cart         - Add a product to your shopping cart" << endl;
+	cout << " 06) remove-from-cart    - Remove a product from your cart" << endl;
+	cout << " 07) apply-discount      - Apply a discount code" << endl;
+	cout << " 08) remove-discount     - Remove applied discount" << endl;
+	cout << " 09) view-cart           - View the contents of your cart" << endl;
+	cout << " 10) checkout            - Proceed to payment and order" << endl;
+	cout << " 11) list-orders         - View all your orders shipped by the business" << endl;
+	cout << " 12) confirm-order       - Mark an order as delivered" << endl;
+	cout << " 13) order-history       - View past delivered and completed orders" << endl;
+	cout << " 14) rate                - Rate a purchased product" << endl;
+	cout << " 15) request-refund      - Request refund for the latest order placed" << endl;
+	cout << " 16) refunded-orders     - View refunded orders" << endl;
+	cout << " 17) checks              - View all received checks" << endl;
+	cout << " 18) list-shipped-orders - See orders that have been shipped" << endl;
+	cout << " 19) logout              - Log out from your account" << endl;
+	cout << " 20) help                - Show help for available commands" << endl;
+	cout << " 21) view-profile        - View your profile information" << endl;
 }
 
 void Buyer::loginInfo(const System& system)
@@ -93,19 +108,21 @@ void Buyer::loginInfo(const System& system)
 	if (this->rejectedRefunds.size() > DEFAULT_VALUE) {
 		cout << "You have a rejected refund/s: " << endl;
 
-		for (size_t i = 0; i < this->rejectedOrders.size(); i++) {
-			cout << "Order #" << this->rejectedOrders[i].getOrderNumber() << " - ";
-			this->rejectedOrders[i].printOrder(system); 
+		for (size_t i = 0; i < this->rejectedRefunds.size(); i++) {
+			cout << "Order #" << this->rejectedRefunds[i].getOrderNumber() << " - ";
+			this->rejectedRefunds[i].printOrder(system);
 			cout << " ";
-			cout << " | Reason: " << this->rejectedOrders[i].getRejectionReason() << endl;
+			cout << " | Reason: " << this->rejectedRefunds[i].getRejectionReason() << endl;
 		}
 	}
-	this->rejectedOrders.clear();
+	this->rejectedRefunds.clear();
 }
 
 void Buyer::checkBalance() const
 {
+	setToCurrencyPrintFormat();
 	cout << "Current balance: " << this->balance << " BGN" << endl;
+	resetPrintFormat();
 	cout << "Loyalty points: " << this->loyaltyPoints << endl;
 }
 
@@ -133,7 +150,9 @@ void Buyer::redeemCheck(const String& code)
 	}
 
 	this->balance += this->receivedChecks[checkIndex].getAmount();
+	setToCurrencyPrintFormat();
 	cout << "Successfully redeemed check. " << this->receivedChecks[checkIndex].getAmount() << " BGN added to your balance!" << endl;
+	resetPrintFormat();
 
 	this->receivedChecks.erase(checkIndex);
 }
@@ -145,7 +164,10 @@ void Buyer::receiveCheck(const Check& newCheck)
 
 void Buyer::printInsights() const
 {
-	cout << this->name << " - " << this->finalisedOrdersCount << " purchases, " << this->totalMoneySpent << " BGN spent";
+	cout << this->name << " - " << this->finalisedOrdersCount << " purchases, ";
+	setToCurrencyPrintFormat();
+	cout << this->totalMoneySpent << " BGN spent";
+	resetPrintFormat();
 
 	if (this->refundedOrdersCount > DEFAULT_VALUE)
 		cout << "(" << this->refundedOrdersCount << " refunded orders)" << endl;
@@ -277,6 +299,7 @@ void Buyer::checkout(System& system)
 	}
 
 	this->balance -= this->cart.getPriceAfterDiscount();
+	this->totalMoneySpent += this->cart.getPriceAfterDiscount();
 	Order newOrder(this->cart, this->EGN, this->name);
 	sendOrder(system, newOrder);
 	cout << "Order placed successfully. Awaiting approval from seller!" << endl;
@@ -300,7 +323,13 @@ void Buyer::receiveRejectedOrder(System& system, const RejectedOrder& newRejecte
 		returnProduct(system, newRejectedOrder.products[i].getKey(), newRejectedOrder.products[i].getValue());
 	}
 
+	this->totalMoneySpent -= newRejectedOrder.getTotalPrice();
+	if (this->totalMoneySpent < DEFAULT_VALUE)
+		this->totalMoneySpent = DEFAULT_VALUE;
+
 	this->rejectedOrders.pushBack(newRejectedOrder);
+	//packAndReturnRejectedOrder(newRejectedOrder);
+	//checkBoughtProductsQuantity(system);
 }
 
 void Buyer::confirmOrder(System& system, int index)
@@ -315,17 +344,40 @@ void Buyer::confirmOrder(System& system, int index)
 	system.sendConfirmation(system, this->shippedOrders[index - 1].getOrderNumber());
 
 	cout << "Order confirmed as delivered. You received " << (int)this->shippedOrders[index - 1].getBonusPoints()
-		<< " loyalty points (5% of " << this->shippedOrders[index - 1].getTotalPrice() << " BGN)" << endl;
+		<< " loyalty points (5% of ";
+	setToCurrencyPrintFormat();
+	cout << this->shippedOrders[index - 1].getTotalPrice() << " BGN)" << endl;
+	resetPrintFormat();
 
 	this->loyaltyPoints += (int)this->shippedOrders[index - 1].getTotalPrice() * LOYALTY_POINTS_INDEX;
 	this->finalisedOrdersCount++;
-	this->totalMoneySpent += this->shippedOrders[index - 1].getTotalPrice();
+	//this->totalMoneySpent += this->shippedOrders[index - 1].getTotalPrice();
 
 	this->shippedOrders.erase(index - 1);
 
+	unpackOrder();
 	String newTransaction = this->name;
-	newTransaction += " made purchase";
+	newTransaction += " made a purchase";
 	system.addTransaction(system, newTransaction);
+}
+
+void Buyer::unpackOrder()
+{
+	int orderIndex = this->deliveredOrders.size() - INDEX_FIX;
+	Vector<Pair<int, int>> products = this->deliveredOrders[orderIndex].getProducts();
+
+	for (size_t i = 0; i < products.size(); i++) {
+		addProductToPurchasedProducts(products[i].getKey(), products[i].getValue());
+	}
+}
+
+void Buyer::packAndReturnRejectedOrder(const RejectedOrder& newRejectedOrder)
+{
+	Vector<Pair<int, int>> products = newRejectedOrder.getProducts();
+
+	for (size_t i = 0; i < products.size(); i++) {
+		removeProductFromPurchasedProducts(products[i].getKey(), products[i].getValue());
+	}
 }
 
 void Buyer::listOrders(const System& system) const
@@ -336,6 +388,7 @@ void Buyer::listOrders(const System& system) const
 	}
 
 	for (size_t i = 0; i < this->shippedOrders.size(); i++) {
+		cout << (i + INDEX_FIX) << ". ";
 		this->shippedOrders[i].printOrder(system);
 		newLine();
 	}
@@ -350,6 +403,7 @@ void Buyer::orderHistory(const System& system) const
 
 	for (size_t i = 0; i < this->deliveredOrders.size(); i++) {
 		this->deliveredOrders[i].printOrder(system);
+		cout << " - Delivered";
 		newLine();
 	}
 }
@@ -375,6 +429,7 @@ void Buyer::listShippedOrders(const System& system) const
 	}
 
 	for (size_t i = 0; i < this->shippedOrders.size(); i++) {
+		cout << (i + INDEX_FIX) << ". ";
 		this->shippedOrders[i].printOrder(system);
 		newLine();
 	}
@@ -392,6 +447,7 @@ void Buyer::rate(System& system, int productID, int rating) const
 
 	if (found == false) {
 		cout << "You have not purchased this product yet!" << endl;
+		return;
 	}
 	else {
 		Pair<String, int> newRating(this->EGN, rating);
@@ -430,9 +486,28 @@ void Buyer::receiveRefund(System& system, const Order& order)
 		returnProduct(system, order.products[i].getKey(), order.products[i].getValue());
 	}
 
+	this->finalisedOrdersCount--;
+	this->refundedOrdersCount++;
+	this->totalMoneySpent -= order.getTotalPrice();
+	this->loyaltyPoints -= order.getBonusPoints();
+	if (this->loyaltyPoints < DEFAULT_VALUE)
+		this->loyaltyPoints = DEFAULT_VALUE;
 	this->balance += order.getTotalPrice();
 	this->loyaltyPoints += order.getLoyaltyPointsUsed();
+
+	//this->refOrders.pushBack(order);
 	this->deliveredOrders.erase(orderIndex);
+	packAndReturnRefundedOrder(order);
+	checkBoughtProductsQuantity(system);
+}
+
+void Buyer::packAndReturnRefundedOrder(const Order& newRefund)
+{
+	Vector<Pair<int, int>> products = newRefund.getProducts();
+
+	for (size_t i = 0; i < products.size(); i++) {
+		removeProductFromPurchasedProducts(products[i].getKey(), products[i].getValue());
+	}
 }
 
 void Buyer::receiveRefundRejection(const RejectedOrder& newRejectedRefund)

@@ -17,6 +17,11 @@ Order::Order(const Cart& cart, const String& _buyerEGN, const String& _buyerName
 	this->orderNumber = orderNumberGenerator;
 }
 
+const Vector<Pair<int, int>> Order::getProducts() const
+{
+	return this->products;
+}
+
 const int Order::getOrderStatus() const
 {
     return this->status;
@@ -74,7 +79,9 @@ void Order::printOrder(const System& system) const
 		cout << system.getProductNameByID(system, this->products[i].getKey());
 		cout << " ";
 	}
+	setToCurrencyPrintFormat();
 	cout << "- " << this->totalPrice << " BGN";
+	resetPrintFormat();
 }
 
 void Order::cleanOrder()

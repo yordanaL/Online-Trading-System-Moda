@@ -15,7 +15,7 @@ void SystemAdministratorOperations::customerInsights(System& system)
 		cout << "No clients in the system yet!" << endl;
 	else {
 		for (size_t i = 0; i < system.buyers.size(); i++) {
-			cout << (i + 1);
+			cout << (i + 1) << ". ";
 			system.buyers[i].printInsights();
 		}
 	}

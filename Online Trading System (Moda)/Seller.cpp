@@ -18,20 +18,20 @@ Seller::Seller(const String& _name, const String& _EGN, const String& _password)
 void Seller::help()
 {
 	cout << "Business Commands: " << endl;
-	cout << " 1) add-item" << endl;
-	cout << " 2) remove-item" << endl;
-	cout << " 3) list-pending-orders" << endl;
-	cout << " 4) approve-order" << endl;
-	cout << " 5) reject-order" << endl;
-	cout << " 6) list-orders" << endl;
-	cout << " 7) list-best-selling-products" << endl;
-	cout << " 8) view-revenue" << endl;
-	cout << " 9) list-refunds" << endl;
-	cout << "10) approve-refund" << endl;
-	cout << "11) reject-refund" << endl;
-	cout << "12) logout" << endl;
-	cout << "13) help" << endl;
-	cout << "14) view-profile" << endl;
+	cout << " 01) add-item                   - Add a new product to your store" << endl;
+	cout << " 02) remove-item                - Remove an existing product" << endl;
+	cout << " 03) list-pending-orders        - View orders awaiting approval" << endl;
+	cout << " 04) approve-order              - Approve a customer's pending order" << endl;
+	cout << " 05) reject-order               - Reject a customer's pending order" << endl;
+	cout << " 06) list-orders                - View all orders" << endl;
+	cout << " 07) list-best-selling-products - View your top-selling products" << endl;
+	cout << " 08) view-revenue               - See your total generated revenue" << endl;
+	cout << " 09) list-refunds               - View all refund requests" << endl;
+	cout << " 10) approve-refund             - Approve a refund request" << endl;
+	cout << " 11) reject-refund              - Reject a refund request" << endl;
+	cout << " 12) logout                     - Log out of your business account" << endl;
+	cout << " 13) help                       - Show help for available commands" << endl;
+	cout << " 14) view-profile               - View your business profile" << endl;
 }
 
 void Seller::addItem(System& system, const Product newProduct)
@@ -109,28 +109,28 @@ void Seller::listOrders(const System& system) const
 		index++;
 		cout << index << ". " << this->pendingOrders[i].getBuyerName() << " ";
 		this->pendingOrders[i].printOrder(system);
-		cout << index << " - Pending" << endl;
+		cout << " - Pending" << endl;
 	}
 
 	for (size_t i = 0; i < this->shippedOrders.size(); i++) {
 		index++;
 		cout << index << ". ";
 		this->shippedOrders[i].printOrder(system);
-		cout << index << " - Shipped" << endl;
+		cout << " - Shipped" << endl;
 	}
 
 	for (size_t i = 0; i < this->deliveredOrders.size(); i++) {
 		index++;
 		cout << index << ". ";
 		this->deliveredOrders[i].printOrder(system);
-		cout << index << " - Delivered" << endl;
+		cout << " - Delivered" << endl;
 	}
 
 	for (size_t i = 0; i < this->rejectedOrders.size(); i++) {
 		index++;
 		cout << index << ". ";
 		this->rejectedOrders[i].printOrder(system);
-		cout << index << " - Rejected" << endl;
+		cout << " - Rejected" << endl;
 	}
 }
 
@@ -141,13 +141,17 @@ void Seller::listPendingOrders(const System& system) const
 		return;
 	}
 
-	for (size_t i = 0; i < pendingOrders.size(); i++) {
-		if (pendingOrders[i].getOrderStatus() == PENDING) {
+	for (size_t i = 0; i < this->pendingOrders.size(); i++) {
+		if (this->pendingOrders[i].getOrderStatus() == PENDING) {
 			cout << (i + INDEX_FIX) << ". ";
-			pendingOrders[i].printOrder(system);
+			this->pendingOrders[i].printOrder(system);
 
-			if (i != pendingOrders.size() - INDEX_FIX)
+			/*if (i != this->pendingOrders.size() - INDEX_FIX)
 				cout << endl;
+			if (this->pendingOrders.size() == DEFAULT_VALUE)
+				cout << endl;*/
+
+			newLine();
 		}
 	}
 }
@@ -159,12 +163,16 @@ void Seller::receiveRefundRequest(const Order& order)
 
 void Seller::listRefunds(const System& system) const
 {
+	if (ordersWaitingForRefund.size() == DEFAULT_VALUE) {
+		cout << "You have not received any refund requeests yet!" << endl;
+		return;
+	}
+
 	for (size_t i = 0; i < ordersWaitingForRefund.size(); i++) {
 		cout << (i + INDEX_FIX) << ". ";
 		ordersWaitingForRefund[i].printOrder(system);
 
-		if (i != ordersWaitingForRefund.size() - INDEX_FIX)
-			newLine();
+		newLine();
 	}
 }
 
@@ -200,13 +208,15 @@ void Seller::rejectRefund(System& system, int orderIndex, const String& rejectio
 	RejectedOrder newRejectedRefund(this->ordersWaitingForRefund[orderIndex - INDEX_FIX], rejectionReason);
 
 	system.rejectRefund(system, newRejectedRefund);
-	this->ordersWaitingForRefund.erase(orderIndex);
+	this->ordersWaitingForRefund.erase(orderIndex - INDEX_FIX);
 	cout << "Refund #" << orderIndex << " rejected with reason: " << rejectionReason << endl;
 }
 
 void Seller::viewRevenue() const
 {
+	setToCurrencyPrintFormat();
 	cout << "Total revenue: " << this->totalProfit << " BGN" << endl;
+	resetPrintFormat();
 }
 
 void Seller::save(ofstream& file)

@@ -89,7 +89,6 @@ void SystemSellerOperations::sendRefund(System& system, const Order& order)
 		return;
 	}
 
-	cout << "Refund is approved!" << endl;
 	system.buyers[buyerIndex].receiveRefund(system, order);
 }
 

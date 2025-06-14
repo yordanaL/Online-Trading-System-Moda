@@ -33,3 +33,13 @@ bool isNumber(char ch)
 {
 	return (ch >= '0' && ch <= '9');
 }
+
+void setToCurrencyPrintFormat()
+{
+	cout << fixed << setprecision(CURRENCY_FORMAT);
+}
+
+void resetPrintFormat()
+{
+	cout << fixed << setprecision(NORMAL_FORMAT);
+}

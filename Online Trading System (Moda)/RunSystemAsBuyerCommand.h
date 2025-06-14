@@ -13,7 +13,7 @@ class ApplyDiscountCommand;
 class RemoveDiscountCommand;
 class ViewCartCommand;
 class CheckoutCommand;
-class ListOrdersSellerCommand;
+class ListOrdersBuyerCommand;
 class ConfirmOrderCommand;
 class OrderHistoryCommand;
 class RateCommand;

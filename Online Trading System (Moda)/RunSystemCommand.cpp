@@ -9,7 +9,7 @@ void RunSystemCommand::execute(System* system)
 	LoginCommand login;
 	ExitCommand exit;
 
-	cout << "< MODA >" << endl << endl;
+	cout << "Welcome to < MODA >" << endl << endl;
 	while (true) {
 		String command;
 		awaitingCommand();
@@ -25,6 +25,7 @@ void RunSystemCommand::execute(System* system)
 		else if (command == "login") {
 			clearBuffer();
 			login.execute(system);
+			newLine();
 		}
 		else if (command == "exit") {
 			clearBuffer();

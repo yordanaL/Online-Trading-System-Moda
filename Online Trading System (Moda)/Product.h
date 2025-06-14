@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 #include "Constants.h"
+#include "FrequentlyUsedFunctions.h"
 #include "String.h"
 #include "Pair.hpp"
 #include "Vector.hpp"

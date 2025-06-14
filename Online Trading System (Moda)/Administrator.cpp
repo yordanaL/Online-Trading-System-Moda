@@ -49,12 +49,12 @@ void Administrator::viewTransactions(const System& system)
 void Administrator::help()
 {
 	cout << "Administrator Commands: " << endl;
-	cout << "1) send-check" << endl;
-	cout << "2) customer-insights" << endl;
-	cout << "3) view-transactions" << endl;
-	cout << "4) logout" << endl;
-	cout << "5) help" << endl;
-	cout << "6) view-profile" << endl;
+	cout << " 01) send-check        - Send a check to a client" << endl;
+	cout << " 02) customer-insights - View clients' data" << endl;
+	cout << " 03) view-transactions - View all system-wide transactions" << endl;
+	cout << " 04) logout            - Log out of your administrator account" << endl;
+	cout << " 05) help              - Show help for available commands" << endl;
+	cout << " 06) view-profile      - View your administrator profile" << endl;
 }
 
 void Administrator::save(ofstream& file)

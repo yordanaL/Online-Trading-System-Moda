@@ -58,18 +58,25 @@ void Product::updateRating(const Pair<String, int>& newRating)
 		}
 	}
 
-	this->rating *= this->allRatings.size();
+	/*this->rating *= this->allRatings.size();
 	this->allRatings.pushBack(newRating);
 	this->rating += newRating.getValue();
-	this->rating /= this->allRatings.size();
+	this->rating /= this->allRatings.size();*/
 
-	cout << "Rated product with ID: " << this->ID << endl;
+	this->allRatings.pushBack(newRating);
 
-	/*this->rating = DEFAULT_VALUE;
+	if (this->allRatings.size() == DEFAULT_VALUE) {
+		this->rating = DEFAULT_VALUE;
+		return;
+	}
+
+	this->rating = DEFAULT_VALUE;
 	for (size_t i = 0; i < this->allRatings.size(); i++) {
 		this->rating += allRatings[i].getValue();
 	}
-	this->rating /= this->allRatings.size();*/
+	this->rating /= this->allRatings.size();
+
+	cout << "Rated product with ID: " << this->ID << endl;
 }
 
 void Product::removeRating(const String& buyerEGN)
@@ -82,7 +89,15 @@ void Product::removeRating(const String& buyerEGN)
 		}
 	}
 
+	if (index == NOT_FOUND)
+		return;
+
 	this->allRatings.erase(index);
+
+	if (this->allRatings.size() == DEFAULT_VALUE) {
+		this->rating = DEFAULT_VALUE;
+		return;
+	}
 
 	this->rating = DEFAULT_VALUE;
 	for (size_t i = 0; i < this->allRatings.size(); i++) {
@@ -94,16 +109,22 @@ void Product::removeRating(const String& buyerEGN)
 
 void Product::displayProduct() const
 {
-	cout << " | " << this->name << " | " << this->price << " BGN" << " | " << this->rating <<
-		" stars" << " | " << this->quantity << " pcs" << " | product ID: " <<this->ID;
+	cout << " | " << this->name << " | ";
+	setToCurrencyPrintFormat();
+	cout << this->price << " BGN";
+	resetPrintFormat();
+	cout << " | " << this->rating << " stars" << " | " 
+		<< this->quantity << " pcs" << " | product ID: " << this->ID;
 }
 
 void Product::printProductDetails() const
 {
 	cout << "ID: " << this->ID << endl
-		<< "Product Name: " << this->name << endl
-		<< "Price: " << this->price << " BGN" << endl
-		<< "Stock: " << this->quantity << " pcs" << endl
+		<< "Product Name: " << this->name << endl;
+	setToCurrencyPrintFormat();
+	cout << "Price: " << this->price << " BGN" << endl;
+	resetPrintFormat();
+	cout << "Stock: " << this->quantity << " pcs" << endl
 		<< "Rating: " << this->rating << " stars" << endl
 		<< "Description: " << this->description << endl;
 }

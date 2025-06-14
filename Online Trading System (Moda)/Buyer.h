@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 #include "Constants.h"
+#include "FrequentlyUsedFunctions.h"
 #include "String.h"
 #include "Vector.hpp"
 #include "User.h"
@@ -35,7 +36,7 @@ private:
 
 	int findIndexOfCheck(const String& code) const;
 	void addProductToPurchasedProducts(int productID, int quantity);
-
+	void removeProductFromPurchasedProducts(int productID, int quantity);
 	void removeRating(System& system, int productID);
 	void checkBoughtProductsQuantity(System& system);
 public:
@@ -66,26 +67,24 @@ public:
 	bool returnProduct(System& system, int productID, int quantity);
 
 	void viewCart(const System& system) const;
-
 	void addToCart(System& system, int productID, int quantity);
 	void removeFromCart(System& system, int productID, int quantity);
-
 	void applyDiscount();
 	void removeDiscount();
 
 	void checkout(System& system);
-
 	void sendOrder(System& system, Order& newOrder);
-
 	void receiveOrder(Order& newOrder);
 	void receiveRejectedOrder(System& system, const RejectedOrder& newRejectedOrder);
-
 	void confirmOrder(System& system, int index);
+	void unpackOrder();
+	void packAndReturnRejectedOrder(const RejectedOrder& newRejectedOrder);
 	
 	//system connected operations
 	void rate(System& system, int productID, int rating) const;
 	void requestRefund(System& system);
 	void receiveRefund(System& system, const Order& order);
+	void packAndReturnRefundedOrder(const Order& newRefund);
 	void receiveRefundRejection(const RejectedOrder& newRejectedOrder);
 
 	void save(ofstream& file);

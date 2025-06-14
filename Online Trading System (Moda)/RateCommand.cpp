@@ -19,6 +19,12 @@ void RateCommand::execute(System* system)
 	if (checkInput() == UNSUCCESSFUL)
 		return;
 
+	if (rating < MIN_RATING || rating > MAX_RATING) {
+		cout << "Invalid rating!" << endl;
+		buyer = nullptr;
+		return;
+	}
+
 	buyer->rate(*system, productID, rating);
 	buyer = nullptr;
 }

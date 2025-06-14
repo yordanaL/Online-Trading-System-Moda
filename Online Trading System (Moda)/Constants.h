@@ -15,6 +15,9 @@ constexpr bool UNSUCCESSFUL = false;
 constexpr double LOYALTY_POINTS_INDEX = 0.05;
 constexpr double DISCOUNT_INDEX = 0.01;
 
+constexpr int MIN_RATING = 0;
+constexpr int MAX_RATING = 5;
+
 constexpr int USER = 0;
 constexpr int ADMINISTRATOR = 1;
 constexpr int SELLER = 2;
@@ -31,5 +34,8 @@ constexpr int REJECTED = 4;
 constexpr char EMPTY_STR[] = "EMPTY_STR";
 constexpr char REASON_UNKNOWN[] = "REASON UNKNOWN";
 constexpr char BACKUP_FILE[] = "BackupFile.txt";
+
+constexpr int CURRENCY_FORMAT = 2;
+constexpr int NORMAL_FORMAT = 0;
 
 constexpr int FIX = 10;
