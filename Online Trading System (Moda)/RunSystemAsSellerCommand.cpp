@@ -31,6 +31,8 @@ void RunSystemAsSellerCommand::execute(System* system)
 	HelpCommand help;
 	ViewProfileCommand viewProfile;
 
+	newLine();
+
 	while (true) {
 		String command;
 		awaitingCommand();
@@ -41,6 +43,7 @@ void RunSystemAsSellerCommand::execute(System* system)
 		if (command == "add-item") {
 			clearBuffer();
 			addItem.execute(system);
+			newLine();
 		}
 		else if (command == "remove-item") {
 			clearBuffer();
@@ -55,22 +58,27 @@ void RunSystemAsSellerCommand::execute(System* system)
 		else if (command == "approve-order") {
 			clearBuffer();
 			approveOrder.execute(system);
+			newLine();
 		}
 		else if (command == "reject-order") {
 			clearBuffer();
 			rejectOrder.execute(system);
+			newLine();
 		}
 		else if (command == "list-orders") {
 			clearBuffer();
 			listOrdersSeller.execute(system);
+			newLine();
 		}
 		else if (command == "list-best-selling-products") {
 			clearBuffer();
 			listBestSellingProducts.execute(system);
+			newLine();
 		}
 		else if (command == "view-revenue") {
 			clearBuffer();
 			viewRevenue.execute(system);
+			newLine();
 		}
 		else if (command == "list-refunds") {
 			clearBuffer();
@@ -80,27 +88,33 @@ void RunSystemAsSellerCommand::execute(System* system)
 		else if (command == "approve-refund") {
 			clearBuffer();
 			approveRefund.execute(system);
+			newLine();
 		}
 		else if (command == "reject-refund") {
 			clearBuffer();
 			rejectRefund.execute(system);
+			newLine();
 		}
 		else if (command == "logout") {
 			clearBuffer();
 			logout.execute(system);
+			newLine();
 			break;
 		}
 		else if (command == "help") {
 			clearBuffer();
 			help.execute(system);
+			newLine();
 		}
 		else if (command == "view-profile") {
 			clearBuffer();
 			viewProfile.execute(system);
+			newLine();
 		}
 		else {
 			clearBuffer();
 			cout << "Invalid command!" << endl;
+			newLine();
 		}
 	}
 }

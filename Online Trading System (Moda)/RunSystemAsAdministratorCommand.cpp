@@ -16,6 +16,8 @@ void RunSystemAsAdministratorCommand::execute(System* system)
 	HelpCommand help;
 	ViewProfileCommand viewProfile;
 
+	newLine();
+
 	while (true) {
 		String command;
 		awaitingCommand();
@@ -26,31 +28,38 @@ void RunSystemAsAdministratorCommand::execute(System* system)
 		if (command == "send-check") {
 			clearBuffer();
 			sendCheck.execute(system);
+			newLine();
 		}
 		else if (command == "customer-insights") {
 			clearBuffer();
 			customerInsights.execute(system);
+			newLine();
 		}
 		else if (command == "view-transactions") {
 			clearBuffer();
 			viewTransactions.execute(system);
+			newLine();
 		}
 		else if (command == "logout") {
 			clearBuffer();
 			logout.execute(system);
+			newLine();
 			break;
 		}
 		else if (command == "help") {
 			clearBuffer();
 			help.execute(system);
+			newLine();
 		}
 		else if (command == "view-profile") {
 			clearBuffer();
 			viewProfile.execute(system);
+			newLine();
 		}
 		else {
 			clearBuffer();
 			cout << "Invalid command!" << endl;
+			newLine();
 		}
 	}
 }

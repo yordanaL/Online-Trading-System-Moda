@@ -50,6 +50,8 @@ void RunSystemAsBuyerCommand::execute(System* system)
 	buyer->loginInfo(*system);
 	buyer = nullptr;
 
+	newLine();
+
 	while (true) {
 		String command;
 		awaitingCommand();
@@ -60,91 +62,113 @@ void RunSystemAsBuyerCommand::execute(System* system)
 		if (command == "check-balance") {
 			clearBuffer();
 			checkBalance.execute(system);
+			newLine();
 		}
 		else if (command == "redeem") {
 			clearBuffer();
 			redeem.execute(system);
+			newLine();
 		}
 		else if (command == "list-products") {
 			clearBuffer();
 			listProducts.execute(system);
+			newLine();
 		}
 		else if (command == "view-product") {
 			clearBuffer();
 			viewProduct.execute(system);
+			newLine();
 		}
 		else if (command == "add-to-cart") {
 			clearBuffer();
 			addToCart.execute(system);
+			newLine();
 		}
 		else if (command == "remove-from-cart") {
 			clearBuffer();
 			removeFromCart.execute(system);
+			newLine();
 		}
 		else if (command == "apply-discount") {
 			clearBuffer();
 			applyDiscount.execute(system);
+			newLine();
 		}
 		else if (command == "remove-discount") {
 			clearBuffer();
 			removeDiscount.execute(system);
+			newLine();
 		}
 		else if (command == "view-cart") {
 			clearBuffer();
 			viewCart.execute(system);
+			newLine();
 		}
 		else if (command == "checkout") {
 			clearBuffer();
 			checkout.execute(system);
+			newLine();
 		}
 		else if (command == "list-orders") {
 			clearBuffer();
 			listOrders.execute(system);
+			newLine();
 		}
 		else if (command == "confirm-order") {
 			clearBuffer();
 			confirmOrder.execute(system);
+			newLine();
 		}
 		else if (command == "order-history") {
 			clearBuffer();
 			orderHistory.execute(system);
+			newLine();
 		}
 		else if (command == "rate") {
 			clearBuffer();
 			rate.execute(system);
+			newLine();
 		}
 		else if (command == "request-refund") {
 			clearBuffer();
 			requestRefund.execute(system);
+			newLine();
 		}
 		else if (command == "refunded-orders") {
 			clearBuffer();
 			refundedOrders.execute(system);
+			newLine();
 		}
 		else if (command == "checks") {
 			clearBuffer();
 			checks.execute(system);
+			newLine();
 		}
 		else if (command == "list-shipped-orders") {
 			clearBuffer();
 			listShippedOrders.execute(system);
+			newLine();
 		}
 		else if (command == "logout") {
 			clearBuffer();
 			logout.execute(system);
+			newLine();
 			break;
 		}
 		else if (command == "help") {
 			clearBuffer();
 			help.execute(system);
+			newLine();
 		}
 		else if (command == "view-profile") {
 			clearBuffer();
 			viewProfile.execute(system);
+			newLine();
 		}
 		else {
 			clearBuffer();
 			cout << "Invalid command!" << endl;
+			newLine();
 		}
 	}
 }
