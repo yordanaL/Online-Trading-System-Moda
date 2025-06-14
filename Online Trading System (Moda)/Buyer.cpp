@@ -52,7 +52,7 @@ void Buyer::removeRating(System& system, int productID)
 void Buyer::checkBoughtProductsQuantity(System& system)
 {
 	for (size_t i = 0; i < this->IDsAndQuantityOfPurchasedProducts.size(); i++) {
-		if (this->IDsAndQuantityOfPurchasedProducts[i].getValue() == DEFAULT_VALUE) {
+		if (this->IDsAndQuantityOfPurchasedProducts[i].getValue() <= DEFAULT_VALUE) {
 			removeRating(system, this->IDsAndQuantityOfPurchasedProducts[i].getKey());
 		}
 	}
@@ -83,9 +83,13 @@ void Buyer::help()
 	cout << " 16) refunded-orders     - View refunded orders" << endl;
 	cout << " 17) checks              - View all received checks" << endl;
 	cout << " 18) list-shipped-orders - See orders that have been shipped" << endl;
-	cout << " 19) logout              - Log out from your account" << endl;
-	cout << " 20) help                - Show help for available commands" << endl;
-	cout << " 21) view-profile        - View your profile information" << endl;
+	cout << " 19) sort-by-rating      - Sort products by customer rating" << endl;
+	cout << " 20) sort-by-asc         - Sort products by price (low to high)" << endl;
+	cout << " 21) sort-by-desc        - Sort products by price (high to low)" << endl;
+	cout << " 22) sort-by-alph        - Sort products alphabetically (A-Z)" << endl;
+	cout << " 23) logout              - Log out from your account" << endl;
+	cout << " 24) help                - Show help for available commands" << endl;
+	cout << " 25) view-profile        - View your profile information" << endl;
 }
 
 void Buyer::loginInfo(const System& system)
@@ -175,7 +179,7 @@ void Buyer::printInsights() const
 		newLine();
 }
 
-void Buyer::listProducts(const System& system) const
+void Buyer::listProducts(System& system) const
 {
 	system.listProducts(system);
 }
@@ -183,6 +187,26 @@ void Buyer::listProducts(const System& system) const
 void Buyer::viewProduct(const System& system, int productID) const
 {
 	system.viewProduct(system, productID);
+}
+
+void Buyer::listProductsSortedByRating(System& system) const
+{
+	system.listProductsSortedByRating(system);
+}
+
+void Buyer::listProductsSortedByPriceAsc(System& system) const
+{
+	system.listProductsSortedByPriceAsc(system);
+}
+
+void Buyer::listProductsSortedByPriceDesc(System& system) const
+{
+	system.listProductsSortedByPriceDesc(system);
+}
+
+void Buyer::listProductsSortedByAlphabeticalOrder(System& system) const
+{
+	system.listProductsSortedByAlphabeticalOrder(system);
 }
 
 bool Buyer::takeProduct(System& system, int productID, int quantity)

@@ -31,10 +31,10 @@ void SystemSellerOperations::listBestSellingProducts(System& system)
 	Vector<Product> sortedArray = system.products;
 	size_t productCount = sortedArray.size();
 
-	for (int i = 0; i < productCount - 1; ++i) {
+	for (int i = 0; i < productCount - 1; i++) {
 		int minIndex = i;
 
-		for (int j = i + 1; j < productCount; ++j) {
+		for (int j = i + 1; j < productCount; j++) {
 			if (sortedArray[j].getTotalSales() > sortedArray[minIndex].getTotalSales())
 				minIndex = j;
 		}

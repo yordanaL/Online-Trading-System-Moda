@@ -28,6 +28,9 @@
     <Filter Include="Header Files\Shopping">
       <UniqueIdentifier>{0004dccc-2a99-4a82-9011-e44906f13a3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Sorting">
+      <UniqueIdentifier>{3be8d979-afc4-4ff7-905b-d2dda3935df8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Online Trading System (Moda).cpp">
@@ -225,6 +228,39 @@
     <ClCompile Include="ListShippedOrdersCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SortStrategy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SortByRating.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SortByPriceAsc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SortByPriceDesc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SortByAlphabeticalOrder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProductListing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SortByRatingCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SortByPriceAscCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SortByPriceDescCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SortByAlphCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SortByID.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h">
@@ -380,9 +416,6 @@
     <ClInclude Include="ApproveOrderCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="AddItemCommand.h">
-      <Filter>Header Files\Commands</Filter>
-    </ClInclude>
     <ClInclude Include="RunSystemCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
@@ -422,8 +455,44 @@
     <ClInclude Include="ChecksCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
+    <ClInclude Include="AddItemCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="ProductListing.h">
+      <Filter>Header Files\Sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="SortByAlphabeticalOrder.h">
+      <Filter>Header Files\Sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="SortByPriceAsc.h">
+      <Filter>Header Files\Sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="SortByRating.h">
+      <Filter>Header Files\Sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="SortStrategy.h">
+      <Filter>Header Files\Sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="SortByPriceDesc.h">
+      <Filter>Header Files\Sorting</Filter>
+    </ClInclude>
     <ClInclude Include="ListShippedOrdersCommand.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SortByID.h">
+      <Filter>Header Files\Sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="SortByPriceAscCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SortByAlphCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SortByPriceDescCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SortByRatingCommand.h">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

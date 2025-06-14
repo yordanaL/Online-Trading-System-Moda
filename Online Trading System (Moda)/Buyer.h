@@ -54,8 +54,13 @@ public:
 	void printInsights() const;
 
 	//products and sorting operations
-	void listProducts(const System& system) const;
+	void listProducts(System& system) const;
 	void viewProduct(const System& system, int productID) const;
+
+	void listProductsSortedByRating(System& system) const;
+	void listProductsSortedByPriceAsc(System& system) const;
+	void listProductsSortedByPriceDesc(System& system) const;
+	void listProductsSortedByAlphabeticalOrder(System& system) const;
 
 	void listOrders(const System& system) const;
 	void orderHistory(const System& system) const;

@@ -24,6 +24,10 @@ class ListShippedOrdersCommand;
 class LogoutCommand;
 class HelpCommand;
 class ViewProfileCommand;
+class SortByRatingCommand;
+class SortByPriceAscCommand;
+class SortByPriceDescCommand;
+class SortByAlphCommand;
 class Buyer;
 
 class RunSystemAsBuyerCommand : public Command {

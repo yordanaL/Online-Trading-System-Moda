@@ -1,17 +1,23 @@
 #include "SystemBuyerOperations.h"
 #include "System.h"
 
-void SystemBuyerOperations::listProducts(const System& system) const
+void SystemBuyerOperations::listProducts(System& system) const
 {
 	if (system.products.size() == DEFAULT_VALUE) {
 		cout << "There are no products in the system yet!" << endl;
 	}
 
-	for (size_t i = 0; i < system.products.size(); i++) {
+	/*for (size_t i = 0; i < system.products.size(); i++) {
 		cout << (i + 1);
 		system.products[i].displayProduct();
 		cout << endl;
-	}
+	}*/
+
+	SortByID IDSort;
+	ProductListing listing;
+
+	listing.setStrategy(&IDSort);
+	listing.list(system.products);
 }
 
 void SystemBuyerOperations::viewProduct(const System& system, int productID) const
@@ -24,6 +30,58 @@ void SystemBuyerOperations::viewProduct(const System& system, int productID) con
 	}
 	else
 		system.products[productIndex].printProductDetails();
+}
+
+void SystemBuyerOperations::listProductsSortedByRating(System& system) const
+{
+	if (system.products.size() == DEFAULT_VALUE) {
+		cout << "There are no products in the system yet!" << endl;
+	}
+
+	SortByRating ratingSort;
+	ProductListing listing;
+
+	listing.setStrategy(&ratingSort);
+	listing.list(system.products);
+}
+
+void SystemBuyerOperations::listProductsSortedByPriceAsc(System& system) const
+{
+	if (system.products.size() == DEFAULT_VALUE) {
+		cout << "There are no products in the system yet!" << endl;
+	}
+
+	SortByPriceAsc priceAscSort;
+	ProductListing listing;
+
+	listing.setStrategy(&priceAscSort);
+	listing.list(system.products);
+}
+
+void SystemBuyerOperations::listProductsSortedByPriceDesc(System& system) const
+{
+	if (system.products.size() == DEFAULT_VALUE) {
+		cout << "There are no products in the system yet!" << endl;
+	}
+
+	SortByPriceDesc priceDescSort;
+	ProductListing listing;
+
+	listing.setStrategy(&priceDescSort);
+	listing.list(system.products);
+}
+
+void SystemBuyerOperations::listProductsSortedByAlphabeticalOrder(System& system) const
+{
+	if (system.products.size() == DEFAULT_VALUE) {
+		cout << "There are no products in the system yet!" << endl;
+	}
+
+	SortByAlphabeticalOrder alphabeticalOrderSort;
+	ProductListing listing;
+
+	listing.setStrategy(&alphabeticalOrderSort);
+	listing.list(system.products);
 }
 
 void SystemBuyerOperations::rate(System& system, int productID, const Pair<String, int>& newRating)

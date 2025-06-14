@@ -20,6 +20,10 @@
 #include "LogoutCommand.h"
 #include "HelpCommand.h"
 #include "ViewProfileCommand.h"
+#include "SortByRatingCommand.h"
+#include "SortByPriceAscCommand.h"
+#include "SortByPriceDescCommand.h"
+#include "SortByAlphCommand.h"
 #include "Buyer.h"
 
 void RunSystemAsBuyerCommand::execute(System* system)
@@ -45,6 +49,10 @@ void RunSystemAsBuyerCommand::execute(System* system)
 	LogoutCommand logout;
 	HelpCommand help;
 	ViewProfileCommand viewProfile;
+	SortByRatingCommand sortByRating;
+	SortByPriceAscCommand sortByPriceAsc;
+	SortByPriceDescCommand sortByPriceDesc;
+	SortByAlphCommand sortByAlph;
 
 	Buyer* buyer = system->getBuyer(*system);
 	buyer->loginInfo(*system);
@@ -162,6 +170,26 @@ void RunSystemAsBuyerCommand::execute(System* system)
 		else if (command == "view-profile") {
 			clearBuffer();
 			viewProfile.execute(system);
+			newLine();
+		}
+		else if (command == "sort-by-rating") {
+			clearBuffer();
+			sortByRating.execute(system);
+			newLine();
+		}
+		else if (command == "sort-by-asc") {
+			clearBuffer();
+			sortByPriceAsc.execute(system);
+			newLine();
+		}
+		else if (command == "sort-by-desc") {
+			clearBuffer();
+			sortByPriceDesc.execute(system);
+			newLine();
+		}
+		else if (command == "sort-by-alph") {
+			clearBuffer();
+			sortByAlph.execute(system);
 			newLine();
 		}
 		else {

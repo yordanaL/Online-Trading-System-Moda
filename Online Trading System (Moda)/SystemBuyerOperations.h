@@ -4,13 +4,25 @@
 #include "Vector.hpp"
 #include "Pair.hpp"
 #include "Order.h"
+#include "ProductListing.h"
+#include "SortStrategy.h"
+#include "SortByRating.h"
+#include "SortByPriceAsc.h"
+#include "SortByPriceDesc.h"
+#include "SortByAlphabeticalOrder.h"
+#include "SortByID.h"
 class System;
 
 class SystemBuyerOperations
 {
 public:
-	void listProducts(const System& system) const;
+	void listProducts(System& system) const;
 	void viewProduct(const System& system, int productID) const;
+
+	void listProductsSortedByRating(System& system) const;
+	void listProductsSortedByPriceAsc(System& system) const;
+	void listProductsSortedByPriceDesc(System& system) const;
+	void listProductsSortedByAlphabeticalOrder(System& system) const;
 
 	void rate(System& system, int productID, const Pair<String, int>& newRating);
 	void removeRating(System& system, int productID, const String& buyerEGN);

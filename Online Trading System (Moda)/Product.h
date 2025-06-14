@@ -26,11 +26,13 @@ private:
 public:
 	Product() = default;
 	Product(const String& _name, double _price, int _quantity, const String& _description);
+
 	const String& getProductName() const;
 	const int getProductID() const;
 	const double getProductPrice() const;
 	const int getTotalSales() const;
 	const int getQuantity() const;
+	const double getRating() const;
 
 	void increaseQuantity(int quantity);
 	void decreaseQuantity(int quantity);

@@ -39,6 +39,11 @@ const int Product::getQuantity() const
 	return this->quantity;
 }
 
+const double Product::getRating() const 
+{
+	return this->rating;
+}
+
 void Product::increaseQuantity(int quantity)
 {
 	this->quantity += quantity;
