@@ -10,6 +10,7 @@ void SystemBuyerOperations::listProducts(System& system) const
 {
 	if (system.products.size() == DEFAULT_VALUE) {
 		cout << "There are no products in the system yet!" << endl;
+		return;
 	}
 
 	/*for (size_t i = 0; i < system.products.size(); i++) {
@@ -41,6 +42,7 @@ void SystemBuyerOperations::listProductsSortedByRating(System& system) const
 {
 	if (system.products.size() == DEFAULT_VALUE) {
 		cout << "There are no products in the system yet!" << endl;
+		return;
 	}
 
 	SortByRating ratingSort;
@@ -54,6 +56,7 @@ void SystemBuyerOperations::listProductsSortedByPriceAsc(System& system) const
 {
 	if (system.products.size() == DEFAULT_VALUE) {
 		cout << "There are no products in the system yet!" << endl;
+		return;
 	}
 
 	SortByPriceAsc priceAscSort;
@@ -67,6 +70,7 @@ void SystemBuyerOperations::listProductsSortedByPriceDesc(System& system) const
 {
 	if (system.products.size() == DEFAULT_VALUE) {
 		cout << "There are no products in the system yet!" << endl;
+		return;
 	}
 
 	SortByPriceDesc priceDescSort;
@@ -80,6 +84,7 @@ void SystemBuyerOperations::listProductsSortedByAlphabeticalOrder(System& system
 {
 	if (system.products.size() == DEFAULT_VALUE) {
 		cout << "There are no products in the system yet!" << endl;
+		return;
 	}
 
 	SortByAlphabeticalOrder alphabeticalOrderSort;

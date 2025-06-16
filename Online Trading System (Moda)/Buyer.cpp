@@ -229,7 +229,7 @@ bool Buyer::returnProduct(System& system, int productID, int quantity)
 	return system.returnProduct(system, productID, quantity);
 }
 
-void Buyer::viewCart(const System& system) const
+void Buyer::viewCart(const System& system)
 {
 	this->cart.viewCart(system);
 }
@@ -324,6 +324,8 @@ void Buyer::checkout(System& system)
 		cout << "Your cart is empty! Order cannot be placed!" << endl;
 		return;
 	}
+
+	this->cart.updatePrice(system);
 
 	this->balance -= this->cart.getPriceAfterDiscount();
 	this->totalMoneySpent += this->cart.getPriceAfterDiscount();
@@ -433,6 +435,7 @@ void Buyer::orderHistory(const System& system) const
 	}
 
 	for (size_t i = 0; i < this->deliveredOrders.size(); i++) {
+		cout << (i + INDEX_FIX) << ". ";
 		this->deliveredOrders[i].printOrder(system);
 		cout << " - Delivered";
 		newLine();

@@ -31,12 +31,14 @@ const int Cart::getloyaltyPointsUsed() const
     return this->loyaltyPointsUsed;
 }
 
-void Cart::viewCart(const System& system) const
+void Cart::viewCart(const System& system)
 {
     if (isCartEmpty() == true) {
         cout << "Your cart is empty!" << endl;
         return;
     }
+
+    updatePrice(system);
 
     cout << "Items in cart: " << endl;
 
@@ -63,6 +65,20 @@ void Cart::viewCart(const System& system) const
         cout << "Total Price: " << this->priceBeforeDiscount << " BGN" << endl;
         resetPrintFormat();
     }
+}
+
+void Cart::updatePrice(const System& system)
+{
+    double updatedPrice = DEFAULT_VALUE;
+
+    for (size_t i = 0; i < this->products.size(); i++) {
+        updatedPrice += this->products[i].getValue() * system.getProductPriceByID(system, this->products[i].getKey());
+    }
+
+    this->priceBeforeDiscount = updatedPrice;
+    this->priceAfterDiscount = this->priceBeforeDiscount - this->loyaltyPointsUsed * DISCOUNT_INDEX;
+    if (this->priceAfterDiscount < DEFAULT_VALUE)
+        this->priceBeforeDiscount = DEFAULT_VALUE;
 }
 
 void Cart::addProduct(System& system, int productID, int quantity)

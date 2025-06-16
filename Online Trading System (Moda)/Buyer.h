@@ -71,7 +71,7 @@ public:
 	bool takeProduct(System& system, int productID, int quantity);
 	bool returnProduct(System& system, int productID, int quantity);
 
-	void viewCart(const System& system) const;
+	void viewCart(const System& system);
 	void addToCart(System& system, int productID, int quantity);
 	void removeFromCart(System& system, int productID, int quantity);
 	void applyDiscount();

@@ -25,7 +25,8 @@ public:
 	const int getloyaltyPointsUsed() const;
 
 	bool isCartEmpty() const;
-	void viewCart(const System& system) const;
+	void viewCart(const System& system);
+	void updatePrice(const System& system);
 
 	void addProduct(System& system, int productID, int quantity);
 	int checkProductQuantityInCart(int productID);
