@@ -458,7 +458,7 @@ void Buyer::refundedOrders(const System& system) const
 
 void Buyer::listShippedOrders(const System& system) const
 {
-	if (this->refOrders.size() == DEFAULT_VALUE) {
+	if (this->shippedOrders.size() == DEFAULT_VALUE) {
 		cout << "No orders yet!" << endl;
 		return;
 	}
